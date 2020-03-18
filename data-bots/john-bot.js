@@ -70,7 +70,7 @@ async function getJSON() {
   const dateStr = helper.getDateStr(d);
   const data = await helper.getJohnMatrix(endpoint, dateStr, d);
   const world = {
-    location: 'world',
+    location: 'World',
     totCases: 0,
     totDeaths: 0,
     totRecovered: 0,

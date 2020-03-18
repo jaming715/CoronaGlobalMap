@@ -1,8 +1,18 @@
+html {
+  overflow-y: scroll;
+}
+
 body {
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
   background: #101010;
+  color: #82e0aa;
+  font-size: 1.3vw;
+}
+
+.title {
+  font-size: 2vw;
 }
 
 svg {
@@ -12,39 +22,47 @@ svg {
 }
 
 .world-map {
-  width: 100%;
+  display: block;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
 
 #info-box {
-  display: none;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  display: inline-block;
   z-index: 1;
-  color: white;
+  color: #82e0aa;
   border: 2px solid #82e0aa;
   background: #1c2833;
   text-align: center;
-  padding: 8px;
+  padding: 4px 15px;
   pointer-events: none;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 1.2vw;
+  margin-top: 3px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.info-box {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  color: white;
-  border: 2px solid #82e0aa;
-  background: #1c2833;
-  text-align: center;
+a {
+  text-decoration: underline;
+  color: #82e0aa;
+}
+
+a:hover {
+  color: #82e0aa;
+  font-weight: bold;
+}
+
+.instruction {
+  display: inline-block;
   padding: 8px;
+  margin-top: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.2vw;
   pointer-events: none;
-  border-radius: 10px;
-  font-size: 14px;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=main.css.map */
