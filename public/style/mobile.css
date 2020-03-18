@@ -25,13 +25,12 @@ input::placeholder {
 }
 
 a {
-  text-decoration: underline;
+  font-weight: bold;
   color: #82e0aa;
 }
 
 a:hover {
   color: #82e0aa;
-  font-weight: bold;
 }
 
 #search-res {

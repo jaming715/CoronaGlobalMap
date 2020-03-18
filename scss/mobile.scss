@@ -25,12 +25,11 @@ input::placeholder {
   display: none;
 }
 a {
-  text-decoration: underline;
+  font-weight: bold;
   color: $country-stroke;
 }
 a:hover {
   color: $country-stroke;
-  font-weight: bold;
 }
 
 #search-res {
