@@ -81,13 +81,15 @@ async function getJSON() {
     const cases = getInt(data, row, totCaseCol);
     const deaths = getInt(data, row, totDeathCol);
     const recoveries = getInt(data, row, totRecCol);
-    if (country) {
+    if (country && country[row][provCol] !== 'Puerto Rico') {
       country.totCases += cases;
       country.totDeaths += deaths;
       country.totRecovered += recoveries;
     } else {
       country = {};
       country.location = loc;
+      if (country[row][provCol] === 'Puerto Rico')
+        country.location = 'Puerto Rico';
       country.date = data[row][dateCol];
       country.totCases = cases;
       country.totDeaths = deaths;
