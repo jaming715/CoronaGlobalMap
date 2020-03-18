@@ -39,12 +39,14 @@ app.use(apiUrl + '/whoData', async (req, res) => {
 });
 
 app.use(apiUrl + '/johnHopData', async (req, res) => {
-  res.sendFile(path.join(__dirname, './data/john-data.json'));
+  // res.sendFile(path.join(__dirname, './data/john-data.json'));
+  const data = await johnBot.getJSON();
+  res.send(data);
 });
 
-const johnUpdateJob = schedule.scheduleJob('0 0 */1 * * *', async function() {
-  await johnBot.getJSON();
-});
+// const johnUpdateJob = schedule.scheduleJob('0 0 */1 * * *', async function() {
+//   await johnBot.getJSON();
+// });
 
 async function setup() {
   try {

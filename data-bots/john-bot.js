@@ -101,7 +101,7 @@ async function getJSON() {
   json.push(world);
   await helper.injectPopData(json);
   await helper.injectCodes(json);
-  await helper.writeJSON(json, 'john-data.json');
+  // await helper.writeJSON(json, 'john-data.json');
   // console.log(json.find(e => e.location === 'United States'));
   return json;
 }

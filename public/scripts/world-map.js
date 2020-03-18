@@ -2,7 +2,8 @@ let countryFill = '#1c2833';
 let countryStroke = '#82e0aa';
 let countryFillHover = '#1c2833';
 const whoEndpoint = 'http://localhost:3000/api/whoData';
-const johnHopEndpoint = 'http://localhost:3000/api/johnHopData';
+const johnHopEndpoint =
+  'https://frozen-refuge-95566.herokuapp.com/api/johnHopData';
 const triggerWho = false;
 
 async function getData(endpoint) {
