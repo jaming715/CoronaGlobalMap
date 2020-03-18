@@ -76,7 +76,7 @@ async function addDataToSVG(svg) {
       const data = getDataString(country, triggerWho);
       element.attr('data-info', data);
       element.css('cursor', 'pointer');
-      element.on('click', () => {
+      element.on('click taphold', () => {
         window.location = `${root}/${country.code}`;
       });
     }
@@ -99,7 +99,7 @@ $(window).on('load', async () => {
     const stroke = $(this).css('stroke');
     const infoBack = $(this).css('background');
     const countryData = $(this).attr('data-info');
-    $(this).on('mouseover', () => {
+    $(this).on('mouseover tap', () => {
       $(this).css('fill', stroke);
       if (countryData) {
         $('#info-box').html(countryData);
