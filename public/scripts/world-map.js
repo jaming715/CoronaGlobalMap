@@ -84,11 +84,11 @@ async function addDataToSVG(svg) {
   return data;
 }
 
+$('#info-box').html(getLoading());
 $(window).on('load', async () => {
   let svg = $('object')
     .contents()
     .find('svg');
-  $('#info-box').html(getLoading());
   const data = await addDataToSVG(svg);
   const worldData = data.find(e => e.location == 'World');
   const worldDataStr = getDataString(worldData, triggerWho);
