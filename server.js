@@ -15,7 +15,6 @@ dotenv.config();
 const app = express();
 const apiUrl = '/api';
 const port = process.env.PORT;
-const johnHopEndpoint = 'http://localhost:3000/api/johnHopData';
 
 app.set('views', './views');
 app.set('view engine', 'pug');
