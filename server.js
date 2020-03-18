@@ -14,7 +14,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 const apiUrl = '/api';
-const port = process.env.PORT || '3000';
+const port = process.env.PORT;
 const johnHopEndpoint = 'http://localhost:3000/api/johnHopData';
 
 app.set('views', './views');
@@ -70,7 +70,7 @@ async function setup() {
   }
 
   app.listen(port, () => {
-    console.log(`Listening to requests on http://localhost:${port}`);
+    console.log(`Listening to requests on port: ${port}`);
   });
 }
 setup();

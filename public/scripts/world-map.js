@@ -1,9 +1,9 @@
 let countryFill = '#1c2833';
 let countryStroke = '#82e0aa';
 let countryFillHover = '#1c2833';
-const whoEndpoint = 'http://localhost:3000/api/whoData';
-const johnHopEndpoint =
-  'https://frozen-refuge-95566.herokuapp.com/api/johnHopData';
+const root = 'https://frozen-refuge-95566.herokuapp.com';
+const whoEndpoint = root + '/api/whoData';
+const johnHopEndpoint = root + '/api/johnHopData';
 const triggerWho = false;
 
 async function getData(endpoint) {
@@ -61,7 +61,7 @@ async function addDataToSVG(svg) {
       element.attr('data-info', data);
       element.css('cursor', 'pointer');
       element.on('click', () => {
-        window.location = `http://localhost:3000/${country.code}`;
+        window.location = `${root}/${country.code}`;
       });
       // element.attr(
       //   'hover-color',
