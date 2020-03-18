@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon -e js server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "csv-parser": "^2.3.2",
     "csv-string": "^3.1.8",
     "express": "^4.17.1",
-    "mongoose": "^5.9.4"
+    "mongoose": "^5.9.4",
+    "node-schedule": "^1.3.2"
   }
 }

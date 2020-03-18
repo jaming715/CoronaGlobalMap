@@ -1,9 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
+const schedule = require('node-schedule');
 const caseBot = require('./data-bots/case-bot.js');
 const allDataBot = require('./data-bots/all-data-bot.js');
 const johnBot = require('./data-bots/john-bot.js');
+
+const johnUpdateJob = schedule.scheduleJob('0 0 */1 * * *', async function() {
+  await johnBot.getJSON();
+});
 
 const port = 8000;
 
@@ -25,9 +31,7 @@ app.use(baseUrl + '/whoData', async (req, res) => {
 });
 
 app.use(baseUrl + '/johnHopData', async (req, res) => {
-  const data = await johnBot.getJSON();
-  console.log(data.length);
-  res.send(data);
+  res.sendFile(path.join(__dirname, './data/john-data.json'));
 });
 
 app.listen(port, () => {

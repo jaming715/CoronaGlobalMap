@@ -2,8 +2,8 @@ const axios = require('axios');
 const CSV = require('csv-string');
 const fs = require('fs');
 const helper = require('./helper-bot.js');
-const endpoint =
-  'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-16-2020.csv';
+const endpoint = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/`;
+
 const provCol = 0;
 const locCol = 1;
 const dateCol = 2;
@@ -62,29 +62,47 @@ function getInt(data, row, col) {
   return value === '' ? 0 : parseInt(value);
 }
 
+function addWorld(countries) {}
+
 async function getJSON() {
   const json = [];
-  const data = await helper.getMatrixFromCSV(endpoint);
-  for (let row = 1; row < data.length; row++) {
+  const d = new Date();
+  const dateStr = helper.getDateStr(d);
+  const data = await helper.getJohnMatrix(endpoint, dateStr, d);
+  const world = {
+    location: 'world',
+    totCases: 0,
+    totDeaths: 0,
+    totRecovered: 0,
+  };
+  for (let row = 1; row < data.length - 1; row++) {
     const loc = getLocation(data, row);
     let country = json.find(e => e.location === loc);
+    const cases = getInt(data, row, totCaseCol);
+    const deaths = getInt(data, row, totDeathCol);
+    const recoveries = getInt(data, row, totRecCol);
     if (country) {
-      country.totCases += getInt(data, row, totCaseCol);
-      country.totDeaths += getInt(data, row, totDeathCol);
-      country.totRecovered += getInt(data, row, totRecCol);
+      country.totCases += cases;
+      country.totDeaths += deaths;
+      country.totRecovered += recoveries;
     } else {
       country = {};
       country.location = loc;
       country.date = data[row][dateCol];
-      country.totCases = getInt(data, row, totCaseCol);
-      country.totDeaths = getInt(data, row, totDeathCol);
-      country.totRecovered = getInt(data, row, totRecCol);
+      country.totCases = cases;
+      country.totDeaths = deaths;
+      country.totRecovered = recoveries;
       json.push(country);
     }
+    world.totCases += cases;
+    world.totDeaths += deaths;
+    world.totRecovered += recoveries;
   }
-  helper.injectPopData(json);
-  helper.injectCodes(json);
-  // console.log(json[0]);
+  json.push(world);
+  await helper.injectPopData(json);
+  await helper.injectCodes(json);
+  await helper.writeJSON(json, 'john-data.json');
+  // console.log(json.find(e => e.location === 'United States'));
   return json;
 }
 // getJSON();

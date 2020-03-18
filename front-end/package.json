@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "style": "sass --watch ./scss/main.scss ./public/style/main.css",
+    "watch-main": "sass --watch ./scss/main.scss ./public/style/main.css",
+    "watch-country": "sass --watch ./scss/country.scss ./public/style/country.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/jaming715/CoronaVirus#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "pug": "^2.0.4"
   }

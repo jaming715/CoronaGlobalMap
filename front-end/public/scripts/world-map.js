@@ -58,6 +58,10 @@ async function addDataToSVG(svg) {
     if (element.attr('id')) {
       const data = getDataString(country, triggerWho);
       element.attr('data-info', data);
+      element.css('cursor', 'pointer');
+      element.on('click', () => {
+        window.location = `http://localhost:3000/${country.code}`;
+      });
       // element.attr(
       //   'hover-color',
       //   getCountryFill(country.totCases, country.pop),
