@@ -1,15 +1,18 @@
-$country-fill-color: #17202a;
-$country-stroke-color: #82e0aa;
+$country-fill: #1c2833;
+$country-stroke: #82e0aa;
+
+$body-background: #101010;
 
 body {
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  background: $body-background;
 }
 
 svg {
-  fill: $country-fill-color;
-  stroke: $country-stroke-color;
+  fill: $country-fill;
+  stroke: $country-stroke;
   stroke-width: 2px;
 }
 
@@ -25,15 +28,25 @@ svg {
   top: 0px;
   left: 0px;
   z-index: 1;
-  color: $country-fill-color;
-  border: 2px solid $country-fill-color;
-  background: $country-stroke-color;
+  color: white;
+  border: 2px solid $country-stroke;
+  background: $country-fill;
   text-align: center;
   padding: 8px;
   pointer-events: none;
   border-radius: 10px;
   font-size: 14px;
 }
-
-object {
+.info-box {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  color: white;
+  border: 2px solid $country-stroke;
+  background: $country-fill;
+  text-align: center;
+  padding: 8px;
+  pointer-events: none;
+  border-radius: 10px;
+  font-size: 14px;
 }

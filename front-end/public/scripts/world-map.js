@@ -1,32 +1,67 @@
-const countryFill = '#17202a';
-const countryStroke = '#82e0aa';
-const countryFillHover = '#82e0aa';
+let countryFill = '#1c2833';
+let countryStroke = '#82e0aa';
+let countryFillHover = '#1c2833';
+const whoEndpoint = 'http://localhost:8000/api/whoData';
+const johnHopEndpoint = 'http://localhost:8000/api/johnHopData';
+const triggerWho = false;
 
-const dataEndpoint = 'http://localhost:8000/api/allData';
-
-async function getData() {
+async function getData(endpoint) {
   try {
-    const response = await axios.get('http://localhost:8000/api/allData');
+    const response = await axios.get(endpoint);
+    // console.log(response);
     return response.data;
   } catch (err) {
     console.log('Error fetching data.', err);
   }
 }
 
-function getCountryDataString(country) {
+function getWhoDataString(country) {
   const data = country.data;
   const name = country.location;
   const dataToday = data[data.length - 1];
-  return `<strong>${name}</strong></br> New Cases: ${dataToday.newCases}</br>New Deaths: ${dataToday.newDeaths}</br>Total Cases: ${dataToday.totCases}</br>Total Deaths: ${dataToday.totDeaths}`;
+  return `<strong>${name}</strong></br>
+    New Cases: ${dataToday.newCases}</br>
+    New Deaths: ${dataToday.newDeaths}</br>
+    Total Cases: ${dataToday.totCases}</br>
+    Total Deaths: ${dataToday.totDeaths}`;
+}
+
+function getJohnDataString(country) {
+  const name = country.location;
+  return `<strong>${name}</strong></br>
+    Total Cases: ${country.totCases}</br>
+    Total Deaths: ${country.totDeaths}</br>
+    Total Recovered: ${country.totRecovered}`;
+}
+
+function getDataString(country, whoData) {
+  if (whoData) {
+    return getWhoDataString(country);
+  } else {
+    return getJohnDataString(country);
+  }
+}
+
+function getEndpoint(whoData) {
+  if (whoData) {
+    return whoEndpoint;
+  } else {
+    return johnHopEndpoint;
+  }
 }
 
 async function addDataToSVG(svg) {
-  const data = await getData();
+  const data = await getData(getEndpoint(triggerWho));
   data.forEach(country => {
     const element = svg.find(`#${country.code}`);
+    // element.css('fill', getCountryFill(country.totCases, country.pop));
     if (element.attr('id')) {
-      const data = getCountryDataString(country);
+      const data = getDataString(country, triggerWho);
       element.attr('data-info', data);
+      // element.attr(
+      //   'hover-color',
+      //   getCountryFill(country.totCases, country.pop),
+      // );
     }
   });
 }
@@ -35,20 +70,27 @@ $(window).on('load', async () => {
   let svg = $('object')
     .contents()
     .find('svg');
+  // get colors from css
   await addDataToSVG(svg);
   svg.children().each(function() {
+    const fill = $(this).css('fill');
+    const stroke = $(this).css('stroke');
+    const infoBack = $(this).css('background');
     const countryData = $(this).attr('data-info');
+    // const hoverFill = $(this).attr('hover-color');
     $(this).on('mouseover', () => {
-      $(this).css('fill', countryFillHover);
+      $(this).css('fill', stroke);
       $('#info-box').css('display', 'block');
       if (countryData) {
         $('#info-box').html(countryData);
+        // $('#info-box').css('background', hoverFill);
       } else {
         $('#info-box').html('No data');
       }
     });
     $(this).on('mouseout', () => {
-      $(this).css('fill', countryFill);
+      $(this).css('fill', fill);
+      $(this).css('stroke', stroke);
       $('#info-box').css('display', 'none');
     });
   });

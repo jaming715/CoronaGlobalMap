@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const caseBot = require('./data-bots/case-bot.js');
 const allDataBot = require('./data-bots/all-data-bot.js');
+const johnBot = require('./data-bots/john-bot.js');
 
 const port = 8000;
 
@@ -17,10 +18,16 @@ app.use(baseUrl + '/caseCounts', async (req, res) => {
   res.send(cases);
 });
 
-app.use(baseUrl + '/allData', async (req, res) => {
-  const allData = await allDataBot.getJSON();
-  console.log(allData.length);
-  res.send(allData);
+app.use(baseUrl + '/whoData', async (req, res) => {
+  const data = await allDataBot.getJSON();
+  console.log(data.length);
+  res.send(data);
+});
+
+app.use(baseUrl + '/johnHopData', async (req, res) => {
+  const data = await johnBot.getJSON();
+  console.log(data.length);
+  res.send(data);
 });
 
 app.listen(port, () => {

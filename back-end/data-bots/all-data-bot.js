@@ -1,6 +1,7 @@
 const axios = require('axios');
 const CSV = require('csv-string');
 const fs = require('fs');
+const helper = require('./helper-bot.js');
 const endpoint = 'https://covid.ourworldindata.org/data/full_data.csv';
 
 const name = [
@@ -18,25 +19,12 @@ const newDeathCol = 3;
 const totCaseCol = 4;
 const totDeathCol = 5;
 
-async function getAllDataMatrix() {
-  const matrix = [];
-  try {
-    const res = await axios.get(endpoint);
-    CSV.forEach(res.data, ',', function(row, index) {
-      matrix.push(row);
-    });
-    return matrix;
-  } catch (err) {
-    console.log('Error retrieving all data', err);
-  }
-}
-
 function newLoc(allData, row) {
   return row === 1 || allData[row][locCol] !== allData[row - 1][locCol];
 }
 
 function getData(allData, row, col) {
-  colData = allData[row][col];
+  const colData = allData[row][col];
   return colData === '' ? 0 : parseInt(colData);
 }
 
@@ -64,25 +52,16 @@ function writeJSON(json) {
   });
 }
 
-function getCountryCodes() {
-  const data = fs.readFileSync(__dirname + '/../data/country-codes.json');
-  return JSON.parse(data);
-}
-
 async function getJSON() {
   const json = [];
-  const allData = await getAllDataMatrix();
-  const countryCodes = getCountryCodes();
+  const allData = await helper.getMatrixFromCSV(endpoint);
   let index = -1;
   for (let row = 1; row < allData.length; row++) {
     if (newLoc(allData, row)) {
       index++;
       locData = {data: []};
       const countryName = allData[row][locCol];
-      const country = countryCodes.find(country => country.name == countryName);
-      if (!country) console.log(countryName + ' not found.');
       locData['location'] = countryName;
-      locData.code = country ? country.code : '--';
       addDataToLoc(allData, locData, row);
       json.push(locData);
     } else {
@@ -91,6 +70,8 @@ async function getJSON() {
     }
   }
   writeJSON(JSON.stringify(json));
+  helper.injectPopData(json);
+  helper.injectCodes(json);
   return json;
 }
 
