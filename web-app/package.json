@@ -1,0 +1,33 @@
+{
+  "name": "global-corona-map",
+  "version": "1.0.0",
+  "description": "This is a web app to show a global map with the coronavirus status for each country.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e js server.js",
+    "watch-main": "sass --watch ./scss/main.scss ./public/style/main.css",
+    "watch-country": "sass --watch ./scss/country.scss ./public/style/country.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaming715/CoronaVirus.git"
+  },
+  "author": "Josean Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaming715/CoronaVirus/issues"
+  },
+  "homepage": "https://github.com/jaming715/CoronaVirus#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "csv-parser": "^2.3.2",
+    "csv-string": "^3.1.8",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.4",
+    "pug": "^2.0.4",
+    "node-schedule": "^1.3.2"
+  }
+}
