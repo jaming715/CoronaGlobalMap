@@ -49,7 +49,7 @@ app.use(apiUrl + '/johnHopData', async (req, res) => {
 
 async function setup() {
   try {
-    const countries = await helper.getJohnDataFile();
+    const countries = await johnBot.getJSON();
     if (countries) {
       countries.forEach(country => {
         if (country.code != '--') {
