@@ -7,24 +7,19 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="/style/mobile.css">
 
     <title>CoronaMap</title>
-    <script src="/scripts/redirect-mobile.js"></script>
   </head>
   <body>
-    <!-- <h2 class="title"> Covid-19/Coronavirus Status Per Country </h2> -->
-    <div id="info-box"></div>
-    </br>
-    <div class="instruction">
-      Hover over country for status. Click for country page. Updated daily...
-    </div>
-    <div class="world-map">
-      <object id="world-map-object" type="image/svg+xml" data="/svg/world-map2.svg">Your browser does not support SVGs</object>
-    </div>
+    <h3>Covid-19 Status for Countries</h3>
+    <p> Visit site on desktop for interactive map </p>
+    <input type="text" id="search" name="country-search" placeholder="Search for Country">
+    <h5 id="res-label">Results: </h5>
+    <ul id="search-res">
+    </ul>
     <p class="ref">Data retrieved from John Hopkins CCGIS Data Set:
     <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports" target="_blank"> Data Source </a></br></p>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -32,6 +27,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/scripts/world-map.js"></script>
+    <script src="/scripts/mobile.js"></script>
   </body>
 </html>
