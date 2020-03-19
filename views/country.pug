@@ -13,3 +13,10 @@ block content
     h2 Total Deaths: #{totDeaths}
   div.stats
     h2 Total Recovered: #{totRecovered}
+  input(type="text" id="search" name="country-search" placeholder="Search for Province")
+  table#provinces
+    tr
+      th Province
+      th Total Confirmed Cases
+      th Total Deaths
+      th Total Recoveries

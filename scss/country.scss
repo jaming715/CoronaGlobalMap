@@ -28,8 +28,51 @@ body {
   margin: 15px auto;
 }
 
+table,
+th,
+td {
+  border: 1px solid $country-stroke;
+  border-collapse: collapse;
+  padding: 15px;
+}
+table {
+  margin: 10px auto;
+  font-size: 20px;
+}
+
+.odd-row {
+  background-color: $country-fill;
+}
+
+input {
+  background-color: $country-fill;
+  border: 2px solid $country-stroke;
+  color: $country-stroke;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  width: 50%;
+}
+
+input::placeholder {
+  color: $placeholder;
+}
+
 @media only screen and (max-width: 650px) {
+  input {
+    width: 70%;
+  }
   .map {
     width: 60%;
+  }
+  table,
+  th,
+  td {
+    padding: 7px;
+  }
+  table {
+    font-size: 14px;
+    margin: 10px auto;
   }
 }

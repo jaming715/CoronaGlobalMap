@@ -35,6 +35,21 @@ function getPercent(fraction, tot) {
   return percent.toFixed(3);
 }
 
+function setUpProvinces(country) {
+  const provinces = country.provinces;
+  provinces.forEach((province, i) => {
+    oddRow = i % 2 ? 'odd-row' : '';
+    $('#provinces').append(
+      `<tr class="${oddRow}">
+        <td>${province.name}</td>
+        <td>${province.totCases}</td>
+        <td>${province.totDeaths}</td>
+        <td>${province.totRecovered}</td>
+      </tr>`,
+    );
+  });
+}
+
 async function setUpData(countryName) {
   const countries = await getData(johnHopEndpoint);
   const country = getCountry(countries, countryName);
@@ -64,6 +79,36 @@ async function setUpData(countryName) {
     });
     $('object').css('visibility', 'visible');
   });
+  setUpProvinces(country);
+}
+
+function getResults(searchRes) {
+  searchRes.forEach((res, i) => {
+    $('#search-res').append(
+      `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`,
+    );
+  });
+}
+
+function conductSearch(query, data) {
+  if (!query) {
+    return;
+  }
+  const searchRes = data.filter(country => {
+    countryName = country.location.toLowerCase();
+    return countryName.includes(query) && country.code != '--';
+  });
+  getResults(searchRes);
+  $('#res-label').css('display', 'block');
+}
+
+async function setUpSearch(provinces) {
+  if (provinces) {
+    $('#search').on('change paste keyup', e => {
+      const query = e.target.value.toLowerCase();
+      conductSearch(query, data);
+    });
+  }
 }
 
 setUpData($('#country').html());

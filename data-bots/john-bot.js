@@ -84,6 +84,12 @@ async function getJSON() {
       country.totCases += cases;
       country.totDeaths += deaths;
       country.totRecovered += recoveries;
+      country.provinces.push({
+        name: data[row][provCol],
+        totCases: cases,
+        totDeaths: deaths,
+        totRecovered: recoveries,
+      });
     } else {
       country = {};
       country.location = loc;
@@ -93,6 +99,7 @@ async function getJSON() {
       country.totCases = cases;
       country.totDeaths = deaths;
       country.totRecovered = recoveries;
+      country.provinces = [];
       json.push(country);
     }
     world.totCases += cases;
