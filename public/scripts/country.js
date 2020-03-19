@@ -1,4 +1,4 @@
-const root = 'http://www.coronaglobalmap.com';
+const root = 'https://www.coronaglobalmap.com';
 // const root = 'http://localhost:3000';
 const johnHopEndpoint = root + '/api/johnHopData';
 

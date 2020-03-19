@@ -1,4 +1,4 @@
-const root = 'http://www.coronaglobalmap.com';
+const root = 'https://www.coronaglobalmap.com';
 const johnHopEndpoint = root + '/api/johnHopData';
 
 async function getData(endpoint) {
