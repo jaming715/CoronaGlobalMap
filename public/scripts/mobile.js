@@ -16,7 +16,7 @@ function getResults(searchRes) {
   searchRes.forEach((res, i) => {
     const first = i === 0 ? 'first' : '';
     const last = i === searchRes.length - 1 ? 'last' : '';
-    html += `<li class="${first} ${last}"><a href=/${res.code}>${res.location}</a></li>`;
+    html += `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`;
   });
   return html;
 }

@@ -40,11 +40,17 @@ a:hover {
   border-radius: 5px;
 }
 #search-res a {
+  display: block;
   font-size: 20px;
+  padding: 7px;
+  border: 1px solid #82e0aa;
+}
+#search-res a:hover {
+  text-decoration: none;
+  background-color: #82e0aa;
+  color: #101010;
 }
 #search-res li {
-  border: 1px solid #82e0aa;
-  padding: 7px;
   list-style-type: none;
   margin: 0;
 }
