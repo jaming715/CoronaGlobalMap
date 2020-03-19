@@ -1,5 +1,5 @@
-// const root = 'http://www.coronaglobalmap.com';
-const root = 'http://localhost:3000';
+const root = 'http://www.coronaglobalmap.com';
+// const root = 'http://localhost:3000';
 const johnHopEndpoint = root + '/api/johnHopData';
 
 async function getData(endpoint) {
