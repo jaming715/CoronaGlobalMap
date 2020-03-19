@@ -80,16 +80,19 @@ async function getJSON() {
     const cases = getInt(data, row, totCaseCol);
     const deaths = getInt(data, row, totDeathCol);
     const recoveries = getInt(data, row, totRecCol);
+    const province = data[row][provCol];
     if (country && data[row][provCol] !== 'Puerto Rico') {
       country.totCases += cases;
       country.totDeaths += deaths;
       country.totRecovered += recoveries;
-      country.provinces.push({
-        name: data[row][provCol],
-        totCases: cases,
-        totDeaths: deaths,
-        totRecovered: recoveries,
-      });
+      if (province) {
+        country.provinces.push({
+          name: province,
+          totCases: cases,
+          totDeaths: deaths,
+          totRecovered: recoveries,
+        });
+      }
     } else {
       country = {};
       country.location = loc;
@@ -100,6 +103,14 @@ async function getJSON() {
       country.totDeaths = deaths;
       country.totRecovered = recoveries;
       country.provinces = [];
+      if (province && province !== country.location) {
+        country.provinces.push({
+          name: province,
+          totCases: cases,
+          totDeaths: deaths,
+          totRecovered: recoveries,
+        });
+      }
       json.push(country);
     }
     world.totCases += cases;
