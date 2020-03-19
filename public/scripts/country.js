@@ -48,6 +48,42 @@ function setUpProvinces(country) {
       </tr>`,
     );
   });
+  return provinces;
+}
+
+function getResults(searchRes) {
+  $('tr').each(function() {
+    const province = $(this)
+      .find('>:first-child')
+      .html();
+    if (province === 'Province') return;
+    const found = searchRes.find(res => {
+      return res.name === province;
+    });
+    if (found) {
+      $(this).css('display', '');
+    } else {
+      $(this).css('display', 'none');
+    }
+  });
+}
+
+function conductSearch(query, provinces) {
+  const searchRes = provinces.filter(province => {
+    province = province.name.toLowerCase();
+    return province.includes(query);
+  });
+  getResults(searchRes);
+  $('#res-label').css('display', 'block');
+}
+
+function setUpSearch(provinces) {
+  if (provinces) {
+    $('#search').on('change paste keyup', e => {
+      const query = e.target.value.toLowerCase();
+      conductSearch(query, provinces);
+    });
+  }
 }
 
 async function setUpData(countryName) {
@@ -57,6 +93,12 @@ async function setUpData(countryName) {
   $('.percent > span').html(
     `%${getPercent(country.totCases, country.population)}`,
   );
+  if (country.provinces.length > 0) {
+    const provinces = setUpProvinces(country);
+    $('table').css('display', 'table');
+    $('input').css('display', 'inline-block');
+    setUpSearch(provinces);
+  }
   const mapHtml = getMapHtml(country);
   $('.map').html(getMapHtml(country));
   $('object').css('visibility', 'hidden');
@@ -79,36 +121,6 @@ async function setUpData(countryName) {
     });
     $('object').css('visibility', 'visible');
   });
-  setUpProvinces(country);
-}
-
-function getResults(searchRes) {
-  searchRes.forEach((res, i) => {
-    $('#search-res').append(
-      `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`,
-    );
-  });
-}
-
-function conductSearch(query, data) {
-  if (!query) {
-    return;
-  }
-  const searchRes = data.filter(country => {
-    countryName = country.location.toLowerCase();
-    return countryName.includes(query) && country.code != '--';
-  });
-  getResults(searchRes);
-  $('#res-label').css('display', 'block');
-}
-
-async function setUpSearch(provinces) {
-  if (provinces) {
-    $('#search').on('change paste keyup', e => {
-      const query = e.target.value.toLowerCase();
-      conductSearch(query, data);
-    });
-  }
 }
 
 setUpData($('#country').html());

@@ -29,12 +29,18 @@ body {
 table,
 th,
 td {
-  border: 1px solid #82e0aa;
   border-collapse: collapse;
-  padding: 15px;
+}
+
+th,
+td {
+  border: 1px solid #82e0aa;
+  padding: 10px;
+  width: 10%;
 }
 
 table {
+  display: none;
   margin: 10px auto;
   font-size: 20px;
 }
@@ -44,18 +50,29 @@ table {
 }
 
 input {
+  display: none;
   background-color: #1c2833;
   border: 2px solid #82e0aa;
   color: #82e0aa;
   border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
+  padding: 13px;
+  font-size: 18px;
   margin: 10px 0;
   width: 50%;
 }
 
 input::placeholder {
   color: #abebc6;
+}
+
+a {
+  text-decoration: underline;
+  color: #82e0aa;
+}
+
+a:hover {
+  color: #82e0aa;
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 650px) {
@@ -67,13 +84,13 @@ input::placeholder {
     width: 60%;
   }
 
-  table,
-th,
+  th,
 td {
-    padding: 7px;
+    padding: 7px 5px;
   }
 
   table {
+    width: 95%;
     font-size: 14px;
     margin: 10px auto;
   }

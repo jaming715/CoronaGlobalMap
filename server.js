@@ -55,6 +55,7 @@ async function setup() {
         if (country.code != '--') {
           app.get(`/${country.code}`, function(req, res) {
             res.render('country', {
+              title: `Covid-19 ${country.location}`,
               name: country.location,
               totCases: country.totCases,
               totDeaths: country.totDeaths,

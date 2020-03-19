@@ -31,11 +31,18 @@ body {
 table,
 th,
 td {
-  border: 1px solid $country-stroke;
   border-collapse: collapse;
-  padding: 15px;
 }
+
+th,
+td {
+  border: 1px solid $country-stroke;
+  padding: 10px;
+  width: 10%;
+}
+
 table {
+  display: none;
   margin: 10px auto;
   font-size: 20px;
 }
@@ -45,18 +52,29 @@ table {
 }
 
 input {
+  display: none;
   background-color: $country-fill;
   border: 2px solid $country-stroke;
   color: $country-stroke;
   border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
+  padding: 13px;
+  font-size: 18px;
   margin: 10px 0;
   width: 50%;
 }
 
 input::placeholder {
   color: $placeholder;
+}
+
+a {
+  text-decoration: underline;
+  color: $country-stroke;
+}
+
+a:hover {
+  color: $country-stroke;
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 650px) {
@@ -66,12 +84,13 @@ input::placeholder {
   .map {
     width: 60%;
   }
-  table,
   th,
   td {
-    padding: 7px;
+    padding: 7px 5px;
   }
+
   table {
+    width: 95%;
     font-size: 14px;
     margin: 10px auto;
   }
