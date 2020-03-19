@@ -1,6 +1,7 @@
 const axios = require('axios');
 const CSV = require('csv-string');
 const fs = require('fs').promises;
+const path = require('path');
 
 async function writeJSON(json, fileName) {
   try {
@@ -89,6 +90,27 @@ async function injectCodes(countries) {
   });
 }
 
+async function fileExists(path) {
+  try {
+    await fs.access(path, fs.F_OK);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+async function injectMaps(countries) {
+  const root = path.join(__dirname, '/../public/svg');
+  for (let i = 0; i < countries.length; i++) {
+    const country = countries[i];
+    const code = country.code.toLowerCase();
+    const exists = await fileExists(`${root}/${code}.svg`);
+    if (code !== '--' && exists) {
+      country.map = '/svg/' + code + '.svg';
+    }
+  }
+}
+
 async function getJohnDataFile() {
   try {
     const data = await fs.readFile(__dirname + '/../data/john-data.json');
@@ -106,6 +128,7 @@ module.exports = {
   getDateStr,
   injectPopData,
   injectCodes,
+  injectMaps,
   writeJSON,
   getJohnDataFile,
 };

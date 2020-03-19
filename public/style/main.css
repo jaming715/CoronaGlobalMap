@@ -54,6 +54,23 @@ a:hover {
   font-weight: bold;
 }
 
+.search-link {
+  display: inline-block;
+  padding: 5px;
+  margin-top: 10px;
+  background: #1c2833;
+  border: 2px solid #82e0aa;
+  border-radius: 2px;
+  color: #82e0aa;
+  font-weight: bold;
+  text-decoration: none;
+}
+.search-link:hover {
+  color: #1c2833;
+  text-decoration: none;
+  background: #82e0aa;
+}
+
 .instruction {
   display: inline-block;
   padding: 8px;

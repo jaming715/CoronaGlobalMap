@@ -1,4 +1,3 @@
-const axios = require('axios');
 const CSV = require('csv-string');
 const fs = require('fs');
 const helper = require('./helper-bot.js');
@@ -103,8 +102,9 @@ async function getJSON() {
   json.push(world);
   await helper.injectPopData(json);
   await helper.injectCodes(json);
+  await helper.injectMaps(json);
   // await helper.writeJSON(json, 'john-data.json');
-  // console.log(json.find(e => e.location === 'United States'));
+  // console.log(json.find(e => e.location === 'Afghanistan'));
   return json;
 }
 // getJSON();

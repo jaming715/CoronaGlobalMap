@@ -55,6 +55,23 @@ a:hover {
   font-weight: bold;
 }
 
+.search-link {
+  display: inline-block;
+  padding: 5px;
+  margin-top: 10px;
+  background: $country-fill;
+  border: 2px solid $country-stroke;
+  border-radius: 2px;
+  color: $country-stroke;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    color: $country-fill;
+    text-decoration: none;
+    background: $country-stroke;
+  }
+}
+
 .instruction {
   display: inline-block;
   padding: 8px;

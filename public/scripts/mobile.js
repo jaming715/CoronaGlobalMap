@@ -12,18 +12,19 @@ async function getData(endpoint) {
 }
 
 function getResults(searchRes) {
-  let html = '';
+  $('#search-res').empty();
   searchRes.forEach((res, i) => {
     const first = i === 0 ? 'first' : '';
     const last = i === searchRes.length - 1 ? 'last' : '';
-    html += `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`;
+    $('#search-res').append(
+      `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`,
+    );
   });
-  return html;
 }
 
 function conductSearch(query, data) {
   if (!query) {
-    $('#search-res').html('');
+    $('#search-res').empty();
     $('#res-label').css('display', 'none');
     return;
   }
@@ -31,13 +32,19 @@ function conductSearch(query, data) {
     countryName = country.location.toLowerCase();
     return countryName.includes(query) && country.code != '--';
   });
-  const resHtml = getResults(searchRes);
-  $('#search-res').html(resHtml);
+  getResults(searchRes);
   $('#res-label').css('display', 'block');
 }
 
 async function setUpSearch() {
   const data = await getData(johnHopEndpoint);
+  const world = data.find(e => e.location === 'World');
+  $('.world-stats').html(
+    `<strong>${world.location}</strong></br>
+    Total Cases: ${world.totCases}</br>
+    Total Deaths: ${world.totDeaths}</br>
+    Total Recovered: ${world.totRecovered}`,
+  );
   if (data) {
     $('.ref').append('Last updated: ' + data[0].date);
     $('#search').on('change paste keyup', e => {

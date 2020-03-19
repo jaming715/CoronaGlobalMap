@@ -11,10 +11,25 @@ body {
   border: 2px solid #82e0aa;
   border-radius: 5px;
   padding: 10px;
-  width: 50%;
+  width: 60%;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.map {
+  fill: #1c2833;
+  stroke: #82e0aa;
+  stroke-width: 3px;
+  display: block;
+  width: 40%;
+  margin: 15px auto;
+}
+
+@media only screen and (max-width: 650px) {
+  .map {
+    width: 60%;
+  }
 }
 
 /*# sourceMappingURL=country.css.map */

@@ -1,9 +1,14 @@
 extends layout.pug
 block content
-  h1 #{name}
+  h1#country #{name}
+  div.map
+  h3.pop Population: 
+    span Loading...
+  h3.percent % of Pop Infected: 
+    span Loading...
   h2 Current Covid-19 Status:
   div.stats
-    h2 Total Cases: #{totCases}
+    h2 Total Confirmed Cases: #{totCases}
   div.stats
     h2 Total Deaths: #{totDeaths}
   div.stats

@@ -6,6 +6,10 @@ body {
   color: #82e0aa;
 }
 
+h3 {
+  margin-bottom: 0;
+}
+
 input {
   background-color: #1c2833;
   border: 2px solid #82e0aa;
@@ -61,6 +65,64 @@ a:hover {
 #search-res .last {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.dbl-click {
+  margin-bottom: 10px;
+}
+
+.visit-map-container {
+  display: none;
+}
+
+.world-stats {
+  display: inline-block;
+  color: #82e0aa;
+  border: 2px solid #82e0aa;
+  background: #1c2833;
+  text-align: center;
+  padding: 4px 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  input {
+    width: 50%;
+  }
+
+  #search-res {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .visit-map-container {
+    display: block;
+  }
+
+  .visit-map {
+    display: inline-block;
+    padding: 5px;
+    margin: 10px 0;
+    background: #1c2833;
+    border: 2px solid #82e0aa;
+    border-radius: 2px;
+    color: #82e0aa;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .visit-map:hover {
+    color: #1c2833;
+    text-decoration: none;
+    background: #82e0aa;
+  }
+
+  .visit {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=mobile.css.map */

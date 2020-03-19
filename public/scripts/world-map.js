@@ -1,8 +1,8 @@
 let countryFill = '#1c2833';
 let countryStroke = '#82e0aa';
 let countryFillHover = '#1c2833';
-const root = 'http://www.coronaglobalmap.com';
-// const root = 'http://localhost:3000';
+// const root = 'http://www.coronaglobalmap.com';
+const root = 'http://localhost:3000';
 const whoEndpoint = root + '/api/whoData';
 const johnHopEndpoint = root + '/api/johnHopData';
 const triggerWho = false;

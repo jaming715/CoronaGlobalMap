@@ -13,8 +13,23 @@ body {
   border: 2px solid $country-stroke;
   border-radius: 5px;
   padding: 10px;
-  width: 50%;
+  width: 60%;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.map {
+  fill: $country-fill;
+  stroke: $country-stroke;
+  stroke-width: 3px;
+  display: block;
+  width: 40%;
+  margin: 15px auto;
+}
+
+@media only screen and (max-width: 650px) {
+  .map {
+    width: 60%;
+  }
 }
