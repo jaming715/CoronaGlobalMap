@@ -1,16 +1,3 @@
-const root = 'https://www.coronaglobalmap.com';
-const johnHopEndpoint = root + '/api/johnHopData';
-
-async function getData(endpoint) {
-  try {
-    const response = await axios.get(endpoint);
-    // console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log('Error fetching data.', err);
-  }
-}
-
 function getResults(searchRes) {
   $('#search-res').empty();
   searchRes.forEach((res, i) => {
@@ -39,12 +26,13 @@ function conductSearch(query, data) {
 async function setUpSearch() {
   const data = await getData(johnHopEndpoint);
   const world = data.find(e => e.location === 'World');
-  $('.world-stats').html(
-    `<strong>${world.location}</strong></br>
-    Total Cases: ${world.totCases}</br>
-    Total Deaths: ${world.totDeaths}</br>
-    Total Recovered: ${world.totRecovered}`,
+  const worldHtml = getJohnDataString(
+    world.location,
+    world.totCases,
+    world.totDeaths,
+    world.totRecovered,
   );
+  $('.world-stats').html(worldHtml);
   if (data) {
     $('.ref').append('Last updated: ' + data[0].date);
     $('#search').on('change paste keyup', e => {

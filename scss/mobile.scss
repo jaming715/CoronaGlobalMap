@@ -4,7 +4,7 @@ body {
   padding: 20px;
   box-sizing: border-box;
   background: $body-background;
-  color: $country-stroke;
+  color: $green;
 }
 
 h3 {
@@ -13,8 +13,8 @@ h3 {
 
 input {
   background-color: $country-fill;
-  border: 2px solid $country-stroke;
-  color: $country-stroke;
+  border: 2px solid $green;
+  color: $green;
   border-radius: 5px;
   padding: 7px;
   width: 70%;
@@ -30,10 +30,10 @@ input::placeholder {
 }
 a {
   font-weight: bold;
-  color: $country-stroke;
+  color: $green;
 }
 a:hover {
-  color: $country-stroke;
+  color: $green;
 }
 
 #search-res {
@@ -45,10 +45,10 @@ a:hover {
     display: block;
     font-size: 20px;
     padding: 7px;
-    border: 1px solid $country-stroke;
+    border: 1px solid $green;
     &:hover {
       text-decoration: none;
-      background-color: $country-stroke;
+      background-color: $green;
       color: $body-background;
     }
   }
@@ -76,8 +76,8 @@ a:hover {
 
 .world-stats {
   display: inline-block;
-  color: $country-stroke;
-  border: 2px solid $country-stroke;
+  color: $green;
+  border: 2px solid $green;
   background: $country-fill;
   text-align: center;
   padding: 4px 15px;
@@ -104,15 +104,15 @@ a:hover {
     padding: 5px;
     margin: 10px 0;
     background: $country-fill;
-    border: 2px solid $country-stroke;
+    border: 2px solid $green;
     border-radius: 2px;
-    color: $country-stroke;
+    color: $green;
     font-weight: bold;
     text-decoration: none;
     &:hover {
       color: $country-fill;
       text-decoration: none;
-      background: $country-stroke;
+      background: $green;
     }
   }
   .visit {

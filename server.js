@@ -43,32 +43,53 @@ app.use(apiUrl + '/johnHopData', async (req, res) => {
   res.send(data);
 });
 
-// const johnUpdateJob = schedule.scheduleJob('0 0 */1 * * *', async function() {
-//   await johnBot.getJSON();
-// });
+function makeProvincesPage(country) {
+  app.get(`/${country.code}/provinces`, function(req, res) {
+    res.render('provinces', {
+      title: `Covid-19 ${country.location}`,
+      name: country.location,
+      provinces: country.provinces,
+    });
+  });
+}
 
-async function setup() {
+function makeCountryPage(country) {
+  if (country.code != '--') {
+    app.get(`/${country.code}`, function(req, res) {
+      res.render('country', {
+        title: `Covid-19 ${country.location}`,
+        name: country.location,
+        code: country.code,
+        totCases: country.totCases,
+        totDeaths: country.totDeaths,
+        totRecovered: country.totRecovered,
+        population: country.population,
+        provinces: country.provinces,
+      });
+    });
+  }
+}
+
+async function setUpCountries() {
   try {
     const countries = await johnBot.getJSON();
     if (countries) {
       countries.forEach(country => {
-        if (country.code != '--') {
-          app.get(`/${country.code}`, function(req, res) {
-            res.render('country', {
-              title: `Covid-19 ${country.location}`,
-              name: country.location,
-              totCases: country.totCases,
-              totDeaths: country.totDeaths,
-              totRecovered: country.totRecovered,
-            });
-          });
-        }
+        makeCountryPage(country);
+        if (country.provinces.length > 0) makeProvincesPage(country);
       });
     }
   } catch (err) {
     console.log('Error retrieving countries', err);
   }
+}
 
+const updatePages = schedule.scheduleJob('0 0 */1 * * *', async function() {
+  await setUpCountries();
+});
+
+async function setup() {
+  await setUpCountries();
   app.listen(port, () => {
     console.log(`Listening to requests on port: ${port}`);
   });

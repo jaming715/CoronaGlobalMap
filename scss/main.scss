@@ -8,7 +8,7 @@ body {
   padding: 20px;
   box-sizing: border-box;
   background: $body-background;
-  color: $country-stroke;
+  color: $green;
   font-size: 1.3vw;
 }
 
@@ -18,7 +18,7 @@ body {
 
 svg {
   fill: $country-fill;
-  stroke: $country-stroke;
+  stroke: $green;
   stroke-width: 2px;
 }
 
@@ -32,8 +32,8 @@ svg {
 #info-box {
   display: inline-block;
   z-index: 1;
-  color: $country-stroke;
-  border: 2px solid $country-stroke;
+  color: $green;
+  border: 2px solid $green;
   background: $country-fill;
   text-align: center;
   padding: 4px 15px;
@@ -47,11 +47,11 @@ svg {
 
 a {
   text-decoration: underline;
-  color: $country-stroke;
+  color: $green;
 }
 
 a:hover {
-  color: $country-stroke;
+  color: $green;
   font-weight: bold;
 }
 
@@ -60,15 +60,15 @@ a:hover {
   padding: 5px;
   margin-top: 10px;
   background: $country-fill;
-  border: 2px solid $country-stroke;
+  border: 2px solid $green;
   border-radius: 2px;
-  color: $country-stroke;
+  color: $green;
   font-weight: bold;
   text-decoration: none;
   &:hover {
     color: $country-fill;
     text-decoration: none;
-    background: $country-stroke;
+    background: $green;
   }
 }
 

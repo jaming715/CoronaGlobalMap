@@ -3,20 +3,45 @@
 body {
   font-family: 'Trebuchet MS', Helvetica, sans-serif;
   text-align: center;
-  color: $country-stroke;
+  color: $green;
   background: $body-background;
   padding: 20px;
 }
 
+#country {
+  margin: 0px;
+}
+
+#stats-head {
+  margin: 8px 0px;
+}
+
+input {
+  background-color: $country-fill;
+  border: 2px solid $green;
+  color: $green;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 18px;
+  margin: 15px 0;
+  width: $stats-width-desktop;
+  display: none;
+}
+
+input::placeholder {
+  color: $placeholder;
+}
+
 .stats {
   background: $country-fill;
-  border: 2px solid $country-stroke;
+  border: 2px solid $green;
   border-radius: 5px;
-  padding: 10px;
-  width: 60%;
+  width: $stats-width-desktop;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 10px;
+  pointer-events: none;
 }
 
 .map {
@@ -36,13 +61,13 @@ td {
 
 th,
 td {
-  border: 1px solid $country-stroke;
+  border: 1px solid $green;
   padding: 10px;
   width: 10%;
 }
 
 table {
-  display: none;
+  // display: none;
   margin: 10px auto;
   font-size: 20px;
 }
@@ -51,30 +76,19 @@ table {
   background-color: $country-fill;
 }
 
-input {
-  display: none;
-  background-color: $country-fill;
-  border: 2px solid $country-stroke;
-  color: $country-stroke;
-  border-radius: 5px;
-  padding: 13px;
-  font-size: 18px;
-  margin: 10px 0;
-  width: 50%;
-}
-
-input::placeholder {
-  color: $placeholder;
-}
-
 a {
   text-decoration: underline;
-  color: $country-stroke;
+  color: $green;
 }
 
 a:hover {
-  color: $country-stroke;
+  color: $green;
   font-weight: bold;
+}
+
+#prov-table-link {
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 650px) {

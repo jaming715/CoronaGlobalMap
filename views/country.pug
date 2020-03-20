@@ -1,24 +1,29 @@
 extends layout.pug
+block style
+  link(rel="stylesheet", href="/style/country.css")
 block content
   h1#country #{name}
+  // h3.pop Population: 
+  //   span #{numWithCommas(population)}
   div.map
-  h3.pop Population: 
-    span Loading...
+  if provinces.length > 0
+    a(href=`${code}/provinces` target="_blank" id="prov-table-link") Province Table 
+  h2#stats-head Covid-19 Status: 
+    span#region #{name}
+  if provinces.length > 0
+    input(type="text" id="search" name="country-search" placeholder="Search for Province")
+  div.stats
+    h2 Total Confirmed Cases: 
+      span#tot-cases #{numWithCommas(totCases)}
+  div.stats
+    h2 Total Deaths: 
+      span#tot-deaths #{numWithCommas(totDeaths)}
+  div.stats
+    h2 Total Recovered: 
+      span#tot-recovered #{numWithCommas(totRecovered)}
   h3.percent % of Pop Infected: 
-    span Loading...
-  h2 Current Covid-19 Status:
-  div.stats
-    h2 Total Confirmed Cases: #{totCases}
-  div.stats
-    h2 Total Deaths: #{totDeaths}
-  div.stats
-    h2 Total Recovered: #{totRecovered}
-  input(type="text" id="search" name="country-search" placeholder="Search for Province")
-  table#provinces
-    tr.odd-row
-      th Province
-      th Total Confirmed Cases
-      th Total Deaths
-      th Total Recoveries
+    span= `%${((totCases/population)*100).toFixed(5)}`
   p Data retrieved from John Hopkins CCGIS Data Set: 
     a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source
+block append scripts
+  script(src="/scripts/country.js")

@@ -6,15 +6,40 @@ body {
   padding: 20px;
 }
 
+#country {
+  margin: 0px;
+}
+
+#stats-head {
+  margin: 8px 0px;
+}
+
+input {
+  background-color: #1c2833;
+  border: 2px solid #82e0aa;
+  color: #82e0aa;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 18px;
+  margin: 15px 0;
+  width: 40%;
+  display: none;
+}
+
+input::placeholder {
+  color: #abebc6;
+}
+
 .stats {
   background: #1c2833;
   border: 2px solid #82e0aa;
   border-radius: 5px;
-  padding: 10px;
-  width: 60%;
+  width: 40%;
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 10px;
+  pointer-events: none;
 }
 
 .map {
@@ -40,29 +65,12 @@ td {
 }
 
 table {
-  display: none;
   margin: 10px auto;
   font-size: 20px;
 }
 
 .odd-row {
   background-color: #1c2833;
-}
-
-input {
-  display: none;
-  background-color: #1c2833;
-  border: 2px solid #82e0aa;
-  color: #82e0aa;
-  border-radius: 5px;
-  padding: 13px;
-  font-size: 18px;
-  margin: 10px 0;
-  width: 50%;
-}
-
-input::placeholder {
-  color: #abebc6;
 }
 
 a {
@@ -73,6 +81,11 @@ a {
 a:hover {
   color: #82e0aa;
   font-weight: bold;
+}
+
+#prov-table-link {
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 650px) {

@@ -1,0 +1,26 @@
+extends layout.pug
+block style
+    link(rel="stylesheet", href="/style/country.css")
+block content
+  h1#country #{name}
+  if provinces.length > 0
+    input(type="text" id="search" name="country-search" placeholder="Search for Province")
+  if provinces.length > 0
+    table#provinces
+      tr.odd-row
+        th Province
+        th Total Confirmed Cases
+        th Total Deaths
+        th Total Recoveries
+      - let i = 0;
+      each province in provinces
+        -
+          i++
+          let odd = (i % 2) === 0 ? "odd-row" : null
+        tr(class=odd)
+          td= province.name
+          td #{numWithCommas(province.totCases)}
+          td #{numWithCommas(province.totDeaths)}
+          td #{numWithCommas(province.totRecovered)}
+block append scripts
+  script(src="/scripts/provinces.js")

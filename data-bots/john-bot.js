@@ -80,7 +80,9 @@ async function getJSON() {
     const cases = getInt(data, row, totCaseCol);
     const deaths = getInt(data, row, totDeathCol);
     const recoveries = getInt(data, row, totRecCol);
-    const province = data[row][provCol];
+    let province = data[row][provCol];
+    // if (province === 'United States Virgin Islands')
+    //   province = 'Virgin Islands';
     if (country && data[row][provCol] !== 'Puerto Rico') {
       country.totCases += cases;
       country.totDeaths += deaths;
@@ -121,6 +123,7 @@ async function getJSON() {
   await helper.injectPopData(json);
   await helper.injectCodes(json);
   await helper.injectMaps(json);
+  // await helper.injectUnitedStateCodes(json);
   // await helper.writeJSON(json, 'john-data.json');
   // console.log(json.find(e => e.location === 'Afghanistan'));
   return json;

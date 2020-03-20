@@ -1,21 +1,8 @@
 let countryFill = '#1c2833';
 let countryStroke = '#82e0aa';
 let countryFillHover = '#1c2833';
-const root = 'https://www.coronaglobalmap.com';
-// const root = 'http://localhost:3000';
 const whoEndpoint = root + '/api/whoData';
-const johnHopEndpoint = root + '/api/johnHopData';
 const triggerWho = false;
-
-async function getData(endpoint) {
-  try {
-    const response = await axios.get(endpoint);
-    // console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log('Error fetching data.', err);
-  }
-}
 
 function getWhoDataString(country) {
   const data = country.data;
@@ -28,33 +15,29 @@ function getWhoDataString(country) {
     Total Deaths: ${dataToday.totDeaths}`;
 }
 
-function getJohnDataString(country) {
-  const name = country.location;
-  return `<strong>Covid-19 Status: ${name}</strong></br>
-    Total Cases: ${country.totCases}</br>
-    Total Deaths: ${country.totDeaths}</br>
-    Total Recovered: ${country.totRecovered}`;
-}
-
 function getNotFound() {
-  return `<strong>No Data Available</strong></br>
-    Total Cases: N/A</br>
-    Total Deaths: N/A</br>
-    Total Recovered: N/A`;
+  return getJohnDataString('No Data Available', 'N/A', 'N/A', 'N/A');
 }
 
 function getLoading() {
-  return `<strong>Loading...</strong></br>
-    Total Cases: Loading...</br>
-    Total Deaths: Loading...</br>
-    Total Recovered: Loading...`;
+  return getJohnDataString(
+    'Loading...',
+    'Loading...',
+    'Loading...',
+    'Loading...',
+  );
 }
 
 function getDataString(country, whoData) {
   if (whoData) {
     return getWhoDataString(country);
   } else {
-    return getJohnDataString(country);
+    return getJohnDataString(
+      `Covid-19 Status: ${country.location}`,
+      country.totCases,
+      country.totDeaths,
+      country.totRecovered,
+    );
   }
 }
 
@@ -84,16 +67,7 @@ async function addDataToSVG(svg) {
   return data;
 }
 
-$('#info-box').html(getLoading());
-$(window).on('load', async () => {
-  let svg = $('object')
-    .contents()
-    .find('svg');
-  const data = await addDataToSVG(svg);
-  const worldData = data.find(e => e.location == 'World');
-  const worldDataStr = getDataString(worldData, triggerWho);
-  $('#info-box').html(worldDataStr);
-  $('#info-box').css('display', 'inline-block');
+function addMapListeners(svg, worldDataStr) {
   svg.children().each(function() {
     const fill = $(this).css('fill');
     const stroke = $(this).css('stroke');
@@ -113,4 +87,17 @@ $(window).on('load', async () => {
       $('#info-box').html(worldDataStr);
     });
   });
+}
+
+$('#info-box').html(getLoading());
+$(window).on('load', async () => {
+  let svg = $('object')
+    .contents()
+    .find('svg');
+  const data = await addDataToSVG(svg);
+  const worldData = data.find(e => e.location == 'World');
+  const worldDataStr = getDataString(worldData, triggerWho);
+  $('#info-box').html(worldDataStr);
+  $('#info-box').css('display', 'inline-block');
+  addMapListeners(svg, worldDataStr);
 });

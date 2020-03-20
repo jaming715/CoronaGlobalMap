@@ -52,22 +52,34 @@ async function getJohnMatrix(endpoint, dateStr, date) {
   return res;
 }
 
-async function getCountryCodes() {
+async function readJSONFile(path) {
   try {
-    const data = await fs.readFile(__dirname + '/../data/country-codes.json');
+    const data = await fs.readFile(path);
     return JSON.parse(data);
   } catch (err) {
-    console.log('Error reading country codes', err);
+    console.log(`Error reading ${path}`, err);
   }
 }
 
 async function getCountryPop() {
-  try {
-    const data = await fs.readFile(__dirname + '/../data/country-pop.json');
-    return JSON.parse(data);
-  } catch (err) {
-    console.log('Error reading country codes', err);
-  }
+  const data = await readJSONFile(
+    path.join(__dirname, '../data/country-pop.json'),
+  );
+  return data;
+}
+
+async function getCountryCodes() {
+  const data = await readJSONFile(
+    path.join(__dirname, '../data/country-codes.json'),
+  );
+  return data;
+}
+
+async function getUnitedStateCodes() {
+  const data = await readJSONFile(
+    path.join(__dirname, '../data/us-state-codes.json'),
+  );
+  return data;
 }
 
 async function injectPopData(countries) {
@@ -90,15 +102,6 @@ async function injectCodes(countries) {
   });
 }
 
-async function fileExists(path) {
-  try {
-    await fs.access(path, fs.F_OK);
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-
 async function injectMaps(countries) {
   const root = path.join(__dirname, '/../public/svg');
   for (let i = 0; i < countries.length; i++) {
@@ -111,9 +114,29 @@ async function injectMaps(countries) {
   }
 }
 
+async function injectUnitedStateCodes(countries) {
+  const stateCodes = await getUnitedStateCodes(countries);
+  const us = countries.find(e => e.code === 'US');
+  us.provinces.forEach(province => {
+    const name = province.name;
+    province.code = stateCodes[name];
+  });
+}
+
+async function fileExists(path) {
+  try {
+    await fs.access(path, fs.F_OK);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 async function getJohnDataFile() {
   try {
-    const data = await fs.readFile(__dirname + '/../data/john-data.json');
+    const data = await fs.readFile(
+      path.join(__dirname, '../data/john-data.json'),
+    );
     return JSON.parse(data);
   } catch (err) {
     console.log('Error reading country codes', err);
@@ -123,12 +146,11 @@ async function getJohnDataFile() {
 module.exports = {
   getMatrixFromCSV,
   getJohnMatrix,
-  getCountryCodes,
-  getCountryPop,
   getDateStr,
   injectPopData,
   injectCodes,
   injectMaps,
+  injectUnitedStateCodes,
   writeJSON,
   getJohnDataFile,
 };
