@@ -23,9 +23,13 @@
     </div>
     <div class="visit"> Visit site on desktop for interactive map!</div>
     <div class="dbl-click">Double click on search result to visit country page.</div>
-    <input type="text" id="search" name="country-search" placeholder="Search for Country">
-    <h5 id="res-label">Results: </h5>
-    <ul id="search-res">
+    <form autocomplete="off">
+      <div class="autocomplete">
+        <input type="text" id="search" name="country-search" placeholder="Search for Country" autocomplete="off">
+        <ul id="search-res">
+        </ul>
+      </div>
+    </form>
     </ul>
     <p class="ref">Data retrieved from John Hopkins CCGIS Data Set:
     <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"> Data Source </a></br></p>

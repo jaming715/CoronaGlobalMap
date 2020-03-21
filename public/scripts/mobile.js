@@ -15,10 +15,15 @@ function conductSearch(query, data) {
     $('#res-label').css('display', 'none');
     return;
   }
-  const searchRes = data.filter(country => {
-    countryName = country.location.toLowerCase();
-    return countryName.includes(query) && country.code != '--';
-  });
+  let searchRes = null;
+  if (query === 'all') {
+    searchRes = data;
+  } else {
+    searchRes = data.filter(country => {
+      countryName = country.location.toLowerCase();
+      return countryName.startsWith(query) && country.code != '--';
+    });
+  }
   getResults(searchRes);
   $('#res-label').css('display', 'block');
 }
@@ -38,6 +43,10 @@ async function setUpSearch() {
     $('#search').on('change paste keyup', e => {
       const query = e.target.value.toLowerCase();
       conductSearch(query, data);
+    });
+    $('#search').on('click', e => {
+      const query = e.target.value.toLowerCase().replace(' ', '');
+      if (!query) conductSearch('all', data);
     });
   } else {
     $('body').html("Sorry, couldn't retrieve data for Covid-19");

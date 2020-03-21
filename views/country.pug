@@ -1,28 +1,42 @@
 extends layout.pug
 block style
   link(rel="stylesheet", href="/style/country.css")
+  link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css")
+  link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css")
 block content
   h1#country #{name}
   // h3.pop Population: 
   //   span #{numWithCommas(population)}
   div.map
-  if provinces.length > 0
-    a(href=`${code}/provinces` target="_blank" id="prov-table-link") Province Table 
+  div.btn-container
+    if provinces.length > 0
+      div
+        a(href=`${code}/provinces` target="_blank" id="prov-table-link") Province Table  
+          i(class="fas fa-external-link-alt")
+      div
+        a.show-country(href="#") Show Country Stats
   h2#stats-head Covid-19 Status: 
     span#region #{name}
   if provinces.length > 0
-    input(type="text" id="search" name="country-search" placeholder="Search for Province")
-  div.stats
-    h2 Total Confirmed Cases: 
-      span#tot-cases #{numWithCommas(totCases)}
-  div.stats
-    h2 Total Deaths: 
-      span#tot-deaths #{numWithCommas(totDeaths)}
-  div.stats
-    h2 Total Recovered: 
-      span#tot-recovered #{numWithCommas(totRecovered)}
-  h3.percent % of Pop Infected: 
-    span= `%${((totCases/population)*100).toFixed(5)}`
+    form(autocomplete="off")
+      div.autocomplete
+        input(id="search" list="provinces" name="country-search" placeholder="Search for Province" type="text" autcomplete="off")
+        ul.auto-suggestions
+  div.stats-container
+    div.stats
+      h2 Total Cases: 
+        br
+        span#tot-cases #{numWithCommas(totCases)}
+    div.stats
+      h2 Total Deaths: 
+        br
+        span#tot-deaths #{numWithCommas(totDeaths)}
+    div.stats
+      h2 Total Recovered: 
+        br
+        span#tot-recovered #{numWithCommas(totRecovered)}
+  // h3.percent % of Pop Infected: 
+  //   span= `%${((totCases/population)*100).toFixed(5)}`
   p Data retrieved from John Hopkins CCGIS Data Set: 
     a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source
 block append scripts

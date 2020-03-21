@@ -1,3 +1,4 @@
+let activeProvince = null;
 function getMapHtml(country) {
   return (
     country.map &&
@@ -19,45 +20,94 @@ function updateStats(region, totCases, totDeaths, totRecovered) {
   $('#tot-recovered').html(totRecovered);
 }
 
-function getMapRes(query, svg, country, provinces) {
+function showCountryStats(country) {
+  updateStats(
+    country.location,
+    numWithCommas(country.totCases),
+    numWithCommas(country.totDeaths),
+    numWithCommas(country.totRecovered),
+  );
+}
+
+function showSearchRes(svg, country, province) {
   const fill = $('.map').css('fill');
   const stroke = $('.map').css('stroke');
-  svg.children('path').each(function() {
-    let name = $(this).attr('name');
-    const province = provinces.find(e => e.name === name);
-    name = name.toLowerCase().replace(' ', '');
-    if (name === query) {
-      $(this).css('fill', stroke);
-      updateStats(
-        province.name,
-        numWithCommas(province.totCases),
-        numWithCommas(province.totDeaths),
-        numWithCommas(province.totRecovered),
-      );
-    } else if (query === 'No Data') {
-      $(this).css('fill', fill);
-      updateStats(
-        'No Data Available',
-        numWithCommas('N/A'),
-        numWithCommas('N/A'),
-        numWithCommas('N/A'),
-      );
-    } else if (query === '') {
-      $(this).css('fill', fill);
-      updateStats(
-        country.location,
-        numWithCommas(country.totCases),
-        numWithCommas(country.totDeaths),
-        numWithCommas(country.totRecovered),
-      );
-    }
+  const prov = svg.find(`[name='${province.name}']`);
+  activeProvince = prov;
+  prov.css('fill', stroke);
+  updateStats(
+    province.name,
+    numWithCommas(province.totCases),
+    numWithCommas(province.totDeaths),
+    numWithCommas(province.totRecovered),
+  );
+}
+
+function getSuggestions(query, provinces) {
+  if (!query) return [];
+  if (query === 'all') return provinces;
+  const suggestions = provinces.filter(province => {
+    const prov = province.name.toLowerCase().replace(' ', '');
+    return prov.startsWith(query);
+  });
+  return suggestions;
+}
+
+function showSuggestions(query, provinces) {
+  const list = $('.auto-suggestions');
+  const suggestions = getSuggestions(query, provinces);
+  list.empty();
+  if (suggestions.length === 0) {
+    list.css('display', 'none');
+  } else {
+    list.css('display', 'block');
+  }
+  suggestions.forEach(suggestion => {
+    list.append(`<li>${suggestion.name}</li>`);
+  });
+  $('.auto-suggestions > li').on('mouseenter', function(e) {
+    $('input')
+      .val($(this).html())
+      .trigger('change', true);
+  });
+  $('.auto-suggestions > li').on('click', function(e) {
+    list.css('display', 'none');
+    $('input')
+      .val($(this).html())
+      .trigger('change');
   });
 }
 
+function getProvince(query, provinces) {
+  const province = provinces.find(province => {
+    const prov = province.name.toLowerCase().replace(' ', '');
+    return query === prov;
+  });
+  return province;
+}
+function clearActiveProv() {
+  activeProvince.css('fill', $('.map').css('fill'));
+}
 function setUpSearch(svg, country, provinces) {
-  $('#search').on('change paste keyup', e => {
+  $('#search').on('change paste keyup', (e, hovered) => {
     const query = e.target.value.toLowerCase().replace(' ', '');
-    getMapRes(query, svg, country, provinces);
+    const province = getProvince(query, provinces);
+    if (!hovered) $('.auto-suggestions').css('display', 'none');
+    if (activeProvince) clearActiveProv();
+    if (province) {
+      showSearchRes(svg, country, province);
+    } else {
+      activeProvince = null;
+      showCountryStats(country);
+      showSuggestions(query, provinces);
+    }
+  });
+  $('#search').on('click', e => {
+    const query = e.target.value.toLowerCase().replace(' ', '');
+    if (!query) showSuggestions('all', provinces);
+  });
+  $('#search').on('focusout', e => {
+    showSuggestions('', provinces);
   });
 }
 
@@ -70,8 +120,10 @@ function addMapListeners(svg, country) {
     const fill = $(this).css('fill');
     const stroke = $(this).css('stroke');
     const infoBack = $(this).css('background');
-    $(this).on('mouseover tap', () => {
+    $(this).on('mouseenter', () => {
       $(this).css('fill', stroke);
+      if (activeProvince) clearActiveProv();
+      activeProvince = $(this);
       if (totCases) {
         $('input')
           .val($(this).attr('name'))
@@ -82,13 +134,22 @@ function addMapListeners(svg, country) {
           .trigger('change');
       }
     });
-    $(this).on('mouseout', () => {
-      $(this).css('fill', fill);
-      $(this).css('stroke', stroke);
-      $('input')
-        .val('')
-        .trigger('change');
-    });
+    // $(this).on('mouseout', () => {
+    //   $(this).css('fill', fill);
+    //   $(this).css('stroke', stroke);
+    //   $('input')
+    //     .val('')
+    //     .trigger('change');
+    // });
+  });
+}
+
+function setUpShowCountryStats() {
+  $('.show-country').on('click', () => {
+    if (activeProvince) clearActiveProv();
+    $('input')
+      .val('')
+      .trigger('change');
   });
 }
 
@@ -134,12 +195,13 @@ async function setUpData(countryName) {
     const svg = $('object')
       .contents()
       .find('svg');
-    if (provinces.length > 0) setUpSearch(svg, country, provinces);
     addMapStyling(svg, countryName, provinces);
     $('object').css('visibility', 'visible');
     if (addDataToSVG(svg, provinces)) {
-      $('input').css('display', 'inline-block');
+      $('input').css('display', 'block');
       addMapListeners(svg, country);
+      setUpSearch(svg, country, provinces);
+      setUpShowCountryStats();
     }
   });
 }

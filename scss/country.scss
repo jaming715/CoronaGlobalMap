@@ -1,5 +1,9 @@
 @import './_variables.scss';
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   font-family: 'Trebuchet MS', Helvetica, sans-serif;
   text-align: center;
@@ -12,8 +16,36 @@ body {
   margin: 0px;
 }
 
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  width: $btn-container-width;
+  margin: 10px auto;
+  justify-content: space-evenly;
+}
+
+#prov-table-link,
+.show-country {
+  background-color: $country-fill;
+  border: 2px solid $country-stroke;
+  border-radius: 3px;
+  padding: 10px;
+  display: inline-block;
+  margin: 0 auto;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 18px;
+  &:hover {
+    background-color: $country-stroke;
+    color: $country-fill;
+  }
+  i {
+    font-size: 14px;
+  }
+}
+
 #stats-head {
-  margin: 8px 0px;
+  margin: 6px 0px;
 }
 
 input:-webkit-autofill,
@@ -24,15 +56,21 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: $green !important;
 }
 
+.autocomplete {
+  width: $input-search-width;
+  position: relative;
+  margin: 15px auto;
+}
+
 input {
   background-color: $country-fill;
   border: 2px solid $green;
   color: $green;
+  box-sizing: border-box;
   border-radius: 5px;
-  padding: 10px 10px;
+  padding: 10px;
   font-size: 18px;
-  margin: 15px 0;
-  width: $stats-width-desktop;
+  width: 100%;
   display: none;
 }
 
@@ -40,14 +78,50 @@ input::placeholder {
   color: $placeholder;
 }
 
+.auto-suggestions {
+  display: none;
+  padding: 0px;
+  li {
+    padding: 10px 0px;
+    font-size: 18px;
+    list-style-type: none;
+    cursor: pointer;
+    background-color: $autocomplete-back;
+    border: 1px solid $country-stroke;
+    &:hover {
+      background-color: $country-stroke;
+      color: $country-fill;
+    }
+  }
+  background: $country-fill;
+  border: 2px solid $green;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 5px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  width: $stats-width;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  justify-content: space-evenly;
+  h2 {
+    font-size: 20px;
+    span {
+      font-size: 18px;
+    }
+  }
+}
+
 .stats {
   background: $country-fill;
   border: 2px solid $green;
   border-radius: 5px;
-  width: $stats-width-desktop;
-  margin-bottom: 15px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 0 10px;
   pointer-events: none;
 }
@@ -57,7 +131,7 @@ input::placeholder {
   stroke: $country-stroke;
   stroke-width: 3px;
   display: block;
-  width: 40%;
+  width: 35%;
   margin: 15px auto;
 }
 
@@ -94,18 +168,48 @@ a:hover {
   font-weight: bold;
 }
 
-#prov-table-link {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
 @media only screen and (max-width: 650px) {
-  input {
+  .btn-container {
+    width: 100%;
+    margin: 12px auto;
+  }
+  #prov-table-link,
+  .show-country {
+    padding: 8px;
+    font-size: 16px;
+    i {
+      font-size: 12px;
+    }
+  }
+  .autocomplete {
+    width: $input-search-width-mobile;
+  }
+  .stats-container {
+    width: $stats-width-mobile;
+    flex-wrap: wrap;
+    h2 {
+      font-size: 17px;
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .stats {
+    margin-bottom: 10px;
+  }
+
+  .map {
     width: 70%;
   }
-  .map {
-    width: 60%;
+
+  #stats-head {
+    font-size: 20px;
+    span {
+      display: block;
+    }
   }
+
   th,
   td {
     padding: 7px 5px;

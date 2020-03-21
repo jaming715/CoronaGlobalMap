@@ -4,8 +4,11 @@ block style
 block content
   h1#country #{name}
   if provinces.length > 0
-    input(type="text" id="search" name="country-search" placeholder="Search for Province")
-  if provinces.length > 0
+    form(autocomplete="off")
+      div.autocomplete
+        input(id="search" list="provinces" name="country-search" placeholder="Search for Province" type="text" autcomplete="off")
+        ul.auto-suggestions
+    if provinces.length > 0
     table#provinces
       tr.odd-row
         th Province

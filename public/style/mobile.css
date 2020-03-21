@@ -18,13 +18,20 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #82e0aa !important;
 }
 
+.autocomplete {
+  position: relative;
+  width: 70%;
+  margin: 10px auto;
+}
+
 input {
   background-color: #1c2833;
   border: 2px solid #82e0aa;
   color: #82e0aa;
+  box-sizing: border-box;
   border-radius: 5px;
   padding: 7px;
-  width: 70%;
+  width: 100%;
 }
 
 input::placeholder {
@@ -46,10 +53,14 @@ a:hover {
 }
 
 #search-res {
-  background-color: #1c2833;
-  margin-top: 10px;
+  background-color: #34495e;
   padding: 0;
   border-radius: 5px;
+  position: absolute;
+  margin-top: 5px;
+  left: 0;
+  right: 0;
+  z-index: 99;
 }
 #search-res a {
   display: block;
@@ -97,14 +108,9 @@ a:hover {
 }
 
 @media only screen and (min-width: 768px) {
-  input {
-    width: 50%;
-  }
-
-  #search-res {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+  .autocomplete {
+    width: 40%;
+    margin: 10px auto;
   }
 
   .visit-map-container {
