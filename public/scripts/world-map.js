@@ -45,7 +45,7 @@ function getEndpoint(whoData) {
   if (whoData) {
     return whoEndpoint;
   } else {
-    return johnHopEndpoint;
+    return endpoint;
   }
 }
 

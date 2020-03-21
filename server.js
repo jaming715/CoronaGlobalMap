@@ -10,6 +10,8 @@ const allDataBot = require('./data-bots/all-data-bot.js');
 const johnBot = require('./data-bots/john-bot.js');
 const helper = require('./data-bots/helper-bot.js');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const countryRouter = require('./routes/country-router.js');
 
 dotenv.config();
 const app = express();
@@ -18,6 +20,13 @@ const port = process.env.PORT;
 
 app.set('views', './views');
 app.set('view engine', 'pug');
+app.use(express.json());
+
+const uri = process.env.MONGO_CONNECT_STR;
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(compression());
@@ -26,22 +35,24 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(apiUrl + '/caseCounts', async (req, res) => {
+app.use('/country', countryRouter);
+
+app.get(apiUrl + '/caseCounts', async (req, res) => {
   const cases = await caseBot.getJSON();
   res.send(cases);
 });
 
-app.use(apiUrl + '/whoData', async (req, res) => {
-  const data = await allDataBot.getJSON();
-  console.log(data.length);
-  res.send(data);
-});
+// app.get(apiUrl + '/whoData', async (req, res) => {
+//   const data = await allDataBot.getJSON();
+//   console.log(data.length);
+//   res.send(data);
+// });
 
-app.use(apiUrl + '/johnHopData', async (req, res) => {
-  // res.sendFile(path.join(__dirname, './data/john-data.json'));
-  const data = await johnBot.getJSON();
-  res.send(data);
-});
+// app.get(apiUrl + '/johnHopData', async (req, res) => {
+//   // res.sendFile(path.join(__dirname, './data/john-data.json'));
+//   const data = await johnBot.getJSON();
+//   res.send(data);
+// });
 
 function makeProvincesPage(country) {
   app.get(`/${country.code}/provinces`, function(req, res) {
@@ -76,17 +87,14 @@ async function setUpCountries() {
     if (countries) {
       countries.forEach(country => {
         makeCountryPage(country);
-        if (country.provinces.length > 0) makeProvincesPage(country);
+        const provinces = country.provinces;
+        if (provinces && provinces.length > 0) makeProvincesPage(country);
       });
     }
   } catch (err) {
     console.log('Error retrieving countries', err);
   }
 }
-
-const updatePages = schedule.scheduleJob('0 0 */1 * * *', async function() {
-  await setUpCountries();
-});
 
 async function setup() {
   await setUpCountries();

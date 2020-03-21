@@ -24,7 +24,7 @@ function conductSearch(query, data) {
 }
 
 async function setUpSearch() {
-  const data = await getData(johnHopEndpoint);
+  const data = await getData(endpoint);
   const world = data.find(e => e.location === 'World');
   const worldHtml = getJohnDataString(
     world.location,

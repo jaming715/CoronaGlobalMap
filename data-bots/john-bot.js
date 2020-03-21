@@ -70,9 +70,14 @@ async function getJSON() {
   const data = await helper.getJohnMatrix(endpoint, dateStr, d);
   const world = {
     location: 'World',
+    date: data[1][dateCol],
     totCases: 0,
     totDeaths: 0,
     totRecovered: 0,
+    provinces: [],
+    population: 0,
+    code: '--',
+    map: 'svg/world-map.svg',
   };
   for (let row = 1; row < data.length - 1; row++) {
     const loc = getLocation(data, row);

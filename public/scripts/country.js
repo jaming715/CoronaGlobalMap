@@ -124,7 +124,7 @@ function addDataToSVG(svg, provinces) {
 }
 
 async function setUpData(countryName) {
-  const countries = await getData(johnHopEndpoint);
+  const countries = await getData(endpoint);
   const country = getCountry(countries, countryName);
   const provinces = country.provinces;
   const mapHtml = getMapHtml(country);
