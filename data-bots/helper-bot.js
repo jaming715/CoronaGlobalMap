@@ -88,7 +88,8 @@ async function injectPopData(countries) {
     const name = country.location;
     const countryPop = countryPops.find(e => e.country == name);
     // if (!countryPop) console.log(name + ' not found.');
-    country.population = countryPop ? parseInt(countryPop.population) : 0;
+    country.population =
+      countryPop && countryPop.population ? parseInt(countryPop.population) : 0;
   });
 }
 

@@ -12,6 +12,7 @@ const helper = require('./data-bots/helper-bot.js');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const countryRouter = require('./routes/country-router.js');
+const {updateCountries} = require('./db-bots/country-manager.js');
 
 dotenv.config();
 const app = express();
@@ -103,3 +104,6 @@ async function setup() {
   });
 }
 setup();
+const job = schedule.scheduleJob('0 * * * *', function() {
+  updateCountries();
+});
