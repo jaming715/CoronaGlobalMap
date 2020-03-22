@@ -49,7 +49,8 @@ async function getJohnMatrix(endpoint, dateStr, date) {
     dateStr = getDateStr(date);
     res = await getMatrixFromCSV(endpoint + dateStr + '.csv');
   }
-  return res;
+  const data = res;
+  return {data, date};
 }
 
 async function readJSONFile(path) {
@@ -156,4 +157,6 @@ module.exports = {
   injectUnitedStateCodes,
   writeJSON,
   getJohnDataFile,
+  getDateStr,
+  getPrevDay,
 };

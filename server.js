@@ -38,10 +38,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/country', countryRouter);
 
-app.get(apiUrl + '/caseCounts', async (req, res) => {
-  const cases = await caseBot.getJSON();
-  res.send(cases);
-});
+// app.get(apiUrl + '/caseCounts', async (req, res) => {
+//   const cases = await caseBot.getJSON();
+//   res.send(cases);
+// });
 
 // app.get(apiUrl + '/whoData', async (req, res) => {
 //   const data = await allDataBot.getJSON();

@@ -66,8 +66,13 @@ function addWorld(countries) {}
 async function getJSON() {
   const json = [];
   const d = new Date();
-  const dateStr = helper.getDateStr(d);
-  const data = await helper.getJohnMatrix(endpoint, dateStr, d);
+  let dateStr = helper.getDateStr(d);
+  const result = await helper.getJohnMatrix(endpoint, dateStr, d);
+  const data = result.data;
+  // const prevDay = helper.getPrevDay(1, result.date);
+  // const prevDayStr = helper.getDateStr(prevDay);
+  // const resPrevDay = await helper.getJohnMatrix(endpoint, prevDayStr, prevDay);
+  // const prevDayData = resPrevDay.data;
   const world = {
     location: 'World',
     date: data[1][dateCol],
