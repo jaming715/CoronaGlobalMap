@@ -65,7 +65,7 @@ a:hover {
   right: 0;
   z-index: 99;
   overflow-y: scroll;
-  max-height: 350px;
+  max-height: 150px;
   a {
     display: block;
     font-size: 20px;
@@ -116,6 +116,9 @@ a:hover {
   .autocomplete {
     width: 40%;
     margin: 10px auto;
+  }
+  #search-res {
+    max-height: 350px;
   }
   .visit-map-container {
     display: block;
