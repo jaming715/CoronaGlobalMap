@@ -1,5 +1,4 @@
-const root = 'https://www.coronaglobalmap.com';
-// const root = 'http://localhost:3000';
+const root = window.location.origin;
 const endpoint = root + '/country';
 const red = '#F44336';
 
