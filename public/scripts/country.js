@@ -186,6 +186,7 @@ function addDataToSVG(svg, provinces) {
 
 async function setUpData(countryName) {
   const countries = await getData(endpoint);
+  $('.ref').append('Last updated: ' + countries[0].date);
   const country = getCountry(countries, countryName);
   const provinces = country.provinces;
   const mapHtml = getMapHtml(country);
