@@ -63,6 +63,17 @@ function getInt(data, row, col) {
 
 function addWorld(countries) {}
 
+function getNumbers(data, row) {
+  if (!data[row]) return {};
+  return {
+    cases: getInt(data, row, totCaseCol),
+    deaths: getInt(data, row, totDeathCol),
+    recoveries: getInt(data, row, totRecCol),
+  };
+}
+
+function addCases(country, data, prevData) {}
+
 async function getJSON() {
   const json = [];
   const d = new Date();
@@ -71,8 +82,8 @@ async function getJSON() {
   const data = result.data;
   // const prevDay = helper.getPrevDay(1, result.date);
   // const prevDayStr = helper.getDateStr(prevDay);
-  // const resPrevDay = await helper.getJohnMatrix(endpoint, prevDayStr, prevDay);
-  // const prevDayData = resPrevDay.data;
+  // const resPrev = await helper.getJohnMatrix(endpoint, prevDayStr, prevDay);
+  // const prevData = resPrev.data;
   const world = {
     location: 'World',
     date: data[1][dateCol],
@@ -87,6 +98,8 @@ async function getJSON() {
   for (let row = 1; row < data.length - 1; row++) {
     const loc = getLocation(data, row);
     let country = json.find(e => e.location === loc);
+    const today = getNumbers(data, row);
+    // const yesterday = getNumbers(prevData, row);
     const cases = getInt(data, row, totCaseCol);
     const deaths = getInt(data, row, totDeathCol);
     const recoveries = getInt(data, row, totRecCol);
@@ -94,15 +107,15 @@ async function getJSON() {
     // if (province === 'United States Virgin Islands')
     //   province = 'Virgin Islands';
     if (country && data[row][provCol] !== 'Puerto Rico') {
-      country.totCases += cases;
-      country.totDeaths += deaths;
-      country.totRecovered += recoveries;
+      country.totCases += today.cases;
+      country.totDeaths += today.deaths;
+      country.totRecovered += today.recoveries;
       if (province) {
         country.provinces.push({
           name: province,
-          totCases: cases,
-          totDeaths: deaths,
-          totRecovered: recoveries,
+          totCases: today.cases,
+          totDeaths: today.deaths,
+          totRecovered: today.recoveries,
         });
       }
     } else {
@@ -111,23 +124,23 @@ async function getJSON() {
       if (data[row][provCol] === 'Puerto Rico')
         country.location = 'Puerto Rico';
       country.date = data[row][dateCol];
-      country.totCases = cases;
-      country.totDeaths = deaths;
-      country.totRecovered = recoveries;
+      country.totCases = today.cases;
+      country.totDeaths = today.deaths;
+      country.totRecovered = today.recoveries;
       country.provinces = [];
       if (province && province !== country.location) {
         country.provinces.push({
           name: province,
-          totCases: cases,
-          totDeaths: deaths,
-          totRecovered: recoveries,
+          totCases: today.cases,
+          totDeaths: today.deaths,
+          totRecovered: today.recoveries,
         });
       }
       json.push(country);
     }
-    world.totCases += cases;
-    world.totDeaths += deaths;
-    world.totRecovered += recoveries;
+    world.totCases += today.cases;
+    world.totDeaths += today.deaths;
+    world.totRecovered += today.recoveries;
   }
   json.push(world);
   await helper.injectPopData(json);
