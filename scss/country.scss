@@ -16,6 +16,10 @@ body {
   margin: 0px;
 }
 
+#hover {
+  display: none;
+}
+
 .btn-container {
   display: flex;
   flex-direction: row;
@@ -81,6 +85,8 @@ input::placeholder {
 .auto-suggestions {
   display: none;
   padding: 0px;
+  overflow-y: scroll;
+  max-height: 150px;
   li {
     padding: 10px 0px;
     font-size: 18px;
@@ -169,6 +175,10 @@ a:hover {
 }
 
 @media only screen and (max-width: 650px) {
+  #hover {
+    width: 70%;
+    margin: 10px auto;
+  }
   .btn-container {
     width: 100%;
     margin: 12px auto;
@@ -183,6 +193,9 @@ a:hover {
   }
   .autocomplete {
     width: $input-search-width-mobile;
+  }
+  .auto-suggestions {
+    max-height: 300px;
   }
   .stats-container {
     width: $stats-width-mobile;

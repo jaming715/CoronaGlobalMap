@@ -11,6 +11,12 @@ html
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
     title #{title}
+    script(async src="https://www.googletagmanager.com/gtag/js?id=UA-161223976-1")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-161223976-1');
   body
     div
       block content 

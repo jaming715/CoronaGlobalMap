@@ -1,3 +1,7 @@
+html {
+  overflow-y: scroll;
+}
+
 body {
   text-align: center;
   padding: 20px;
@@ -61,6 +65,8 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 99;
+  overflow-y: scroll;
+  max-height: 350px;
 }
 #search-res a {
   display: block;

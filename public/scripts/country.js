@@ -44,8 +44,7 @@ function showSearchRes(svg, country, province) {
 }
 
 function getSuggestions(query, provinces) {
-  if (!query) return [];
-  if (query === 'all') return provinces;
+  if (query === 'none') return [];
   const suggestions = provinces.filter(province => {
     const prov = province.name.toLowerCase().replace(' ', '');
     return prov.startsWith(query);
@@ -104,10 +103,10 @@ function setUpSearch(svg, country, provinces) {
   });
   $('#search').on('click', e => {
     const query = e.target.value.toLowerCase().replace(' ', '');
-    if (!query) showSuggestions('all', provinces);
+    if (!query) showSuggestions('', provinces);
   });
   $('#search').on('focusout', e => {
-    showSuggestions('', provinces);
+    showSuggestions('none', provinces);
   });
 }
 
@@ -150,6 +149,7 @@ function setUpShowCountryStats() {
     $('input')
       .val('')
       .trigger('change');
+    $('.auto-suggestions').css('display', 'none');
   });
 }
 
@@ -198,6 +198,7 @@ async function setUpData(countryName) {
     addMapStyling(svg, countryName, provinces);
     $('object').css('visibility', 'visible');
     if (addDataToSVG(svg, provinces)) {
+      $('#hover').css('display', 'block');
       $('input').css('display', 'block');
       addMapListeners(svg, country);
       setUpSearch(svg, country, provinces);

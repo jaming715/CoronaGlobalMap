@@ -44,6 +44,9 @@ async function setUpSearch() {
       const query = e.target.value.toLowerCase();
       conductSearch(query, data);
     });
+    $('#search').on('focusout', e => {
+      conductSearch('', data);
+    });
     $('#search').on('click', e => {
       const query = e.target.value.toLowerCase().replace(' ', '');
       if (!query) conductSearch('all', data);
@@ -52,5 +55,12 @@ async function setUpSearch() {
     $('body').html("Sorry, couldn't retrieve data for Covid-19");
   }
 }
+
+$(document).mousedown(function(e) {
+  const clicked = $(e.target);
+  if (clicked.prop('tagName') === 'LI') {
+    window.location = clicked.parent().attr('href');
+  }
+});
 
 setUpSearch();

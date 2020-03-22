@@ -1,4 +1,8 @@
 @import './_variables.scss';
+html {
+  overflow-y: scroll;
+}
+
 body {
   text-align: center;
   padding: 20px;
@@ -60,6 +64,8 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 99;
+  overflow-y: scroll;
+  max-height: 350px;
   a {
     display: block;
     font-size: 20px;
