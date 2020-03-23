@@ -33,9 +33,9 @@ async function setUpSearch() {
   const world = data.find(e => e.location === 'World');
   const worldHtml = getJohnDataString(
     world.location,
-    world.totCases,
-    world.totDeaths,
-    world.totRecovered,
+    numWithCommas(world.totCases),
+    numWithCommas(world.totDeaths),
+    numWithCommas(world.totRecovered),
   );
   $('.world-stats').html(worldHtml);
   if (data) {
