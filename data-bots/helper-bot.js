@@ -112,8 +112,6 @@ async function injectMaps(countries) {
     const exists = await fileExists(`${root}/${code}.svg`);
     if (code !== '--' && exists) {
       country.map = '/svg/' + code + '.svg';
-    } else {
-      country.map === '--';
     }
   }
 }
