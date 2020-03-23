@@ -9,10 +9,10 @@ function getWhoDataString(country) {
   const name = country.location;
   const dataToday = data[data.length - 1];
   return `<strong>${name}</strong></br>
-    New Cases: ${dataToday.newCases}</br>
-    New Deaths: ${dataToday.newDeaths}</br>
-    Total Cases: ${dataToday.totCases}</br>
-    Total Deaths: ${dataToday.totDeaths}`;
+    New Cases: ${numWithCommas(dataToday.newCases)}</br>
+    New Deaths: ${numWithCommas(dataToday.newDeaths)}</br>
+    Total Cases: ${numWithCommas(dataToday.totCases)}</br>
+    Total Deaths: ${numWithCommas(dataToday.totDeaths)}`;
 }
 
 function getNotFound() {
@@ -34,9 +34,9 @@ function getDataString(country, whoData) {
   } else {
     return getJohnDataString(
       `Covid-19 Status: ${country.location}`,
-      country.totCases,
-      country.totDeaths,
-      country.totRecovered,
+      numWithCommas(country.totCases),
+      numWithCommas(country.totDeaths),
+      numWithCommas(country.totRecovered),
     );
   }
 }
