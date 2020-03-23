@@ -4,6 +4,10 @@ html
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    - const description = `${name} coronavirus (Covid-19) total cases, recoveries, and deaths`
+    meta(name="description" content= description)
+    - const keywords = `${code} coronavirus global map search world covid-19 cases deaths recoveries ${name} country territories states provinces`
+    meta(name="keywords" content= keywords)
     link(rel="icon" href="/favicons/world.ico")
     block style
     -

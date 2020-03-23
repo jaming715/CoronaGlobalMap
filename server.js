@@ -60,6 +60,7 @@ function makeProvincesPage(country) {
     res.render('provinces', {
       title: `Covid-19 ${country.location}`,
       name: country.location,
+      code: country.code,
       provinces: country.provinces,
     });
   });
