@@ -38,23 +38,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/country', countryRouter);
 
-// app.get(apiUrl + '/caseCounts', async (req, res) => {
-//   const cases = await caseBot.getJSON();
-//   res.send(cases);
-// });
-
-// app.get(apiUrl + '/whoData', async (req, res) => {
-//   const data = await allDataBot.getJSON();
-//   console.log(data.length);
-//   res.send(data);
-// });
-
-// app.get(apiUrl + '/johnHopData', async (req, res) => {
-//   // res.sendFile(path.join(__dirname, './data/john-data.json'));
-//   const data = await johnBot.getJSON();
-//   res.send(data);
-// });
-
 function makeProvincesPage(country) {
   app.get(`/${country.code}/provinces`, function(req, res) {
     res.render('provinces', {

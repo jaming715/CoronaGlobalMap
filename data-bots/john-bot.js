@@ -3,20 +3,12 @@ const fs = require('fs');
 const helper = require('./helper-bot.js');
 const endpoint = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/`;
 
-const provCol = 0;
-const locCol = 1;
-const dateCol = 2;
-const totCaseCol = 3;
-const totDeathCol = 4;
-const totRecCol = 5;
-const naming = [
-  'province',
-  'location',
-  'date',
-  'totCases',
-  'totDeaths',
-  'totRecovered',
-];
+let provCol = 0;
+let locCol = 1;
+let dateCol = 2;
+let totCaseCol = 3;
+let totDeathCol = 4;
+let totRecCol = 5;
 
 function fixLocation(loc) {
   switch (loc) {
@@ -63,9 +55,12 @@ function getInt(data, row, col) {
 
 function addWorld(countries) {}
 
-function getNumbers(data, row) {
+function getData(data, row) {
   if (!data[row]) return {};
   return {
+    province: data[row][provCol],
+    date: data[row][dateCol],
+    loc: getLocation(data, row),
     cases: getInt(data, row, totCaseCol),
     deaths: getInt(data, row, totDeathCol),
     recoveries: getInt(data, row, totRecCol),
@@ -74,17 +69,10 @@ function getNumbers(data, row) {
 
 function addCases(country, data, prevData) {}
 
-async function getJSON() {
-  const json = [];
-  const d = new Date();
-  let dateStr = helper.getDateStr(d);
-  const result = await helper.getJohnMatrix(endpoint, dateStr, d);
-  const data = result.data;
-  // const prevDay = helper.getPrevDay(1, result.date);
-  // const prevDayStr = helper.getDateStr(prevDay);
-  // const resPrev = await helper.getJohnMatrix(endpoint, prevDayStr, prevDay);
-  // const prevData = resPrev.data;
-  const world = {
+function processJohnType1() {}
+
+function getWorld(data) {
+  return {
     location: 'World',
     date: data[1][dateCol],
     totCases: 0,
@@ -95,63 +83,110 @@ async function getJSON() {
     code: '--',
     map: 'svg/world-map.svg',
   };
+}
+
+function getProvince(today) {
+  return {
+    name: today.province,
+    totCases: today.cases,
+    totDeaths: today.deaths,
+    totRecovered: today.recoveries,
+  };
+}
+
+function addToProvince(province, today) {
+  province.totCases += today.cases;
+  province.totDeaths += today.deaths;
+  province.totRecovered += today.recoveries;
+}
+
+function addToCountry(country, province, today) {
+  country.totCases += today.cases;
+  country.totDeaths += today.deaths;
+  country.totRecovered += today.recoveries;
+  if (province) {
+    addToProvince(province, today);
+  } else if (today.province) {
+    country.provinces.push(getProvince(today));
+  }
+}
+
+function getCountry(today) {
+  return {
+    location: today.loc,
+    date: today.date,
+    totCases: today.cases,
+    totDeaths: today.deaths,
+    totRecovered: today.recoveries,
+    provinces: [],
+  };
+}
+
+function addToWorld(world, today) {
+  world.totCases += today.cases;
+  world.totDeaths += today.deaths;
+  world.totRecovered += today.recoveries;
+}
+
+async function getFormatOneJSON(data) {
+  const json = [];
+  const world = getWorld(data);
   for (let row = 1; row < data.length - 1; row++) {
-    const loc = getLocation(data, row);
-    let country = json.find(e => e.location === loc);
-    const today = getNumbers(data, row);
-    // const yesterday = getNumbers(prevData, row);
-    const cases = getInt(data, row, totCaseCol);
-    const deaths = getInt(data, row, totDeathCol);
-    const recoveries = getInt(data, row, totRecCol);
-    let province = data[row][provCol];
-    // if (province === 'United States Virgin Islands')
-    //   province = 'Virgin Islands';
-    if (country && data[row][provCol] !== 'Puerto Rico') {
-      country.totCases += today.cases;
-      country.totDeaths += today.deaths;
-      country.totRecovered += today.recoveries;
-      if (province) {
-        country.provinces.push({
-          name: province,
-          totCases: today.cases,
-          totDeaths: today.deaths,
-          totRecovered: today.recoveries,
-        });
+    const today = getData(data, row);
+    let country = json.find(e => e.location === today.loc);
+    let province =
+      country && country.provinces.find(prov => prov.name === today.province);
+    if (country) {
+      addToCountry(country, province, today);
+      if (
+        country.location === 'United States' &&
+        today.province === 'Puerto Rico'
+      ) {
+        today.loc = 'Puerto Rico';
+        country = getCountry(today);
+        json.push(country);
       }
-    } else {
-      country = {};
-      country.location = loc;
-      if (data[row][provCol] === 'Puerto Rico')
-        country.location = 'Puerto Rico';
-      country.date = data[row][dateCol];
-      country.totCases = today.cases;
-      country.totDeaths = today.deaths;
-      country.totRecovered = today.recoveries;
-      country.provinces = [];
-      if (province && province !== country.location) {
-        country.provinces.push({
-          name: province,
-          totCases: today.cases,
-          totDeaths: today.deaths,
-          totRecovered: today.recoveries,
-        });
+    } else if (today.loc !== 'Puerto Rico') {
+      country = getCountry(today);
+      if (today.province && today.province !== country.location) {
+        country.provinces.push(getProvince(today));
       }
       json.push(country);
     }
-    world.totCases += today.cases;
-    world.totDeaths += today.deaths;
-    world.totRecovered += today.recoveries;
+    addToWorld(world, today);
   }
   json.push(world);
   await helper.injectPopData(json);
   await helper.injectCodes(json);
   await helper.injectMaps(json);
-  // await helper.injectUnitedStateCodes(json);
-  // await helper.writeJSON(json, 'john-data.json');
-  // console.log(json.find(e => e.location === 'Afghanistan'));
   return json;
 }
-// getJSON();
+
+async function getFormatTwoJSON(data) {
+  provCol = 2;
+  locCol = 3;
+  dateCol = 4;
+  totCaseCol = 7;
+  totDeathCol = 8;
+  totRecCol = 9;
+  const json = await getFormatOneJSON(data);
+  return json;
+}
+
+async function getJSON() {
+  let json = [];
+  let d = new Date();
+  let dateStr = helper.getDateStr(d);
+  const result = await helper.getJohnMatrix(endpoint, dateStr, d);
+  const data = result.data;
+  if (data[0][0] === 'Province/State') {
+    json = await getFormatOneJSON(data);
+  } else {
+    json = await getFormatTwoJSON(data);
+  }
+  // console.log(json.find(e => e.location === 'United States'));
+  return json;
+}
 
 module.exports = {
   getJSON,

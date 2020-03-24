@@ -31,7 +31,6 @@ async function updateCountries() {
     }
   });
 }
-
 // updateCountries();
 module.exports = {
   addCountries,
