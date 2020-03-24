@@ -13,6 +13,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const countryRouter = require('./routes/country-router.js');
 const {updateCountries} = require('./db-bots/country-manager.js');
+const Country = require('./models/country-model.js');
 
 dotenv.config();
 const app = express();
@@ -38,8 +39,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/country', countryRouter);
 
-function makeProvincesPage(country) {
-  app.get(`/${country.code}/provinces`, function(req, res) {
+function makeProvincesPage(name, code) {
+  app.get(`/${code}/provinces`, async function(req, res) {
+    country = await Country.findOne({location: name});
     res.render('provinces', {
       title: `Covid-19 ${country.location}`,
       name: country.location,
@@ -49,9 +51,10 @@ function makeProvincesPage(country) {
   });
 }
 
-function makeCountryPage(country) {
-  if (country.code != '--') {
-    app.get(`/${country.code}`, function(req, res) {
+function makeCountryPage(name, code) {
+  if (code != '--') {
+    app.get(`/${code}`, async function(req, res) {
+      country = await Country.findOne({location: name});
       res.render('country', {
         title: `Covid-19 ${country.location}`,
         name: country.location,
@@ -68,12 +71,13 @@ function makeCountryPage(country) {
 
 async function setUpCountries() {
   try {
-    const countries = await johnBot.getJSON();
+    const countries = await Country.find();
     if (countries) {
       countries.forEach(country => {
-        makeCountryPage(country);
+        makeCountryPage(country.location, country.code);
         const provinces = country.provinces;
-        if (provinces && provinces.length > 0) makeProvincesPage(country);
+        if (provinces && provinces.length > 0)
+          makeProvincesPage(country.location, country.code);
       });
     }
   } catch (err) {
