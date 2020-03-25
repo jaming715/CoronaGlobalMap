@@ -5,12 +5,13 @@ block style
   link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css")
 block content
   h1#country #{name}
-  h3#hover Hover or Tap On Province For Status 
+  - const provTitle = name === "United States" ? "State" : "Province"
+  h3#hover Hover or Tap On #{provTitle} For Status 
   div.map
   div.btn-container
     if provinces.length > 0
       div
-        a(href=`${code}/provinces` target="_blank" id="prov-table-link") Province Table  
+        a(href=`${code}/provinces` target="_blank" id="prov-table-link") #{provTitle} Table  
           i(class="fas fa-external-link-alt")
       div
         a.show-country(href="#") Show Country Stats
@@ -20,8 +21,9 @@ block content
     span#region #{name}
   if provinces.length > 0
     form(autocomplete="off")
+      - const hint = name === "United States" ? "Search for State" : "Search for Province"
       div.autocomplete
-        input(id="search" list="provinces" name="country-search" placeholder="Search for Province" type="text" autcomplete="off")
+        input(id="search" list="provinces" name="province-search" placeholder= hint)
         ul.auto-suggestions
   div.stats-container
     div.stats
