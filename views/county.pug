@@ -1,5 +1,5 @@
 extends layout.pug
-block style
+block append style
     link(rel="stylesheet", href="/style/country.css")
 block content
   h1
@@ -9,11 +9,11 @@ block content
   h2#province Covid-19 Status: 
     span#region #{provName}
   form(autocomplete="off")
-    div.autocomplete
-      input(id="search" list="counties" name="county-search" placeholder="Search for County" type="text" autcomplete="off")
-      ul.auto-suggestions
-        each county in counties
-          li= county.name 
+    div#search-block
+      i(class="fas fa-search-location")
+      div.autocomplete
+        input(id="search" list="counties" name="county-search" placeholder="Search for County" type="text" autcomplete="off")
+        ul.auto-suggestions
   div.stats-container
     div.stats
       h2 Total Cases: 

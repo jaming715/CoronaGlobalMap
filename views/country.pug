@@ -1,8 +1,6 @@
 extends layout.pug
-block style
+block append style
   link(rel="stylesheet", href="/style/country.css")
-  link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css")
-  link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css")
 block content
   h1#country #{name}
   - const provTitle = name === "United States" ? "State" : "Province"
@@ -22,9 +20,11 @@ block content
   if provinces.length > 0
     form(autocomplete="off")
       - const hint = name === "United States" ? "Search for State" : "Search for Province"
-      div.autocomplete
-        input(id="search" list="provinces" name="province-search" placeholder= hint)
-        ul.auto-suggestions
+      div#search-block
+        i(class="fas fa-search-location")
+        div.autocomplete
+          input(id="search" list="provinces" name="province-search" placeholder= hint)
+          ul.auto-suggestions
   div.stats-container
     div.stats
       h2 Total Cases: 

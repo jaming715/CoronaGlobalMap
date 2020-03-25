@@ -200,7 +200,7 @@ async function setUpData(countryName) {
     $('object').css('visibility', 'visible');
     if (addDataToSVG(svg, provinces)) {
       $('#hover').css('display', 'block');
-      $('input').css('display', 'block');
+      $('#search-block').css('display', 'flex');
       addMapListeners(svg, country);
       setUpSearch(svg, country, provinces);
       setUpShowCountryStats();

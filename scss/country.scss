@@ -1,5 +1,11 @@
 @import './_variables.scss';
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
 html {
   overflow-y: scroll;
 }
@@ -59,30 +65,32 @@ body {
   margin: 6px 0px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 100px $country-fill inset !important;
-  -webkit-text-fill-color: $green !important;
-}
-
-.autocomplete {
+#search-block {
+  flex-direction: row;
   width: $input-search-width;
   position: relative;
   margin: 15px auto;
+  background-color: $country-fill;
+  border: 2px solid $green;
+  box-sizing: border-box;
+  border-radius: 5px;
+  align-items: center;
+  font-size: 18px;
+  display: none;
+  i {
+    margin: 0 10px;
+  }
 }
+
+// .autocomplete {
+// }
 
 input {
   background-color: $country-fill;
-  border: 2px solid $green;
+  border: 0px;
   color: $green;
-  box-sizing: border-box;
-  border-radius: 5px;
-  padding: 10px;
   font-size: 18px;
-  width: 100%;
-  display: none;
+  padding: 10px;
 }
 
 input::placeholder {
@@ -201,7 +209,7 @@ a:hover {
       font-size: 12px;
     }
   }
-  .autocomplete {
+  #search-block {
     width: $input-search-width-mobile;
   }
   .auto-suggestions {

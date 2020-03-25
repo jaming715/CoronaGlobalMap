@@ -1,5 +1,5 @@
 extends layout.pug
-block style
+block append style
     link(rel="stylesheet", href="/style/country.css")
 block content
   h1#country #{name}
@@ -7,9 +7,11 @@ block content
   - const hint = name === "United States" ? "Search for State" : "Search for Province"
   if provinces.length > 0
     form(autocomplete="off")
-      div.autocomplete
-        input(id="search" list="provinces" name="country-search" placeholder= hint type="text" autcomplete="off")
-        ul.auto-suggestions
+      div#search-block
+        i(class="fas fa-search-location")
+        div.autocomplete
+          input(id="search" list="provinces" name="country-search" placeholder= hint type="text" autcomplete="off")
+          ul.auto-suggestions
     if provinces.length > 0
     table#provinces
       tr.odd-row
