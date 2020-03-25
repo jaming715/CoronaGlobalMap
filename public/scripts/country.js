@@ -84,14 +84,16 @@ function setUpSearch(svg, country, provinces) {
   $('#search').on('change paste keyup', (e, hovered) => {
     const query = e.target.value.toLowerCase().replace(' ', '');
     const province = getProvince(query, provinces);
+    if (!hovered) $('.auto-suggestions').css('display', 'none');
     if (activeProvince) clearActiveProv();
     if (province) {
       showSearchRes(svg, country, province);
       if (province.code && province.counties.length > 0) {
         $('#county-search').css('display', 'block');
         $('#county-search').attr('href', `/${country.code}/${province.code}`);
+      } else {
+        $('#county-search').css('display', 'none');
       }
-      if (!hovered) $('.auto-suggestions').css('display', 'none');
     } else {
       $('#county-search').css('display', 'none');
       activeProvince = null;
