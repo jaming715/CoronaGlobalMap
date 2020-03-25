@@ -26,7 +26,6 @@ body {
   width: $btn-container-width;
   margin: 0 auto;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 #prov-table-link,
@@ -193,6 +192,7 @@ a:hover {
   .show-country,
   #county-search {
     padding: 8px;
+    margin: 0 2px;
     font-size: 16px;
     i {
       font-size: 12px;

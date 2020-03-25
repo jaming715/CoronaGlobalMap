@@ -3,15 +3,17 @@ block style
     link(rel="stylesheet", href="/style/country.css")
 block content
   h1#country #{name}
+  - const provTitle = name === "United States" ? "State" : "Province"
+  - const hint = name === "United States" ? "Search for State" : "Search for Province"
   if provinces.length > 0
     form(autocomplete="off")
       div.autocomplete
-        input(id="search" list="provinces" name="country-search" placeholder="Search for Province" type="text" autcomplete="off")
+        input(id="search" list="provinces" name="country-search" placeholder= hint type="text" autcomplete="off")
         ul.auto-suggestions
     if provinces.length > 0
     table#provinces
       tr.odd-row
-        th Province
+        th= provTitle
         th Total Confirmed Cases
         th Total Deaths
         th Total Recoveries
