@@ -12,9 +12,11 @@ function getResults(searchRes) {
 function conductSearch(query, data) {
   if (!query) {
     $('#search-res').empty();
+    $('#search-res').css('display', 'none');
     $('#res-label').css('display', 'none');
     return;
   }
+  $('#search-res').css('display', 'block');
   let searchRes = null;
   if (query === 'all') {
     searchRes = data;

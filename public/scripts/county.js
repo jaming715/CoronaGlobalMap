@@ -1,9 +1,9 @@
 function showProvinceStats(province) {
   updateStats(
     province.name,
-    numWithCommas(province.totCases),
-    numWithCommas(province.totDeaths),
-    numWithCommas(province.totRecovered),
+    province.totCases,
+    province.totDeaths,
+    province.totRecovered,
   );
 }
 
@@ -60,9 +60,9 @@ function setUpSearch(province, counties) {
       }
       updateStats(
         county.name,
-        numWithCommas(county.totCases),
-        numWithCommas(county.totDeaths),
-        numWithCommas(county.totRecovered),
+        county.totCases,
+        county.totDeaths,
+        county.totRecovered,
       );
     } else {
       showProvinceStats(province);

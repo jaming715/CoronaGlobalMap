@@ -1,83 +1,59 @@
 @import './_variables.scss';
-html {
-  overflow-y: scroll;
-}
+@import './_shared.scss';
 
 body {
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
-  background: $body-background;
-  color: $green;
-  font-size: 1.3vw;
-}
-
-.title {
-  font-size: 2vw;
 }
 
 svg {
   fill: $country-fill;
   stroke: $green;
-  stroke-width: 2px;
+  stroke-width: 3.25px;
 }
 
-.world-map {
-  display: block;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#info-box {
-  display: inline-block;
-  z-index: 1;
-  color: $green;
-  border: 2px solid $green;
-  background: $country-fill;
-  text-align: center;
-  padding: 4px 15px;
-  pointer-events: none;
-  border-radius: 10px;
-  font-size: 1.2vw;
-  margin-top: 3px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-a {
-  text-decoration: underline;
-  color: $green;
-}
-
-a:hover {
-  color: $green;
-  font-weight: bold;
-}
-
-.search-link {
-  display: inline-block;
-  padding: 5px;
-  margin-top: 10px;
-  background: $country-fill;
-  border: 2px solid $green;
-  border-radius: 2px;
-  color: $green;
-  font-weight: bold;
-  text-decoration: none;
-  &:hover {
-    color: $country-fill;
-    text-decoration: none;
-    background: $green;
+.stats-container {
+  padding: 0 10px;
+  h2 {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 0px;
+    span {
+      font-size: 17px;
+    }
+  }
+  .stats {
+    padding: 10px;
   }
 }
 
+.world-map {
+  @extend %center-block;
+  display: block;
+  width: 85%;
+}
+
+#info-box {
+  @extend .stats;
+  @extend %center-block;
+  // font-size: 1.2vw;
+}
+
+.search-link {
+  @extend %button-colors;
+  @extend %button-hover;
+  display: block;
+  width: 30%;
+  margin: 0 auto;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
 .instruction {
+  @extend %center-block;
   display: inline-block;
   padding: 8px;
   margin-top: 3px;
-  margin-left: auto;
-  margin-right: auto;
   font-size: 1.2vw;
   pointer-events: none;
   font-weight: bold;

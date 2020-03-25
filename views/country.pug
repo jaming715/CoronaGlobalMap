@@ -9,12 +9,12 @@ block content
   div.btn-container
     if provinces.length > 0
       div
-        a(href=`${code}/provinces` target="_blank" id="prov-table-link") #{provTitle} Table  
+        a.btn(href=`${code}/provinces` target="_blank" id="prov-table-link") #{provTitle} Table  
           i(class="fas fa-external-link-alt")
       div
-        a(href="#" id="county-search") Search Counties 
+        a.btn(href="#" id="county-search") Search Counties 
       div
-        a.show-country(href="#") Show Country Stats
+        a.show-country.btn(href="#") Show Country Stats
   h2#stats-head Covid-19 Status: 
     span#region #{name}
   if provinces.length > 0

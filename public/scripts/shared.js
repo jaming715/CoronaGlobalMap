@@ -30,7 +30,7 @@ function getCountry(countries, name) {
 
 function updateStats(region, totCases, totDeaths, totRecovered) {
   $('#region').html(region);
-  $('#tot-cases').html(totCases);
-  $('#tot-deaths').html(totDeaths);
-  $('#tot-recovered').html(totRecovered);
+  $('#tot-cases').html(numWithCommas(totCases));
+  $('#tot-deaths').html(numWithCommas(totDeaths));
+  $('#tot-recovered').html(numWithCommas(totRecovered));
 }

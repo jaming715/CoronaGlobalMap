@@ -1,27 +1,5 @@
 @import './_variables.scss';
-html {
-  overflow-y: scroll;
-}
-
-body {
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
-  background: $body-background;
-  color: $green;
-}
-
-h3 {
-  margin-bottom: 0;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 100px $country-fill inset !important;
-  -webkit-text-fill-color: $green !important;
-}
+@import './_shared.scss';
 
 .autocomplete {
   position: relative;
@@ -30,9 +8,7 @@ input:-webkit-autofill:active {
 }
 
 input {
-  background-color: $country-fill;
-  border: 2px solid $green;
-  color: $green;
+  @extend %button-colors;
   box-sizing: border-box;
   border-radius: 5px;
   padding: 7px;
@@ -47,16 +23,17 @@ input::placeholder {
   margin: 10px 0;
   display: none;
 }
+
 a {
   font-weight: bold;
-  color: $green;
 }
 a:hover {
-  color: $green;
+  font-weight: normal;
 }
 
 #search-res {
-  background-color: $autocomplete-back;
+  @extend %button-colors;
+  display: none;
   padding: 0;
   border-radius: 5px;
   position: absolute;
@@ -67,19 +44,12 @@ a:hover {
   overflow-y: scroll;
   max-height: 170px;
   a {
+    @extend %button-hover;
+    text-decoration: none;
     display: block;
     font-size: 17px;
     padding: 7px;
     border: 1px solid $green;
-    &:hover {
-      text-decoration: none;
-      background-color: $green;
-      color: $body-background;
-    }
-  }
-  li {
-    list-style-type: none;
-    margin: 0;
   }
   .first {
     border-top-left-radius: 5px;
@@ -91,22 +61,24 @@ a:hover {
   }
 }
 
-.dbl-click {
-  margin-bottom: 10px;
-}
-
 .visit-map-container {
   display: none;
 }
 
-.world-stats {
+.visit-map {
+  @extend %button-hover;
+  @extend %button-colors;
   display: inline-block;
-  color: $green;
-  border: 2px solid $green;
-  background: $country-fill;
-  text-align: center;
-  padding: 4px 15px;
-  border-radius: 10px;
+  padding: 5px;
+  margin: 10px 0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.world-stats {
+  @extend .stats;
+  font-size: 18px;
+  padding: 5px 15px;
   margin: 10px 0;
   margin-left: auto;
   margin-right: auto;
@@ -122,24 +94,5 @@ a:hover {
   }
   .visit-map-container {
     display: block;
-  }
-  .visit-map {
-    display: inline-block;
-    padding: 5px;
-    margin: 10px 0;
-    background: $country-fill;
-    border: 2px solid $green;
-    border-radius: 2px;
-    color: $green;
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      color: $country-fill;
-      text-decoration: none;
-      background: $green;
-    }
-  }
-  .visit {
-    display: none;
   }
 }

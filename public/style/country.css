@@ -1,19 +1,96 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+  font-family: "Fira Sans", sans-serif;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #101010;
+  color: #82e0aa;
+}
+
+h3 {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: underline;
+  color: #82e0aa;
+}
+
+a:hover {
+  color: #82e0aa;
+  font-weight: bold;
+}
+
+li {
+  list-style-type: none;
+  margin: 0;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
 }
 
-html {
-  overflow-y: scroll;
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-body {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  text-align: center;
+#globe-icon {
+  margin-right: 10px;
+}
+
+.icon {
+  width: 40px;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.stats-container h2 {
+  font-size: 20px;
+}
+.stats-container h2 span {
+  font-size: 18px;
+}
+
+.stats {
+  display: inline-block;
   color: #82e0aa;
-  background: #101010;
-  padding: 20px;
+  border: 2px solid #82e0aa;
+  background: #1c2833;
+  text-align: center;
+  padding: 4px 15px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  pointer-events: none;
+  margin: 0 10px;
+}
+
+.auto-suggestions li:hover, .btn:hover {
+  color: #1c2833;
+  text-decoration: none;
+  background: #82e0aa;
+  cursor: pointer;
+}
+
+.auto-suggestions, #search-block, .btn {
+  background-color: #1c2833;
+  color: #82e0aa;
+  border: 2px solid #82e0aa;
+  border-radius: 2px;
+  text-decoration: none;
 }
 
 #country {
@@ -22,6 +99,15 @@ body {
 
 #hover {
   display: none;
+}
+
+.map {
+  fill: #1c2833;
+  stroke: #82e0aa;
+  stroke-width: 3.25px;
+  display: block;
+  width: 35%;
+  margin: 15px auto;
 }
 
 .btn-container {
@@ -34,28 +120,15 @@ body {
   align-items: center;
 }
 
-#prov-table-link,
-.show-country,
-#county-search {
-  background-color: #1c2833;
-  border: 2px solid #82e0aa;
+.btn {
   border-radius: 3px;
   padding: 10px;
   display: inline-block;
   margin: 0 5px;
-  cursor: pointer;
   text-decoration: none;
   font-size: 18px;
 }
-#prov-table-link:hover,
-.show-country:hover,
-#county-search:hover {
-  background-color: #82e0aa;
-  color: #1c2833;
-}
-#prov-table-link i,
-.show-country i,
-#county-search i {
+.btn i {
   font-size: 14px;
 }
 
@@ -68,13 +141,11 @@ body {
 }
 
 #search-block {
+  box-sizing: border-box;
   flex-direction: row;
   width: 43%;
   position: relative;
   margin: 15px auto;
-  background-color: #1c2833;
-  border: 2px solid #82e0aa;
-  box-sizing: border-box;
   border-radius: 5px;
   align-items: center;
   font-size: 18px;
@@ -85,11 +156,12 @@ body {
 }
 
 input {
+  box-sizing: border-box;
   background-color: #1c2833;
   border: 0px;
   color: #82e0aa;
   font-size: 18px;
-  padding: 10px;
+  padding: 10px 0;
 }
 
 input::placeholder {
@@ -101,8 +173,6 @@ input::placeholder {
   padding: 0px;
   overflow-y: scroll;
   max-height: 150px;
-  background: #1c2833;
-  border: 2px solid #82e0aa;
   border-radius: 5px;
   position: absolute;
   margin-top: 5px;
@@ -113,46 +183,16 @@ input::placeholder {
 .auto-suggestions li {
   padding: 10px 0px;
   font-size: 18px;
-  list-style-type: none;
   cursor: pointer;
-  background-color: #34495e;
   border: 1px solid #82e0aa;
-}
-.auto-suggestions li:hover {
-  background-color: #82e0aa;
-  color: #1c2833;
 }
 
 .stats-container {
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
   margin-bottom: 15px;
-  justify-content: center;
-}
-.stats-container h2 {
-  font-size: 20px;
-}
-.stats-container h2 span {
-  font-size: 18px;
 }
 
 .stats {
-  background: #1c2833;
-  border: 2px solid #82e0aa;
-  border-radius: 5px;
   padding: 0 10px;
-  pointer-events: none;
-  margin: 0 10px;
-}
-
-.map {
-  fill: #1c2833;
-  stroke: #82e0aa;
-  stroke-width: 3px;
-  display: block;
-  width: 35%;
-  margin: 15px auto;
 }
 
 table,
@@ -177,17 +217,11 @@ table {
   background-color: #1c2833;
 }
 
-a {
-  text-decoration: underline;
-  color: #82e0aa;
-}
-
-a:hover {
-  color: #82e0aa;
-  font-weight: bold;
-}
-
 @media only screen and (max-width: 650px) {
+  .map {
+    width: 70%;
+  }
+
   #hover {
     width: 70%;
     margin: 10px auto;
@@ -199,16 +233,12 @@ a:hover {
     height: 60px;
   }
 
-  #prov-table-link,
-.show-country,
-#county-search {
+  .btn {
     padding: 8px;
     margin: 0 2px;
     font-size: 16px;
   }
-  #prov-table-link i,
-.show-country i,
-#county-search i {
+  .btn i {
     font-size: 12px;
   }
 
@@ -233,10 +263,6 @@ a:hover {
 
   .stats {
     margin-bottom: 10px;
-  }
-
-  .map {
-    width: 70%;
   }
 
   #stats-head {

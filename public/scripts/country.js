@@ -16,9 +16,9 @@ function getPercent(fraction, tot) {
 function showCountryStats(country) {
   updateStats(
     country.location,
-    numWithCommas(country.totCases),
-    numWithCommas(country.totDeaths),
-    numWithCommas(country.totRecovered),
+    country.totCases,
+    country.totDeaths,
+    country.totRecovered,
   );
 }
 
@@ -30,9 +30,9 @@ function showSearchRes(svg, country, province) {
   prov.css('fill', stroke);
   updateStats(
     province.name,
-    numWithCommas(province.totCases),
-    numWithCommas(province.totDeaths),
-    numWithCommas(province.totRecovered),
+    province.totCases,
+    province.totDeaths,
+    province.totRecovered,
   );
 }
 

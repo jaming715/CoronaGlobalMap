@@ -1,0 +1,101 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+  font-family: 'Fira Sans', sans-serif;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: $body-background;
+  color: $green;
+}
+
+h3 {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: underline;
+  color: $green;
+}
+
+a:hover {
+  color: $green;
+  font-weight: bold;
+}
+
+li {
+  list-style-type: none;
+  margin: 0;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#globe-icon {
+  margin-right: 10px;
+}
+
+.icon {
+  width: 40px;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  h2 {
+    font-size: 20px;
+    span {
+      font-size: 18px;
+    }
+  }
+}
+
+.stats {
+  display: inline-block;
+  color: $green;
+  border: 2px solid $green;
+  background: $country-fill;
+  text-align: center;
+  padding: 4px 15px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  pointer-events: none;
+  margin: 0 10px;
+}
+
+%center-block {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+%button-hover {
+  &:hover {
+    color: $country-fill;
+    text-decoration: none;
+    background: $green;
+    cursor: pointer;
+  }
+}
+
+%button-colors {
+  background-color: $country-fill;
+  color: $green;
+  border: 2px solid $green;
+  border-radius: 2px;
+  text-decoration: none;
+}
