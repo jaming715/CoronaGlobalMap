@@ -31,7 +31,7 @@ async function updateCountries() {
     }
   });
 }
-// updateCountries();
+updateCountries();
 module.exports = {
   addCountries,
   updateCountries,

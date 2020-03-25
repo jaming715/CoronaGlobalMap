@@ -27,3 +27,10 @@ function numWithCommas(num) {
 function getCountry(countries, name) {
   return countries.find(country => country.location === name);
 }
+
+function updateStats(region, totCases, totDeaths, totRecovered) {
+  $('#region').html(region);
+  $('#tot-cases').html(totCases);
+  $('#tot-deaths').html(totDeaths);
+  $('#tot-recovered').html(totRecovered);
+}

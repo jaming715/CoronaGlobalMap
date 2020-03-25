@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {CountySchema} = require('./county-model.js');
 const Schema = mongoose.Schema;
 
 const ProvinceSchema = new Schema(
@@ -7,6 +8,8 @@ const ProvinceSchema = new Schema(
     totCases: Number,
     totDeaths: Number,
     totRecovered: Number,
+    code: String,
+    counties: [CountySchema],
     country: {type: mongoose.Schema.Types.ObjectId, ref: 'Country'},
   },
   {

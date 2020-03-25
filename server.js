@@ -39,10 +39,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/country', countryRouter);
 
+function makeCountyPage(name, provName, code, provCode) {
+  app.get(`/${code}/${provCode}`, async function(req, res) {
+    country = await Country.findOne({location: name});
+    province = country.provinces.find(e => e.name === provName);
+    res.render('county', {
+      title: `Covid-19 ${country.location}`,
+      name: country.location,
+      provName: province.name,
+      counties: province.counties,
+      totCases: province.totCases,
+      totDeaths: province.totDeaths,
+      totRecovered: province.totRecovered,
+    });
+  });
+}
+
 function makeProvincesPage(name, code) {
   app.get(`/${code}/provinces`, async function(req, res) {
     country = await Country.findOne({location: name});
-    res.render('provinces', {
+    res.render('province-table', {
       title: `Covid-19 ${country.location}`,
       name: country.location,
       code: country.code,
@@ -76,8 +92,19 @@ async function setUpCountries() {
       countries.forEach(country => {
         makeCountryPage(country.location, country.code);
         const provinces = country.provinces;
-        if (provinces && provinces.length > 0)
+        if (provinces && provinces.length > 0) {
           makeProvincesPage(country.location, country.code);
+          provinces.forEach(province => {
+            if (province.counties.length > 0 && province.code) {
+              makeCountyPage(
+                country.location,
+                province.name,
+                country.code,
+                province.code,
+              );
+            }
+          });
+        }
       });
     }
   } catch (err) {

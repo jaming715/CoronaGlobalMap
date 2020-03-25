@@ -13,13 +13,6 @@ function getPercent(fraction, tot) {
   return percent.toFixed(3);
 }
 
-function updateStats(region, totCases, totDeaths, totRecovered) {
-  $('#region').html(region);
-  $('#tot-cases').html(totCases);
-  $('#tot-deaths').html(totDeaths);
-  $('#tot-recovered').html(totRecovered);
-}
-
 function showCountryStats(country) {
   updateStats(
     country.location,
@@ -94,8 +87,13 @@ function setUpSearch(svg, country, provinces) {
     if (!hovered) $('.auto-suggestions').css('display', 'none');
     if (activeProvince) clearActiveProv();
     if (province) {
+      if (province.code && province.counties.length > 0) {
+        $('#county-search').css('display', 'block');
+        $('#county-search').attr('href', `/${country.code}/${province.code}`);
+      }
       showSearchRes(svg, country, province);
     } else {
+      $('#county-search').css('display', 'none');
       activeProvince = null;
       showCountryStats(country);
       showSuggestions(query, provinces);

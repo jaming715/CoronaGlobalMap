@@ -27,4 +27,15 @@ async function downloadMaps() {
     }
   });
 }
-downloadMaps();
+// downloadMaps();
+async function downloadUSWithCounties() {
+  try {
+    const map = await axios.get(
+      'https://upload.wikimedia.org/wikipedia/commons/d/dc/USA_Counties.svg',
+    );
+    await writeMap(map.data, 'usa-counties.svg');
+  } catch (err) {
+    console.log('', err);
+  }
+}
+// downloadUSWithCounties();

@@ -9,6 +9,7 @@ let dateCol = 2;
 let totCaseCol = 3;
 let totDeathCol = 4;
 let totRecCol = 5;
+let countyCol = 1;
 
 function fixLocation(loc) {
   switch (loc) {
@@ -58,6 +59,7 @@ function addWorld(countries) {}
 function getData(data, row) {
   if (!data[row]) return {};
   return {
+    county: data[row][countyCol],
     province: data[row][provCol],
     date: data[row][dateCol],
     loc: getLocation(data, row),
@@ -88,6 +90,16 @@ function getWorld(data) {
 function getProvince(today) {
   return {
     name: today.province,
+    totCases: today.cases,
+    totDeaths: today.deaths,
+    totRecovered: today.recoveries,
+    counties: [],
+  };
+}
+
+function getCounty(today) {
+  return {
+    name: today.county,
     totCases: today.cases,
     totDeaths: today.deaths,
     totRecovered: today.recoveries,
@@ -128,7 +140,12 @@ function addToWorld(world, today) {
   world.totRecovered += today.recoveries;
 }
 
-async function getFormatOneJSON(data) {
+function addCounty(country, today) {
+  const province = country.provinces.find(e => e.name === today.province);
+  province.counties.push(getCounty(today));
+}
+
+async function getFormatJSON(data, formatTwo) {
   const json = [];
   const world = getWorld(data);
   for (let row = 1; row < data.length - 1; row++) {
@@ -136,8 +153,12 @@ async function getFormatOneJSON(data) {
     let country = json.find(e => e.location === today.loc);
     let province =
       country && country.provinces.find(prov => prov.name === today.province);
+    let county = today.county;
     if (country) {
       addToCountry(country, province, today);
+      if (county && formatTwo) {
+        addCounty(country, today);
+      }
       if (
         country.location === 'United States' &&
         today.province === 'Puerto Rico'
@@ -151,6 +172,9 @@ async function getFormatOneJSON(data) {
       if (today.province && today.province !== country.location) {
         country.provinces.push(getProvince(today));
       }
+      if (county && formatTwo) {
+        addCounty(country, today);
+      }
       json.push(country);
     }
     addToWorld(world, today);
@@ -159,6 +183,7 @@ async function getFormatOneJSON(data) {
   await helper.injectPopData(json);
   await helper.injectCodes(json);
   await helper.injectMaps(json);
+  await helper.injectUnitedStateCodes(json);
   return json;
 }
 
@@ -169,7 +194,7 @@ async function getFormatTwoJSON(data) {
   totCaseCol = 7;
   totDeathCol = 8;
   totRecCol = 9;
-  const json = await getFormatOneJSON(data);
+  const json = await getFormatJSON(data, true);
   return json;
 }
 
@@ -180,11 +205,14 @@ async function getJSON() {
   const result = await helper.getJohnMatrix(endpoint, dateStr, d);
   const data = result.data;
   if (data[0][0] === 'Province/State') {
-    json = await getFormatOneJSON(data);
+    json = await getFormatOneJSON(data, false);
   } else {
     json = await getFormatTwoJSON(data);
   }
   // console.log(json.find(e => e.location === 'United States'));
+  // const country = json.find(e => e.location === 'United States');
+  // const province = country.provinces.find(e => e.name === 'New York');
+  // console.log(province);
   return json;
 }
 

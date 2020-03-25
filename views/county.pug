@@ -1,0 +1,33 @@
+extends layout.pug
+block style
+    link(rel="stylesheet", href="/style/country.css")
+block content
+  h1
+    span#country #{name}
+    span : #{provName}
+  h2#province Covid-19 Status: 
+    span#region #{provName}
+  form(autocomplete="off")
+    div.autocomplete
+      input(id="search" list="counties" name="county-search" placeholder="Search for County" type="text" autcomplete="off")
+      ul.auto-suggestions
+        each county in counties
+          li= county.name 
+  div.stats-container
+    div.stats
+      h2 Total Cases: 
+        br
+        span#tot-cases #{numWithCommas(totCases)}
+    div.stats
+      h2 Total Deaths: 
+        br
+        span#tot-deaths #{numWithCommas(totDeaths)}
+    div.stats
+      h2 Total Recovered: 
+        br
+        span#tot-recovered #{numWithCommas(totRecovered)}
+  p.ref Data retrieved from John Hopkins CCGIS Data Set: 
+    a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source
+    br
+block append scripts
+  script(src="/scripts/county.js")

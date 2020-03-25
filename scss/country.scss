@@ -24,18 +24,21 @@ body {
   display: flex;
   flex-direction: row;
   width: $btn-container-width;
-  margin: 10px auto;
-  justify-content: space-evenly;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 #prov-table-link,
-.show-country {
+.show-country,
+#county-search {
   background-color: $country-fill;
   border: 2px solid $country-stroke;
   border-radius: 3px;
   padding: 10px;
   display: inline-block;
-  margin: 0 auto;
+  margin: 0 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   text-decoration: none;
   font-size: 18px;
@@ -46,6 +49,10 @@ body {
   i {
     font-size: 14px;
   }
+}
+
+#county-search {
+  display: none;
 }
 
 #stats-head {
@@ -112,10 +119,9 @@ input::placeholder {
 .stats-container {
   display: flex;
   flex-direction: row;
-  width: $stats-width;
   margin: 0 auto;
   margin-bottom: 15px;
-  justify-content: space-evenly;
+  justify-content: center;
   h2 {
     font-size: 20px;
     span {
@@ -130,6 +136,7 @@ input::placeholder {
   border-radius: 5px;
   padding: 0 10px;
   pointer-events: none;
+  margin: 0 10px;
 }
 
 .map {
@@ -181,10 +188,10 @@ a:hover {
   }
   .btn-container {
     width: 100%;
-    margin: 12px auto;
   }
   #prov-table-link,
-  .show-country {
+  .show-country,
+  #county-search {
     padding: 8px;
     font-size: 16px;
     i {
