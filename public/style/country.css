@@ -21,9 +21,12 @@ body {
 .btn-container {
   display: flex;
   flex-direction: row;
-  width: 35%;
+  width: 40%;
   margin: 0 auto;
   justify-content: center;
+  margin-bottom: 10px;
+  height: 70px;
+  align-items: center;
 }
 
 #prov-table-link,
@@ -35,7 +38,6 @@ body {
   padding: 10px;
   display: inline-block;
   margin: 0 5px;
-  margin-bottom: 10px;
   cursor: pointer;
   text-decoration: none;
   font-size: 18px;
@@ -188,7 +190,9 @@ a:hover {
   }
 
   .btn-container {
+    box-sizing: border-box;
     width: 100%;
+    height: 60px;
   }
 
   #prov-table-link,
