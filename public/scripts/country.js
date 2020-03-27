@@ -194,21 +194,18 @@ async function setUpData(countryName) {
   const provinces = country.provinces;
   const mapHtml = getMapHtml(country);
   $('.map').html(getMapHtml(country));
-  $('object').css('visibility', 'hidden');
   $('object').on('load', () => {
     const svg = $('object')
       .contents()
       .find('svg');
     addMapStyling(svg, countryName, provinces);
-    $('object').css('visibility', 'visible');
     if (addDataToSVG(svg, provinces)) {
-      $('#hover').css('display', 'block');
-      $('#search-block').css('display', 'flex');
       addMapListeners(svg, country);
       setUpSearch(svg, country, provinces);
       setUpShowCountryStats();
     }
   });
+  finishedLoading();
 }
 
 setUpData($('#country').html());

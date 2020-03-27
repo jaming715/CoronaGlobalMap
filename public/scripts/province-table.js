@@ -35,7 +35,7 @@ async function setUpData(countryName) {
   const countries = await getData(endpoint);
   const country = getCountry(countries, countryName);
   setUpSearch(country.provinces);
-  $('#search-block').css('display', 'flex');
+  finishedLoading();
 }
 
 setUpData($('#country').html());

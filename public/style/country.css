@@ -11,6 +11,17 @@ body {
   color: #82e0aa;
 }
 
+#root {
+  visibility: hidden;
+}
+
+#loading-icon {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 150px;
+}
+
 h2 {
   margin: 0;
 }
@@ -91,7 +102,7 @@ select:focus {
 }
 
 #hover {
-  display: none;
+  display: block;
 }
 
 .map {
@@ -141,8 +152,8 @@ select:focus {
   margin: 15px auto;
   border-radius: 5px;
   align-items: center;
+  display: flex;
   font-size: 18px;
-  display: none;
 }
 #search-block i {
   margin: 0 10px;

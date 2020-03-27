@@ -11,6 +11,17 @@ body {
   color: #82e0aa;
 }
 
+#root {
+  visibility: hidden;
+}
+
+#loading-icon {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 150px;
+}
+
 h2 {
   margin: 0;
 }

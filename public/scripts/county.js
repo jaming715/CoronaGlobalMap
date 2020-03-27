@@ -84,7 +84,7 @@ async function setUpData(countryName, provName) {
   const country = getCountry(countries, countryName);
   const province = country.provinces.find(e => e.name === provName);
   setUpSearch(province, province.counties);
-  $('#search-block').css('display', 'flex');
+  finishedLoading();
 }
 
 setUpData($('#country').html(), $('#region').html());

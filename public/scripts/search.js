@@ -49,6 +49,7 @@ async function setUpSearch() {
   } else {
     $('body').html("Sorry, couldn't retrieve data for Covid-19");
   }
+  finishedLoading();
 }
 
 $(document).mousedown(function(e) {

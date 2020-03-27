@@ -6,7 +6,7 @@
 }
 
 #hover {
-  display: none;
+  display: block;
 }
 
 .map {
@@ -59,8 +59,8 @@
   margin: 15px auto;
   border-radius: 5px;
   align-items: center;
+  display: flex;
   font-size: 18px;
-  display: none;
   i {
     margin: 0 10px;
   }

@@ -26,8 +26,11 @@ html
       gtag('config', 'UA-161223976-1');
     block initscripts
   body
-    block content 
+    img#loading-icon(src="/svg/icons/loading/pin-loading-icon3.svg" alt="Loading...")
+    div#root
+      block content 
     block scripts
       script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
       script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
       script(src="/scripts/shared.js")
+      script(src="/scripts/loading.js")

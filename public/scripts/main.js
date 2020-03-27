@@ -57,11 +57,6 @@ $(window).on('load', async () => {
     .find('svg');
   const data = await addDataToSVG(svg);
   const world = data.find(e => e.location == 'World');
-  updateStats(
-    world.location,
-    world.totCases,
-    world.totDeaths,
-    world.totRecovered,
-  );
   addMapListeners(svg, world);
+  finishedLoading();
 });
