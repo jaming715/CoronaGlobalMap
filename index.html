@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="/favicons/world.ico">
+    <link rel="icon" href="/svg/icons/globe-icon.svg">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -26,6 +26,7 @@ gtag('js', new Date());
 gtag('config', 'UA-161223976-1');
     </script>
   </head>
+  <img id="loading-icon" src="/svg/icons/loading/pin-loading-icon3.svg" alt="loading icon"/>
   <body>
     <div class="title">
       <img id="globe-icon" class="icon" src="/svg/icons/globe-icon.svg" alt="globe icon"/>
@@ -47,7 +48,7 @@ gtag('config', 'UA-161223976-1');
       </div>
     </div>
     <div class="world-map">
-      <object id="world-map-object" type="image/svg+xml" data="/svg/world-map.svg">Your browser does not support SVGs</object>
+      <object id="world-map-object" type="image/svg+xml" data="/svg/maps/world-map.svg">Your browser does not support SVGs</object>
     </div>
     <p class="ref">Data retrieved from John Hopkins CCGIS Data Set:
     <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"> Data Source </a></br></p>
@@ -56,6 +57,6 @@ gtag('config', 'UA-161223976-1');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/scripts/shared.js"></script>
-    <script src="/scripts/world-map.js"></script>
+    <script src="/scripts/main.js"></script>
   </body>
 </html>

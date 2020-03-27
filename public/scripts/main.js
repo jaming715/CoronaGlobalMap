@@ -14,7 +14,7 @@ async function addDataToSVG(svg) {
       element.attr('tot-recovered', country.totRecovered);
       element.css('cursor', 'pointer');
       element.on('click taphold', () => {
-        window.location = `${root}/${country.code}`;
+        window.location = `/country/${country.code}`;
       });
     }
   });
@@ -51,8 +51,6 @@ function addMapListeners(svg, world) {
   });
 }
 
-const loading = 'Loading...';
-updateStats(loading, loading, loading, loading);
 $(window).on('load', async () => {
   let svg = $('object')
     .contents()

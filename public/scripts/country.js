@@ -90,7 +90,10 @@ function setUpSearch(svg, country, provinces) {
       showSearchRes(svg, country, province);
       if (province.code && province.counties.length > 0) {
         $('#county-search').css('display', 'block');
-        $('#county-search').attr('href', `/${country.code}/${province.code}`);
+        $('#county-search').attr(
+          'href',
+          `/country/${country.code}/${province.code}/counties`,
+        );
       } else {
         $('#county-search').css('display', 'none');
       }

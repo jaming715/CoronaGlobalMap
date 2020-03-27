@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Province} = require('../models/province-model.js');
+const {Province} = require('../../models/province-model.js');
 
 // router.get('/', async (req, res) => {
 //   try {

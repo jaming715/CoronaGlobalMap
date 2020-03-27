@@ -104,7 +104,13 @@ input::placeholder {
   margin-bottom: 15px;
 }
 .stats {
-  padding: 0 10px;
+  padding: 7px 10px;
+  h2 {
+    font-size: 20px;
+    span {
+      font-size: 18px;
+    }
+  }
 }
 
 table,

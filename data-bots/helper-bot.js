@@ -109,9 +109,9 @@ async function injectMaps(countries) {
   for (let i = 0; i < countries.length; i++) {
     const country = countries[i];
     const code = country.code.toLowerCase();
-    const exists = await fileExists(`${root}/${code}.svg`);
+    const exists = await fileExists(`${root}/maps/${code}.svg`);
     if (code !== '--' && exists) {
-      country.map = '/svg/' + code + '.svg';
+      country.map = '/svg/maps/' + code + '.svg';
     }
   }
 }

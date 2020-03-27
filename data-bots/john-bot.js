@@ -83,7 +83,7 @@ function getWorld(data) {
     provinces: [],
     population: 0,
     code: '--',
-    map: 'svg/world-map.svg',
+    map: 'svg/maps/world-map.svg',
   };
 }
 

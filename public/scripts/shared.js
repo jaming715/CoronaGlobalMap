@@ -1,5 +1,5 @@
 const root = window.location.origin;
-const endpoint = root + '/country';
+const endpoint = root + '/api/country';
 const red = '#F44336';
 
 async function getData(endpoint) {

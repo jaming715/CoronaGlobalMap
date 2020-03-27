@@ -4,7 +4,7 @@ function getResults(searchRes) {
     const first = i === 0 ? 'first' : '';
     const last = i === searchRes.length - 1 ? 'last' : '';
     $('#search-res').append(
-      `<a class="${first} ${last}" href=/${res.code}><li>${res.location}</li></a>`,
+      `<a class="${first} ${last}" href=/country/${res.code}><li>${res.location}</li></a>`,
     );
   });
 }

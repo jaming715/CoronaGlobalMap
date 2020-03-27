@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Country = require('../models/country-model.js');
+const Country = require('../../models/country-model.js');
 
 router.get('/', async (req, res) => {
   try {
@@ -39,5 +39,4 @@ router.get('/', async (req, res) => {
 //     console.log('Error adding country.', err);
 //   }
 // });
-
 module.exports = router;
