@@ -41,7 +41,6 @@ select:focus {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -98,16 +97,12 @@ svg {
   stroke-width: 2.25px;
 }
 
+h2 {
+  font-size: 28px;
+}
+
 .stats-container {
   padding: 0 10px;
-}
-.stats-container h2 {
-  font-weight: bold;
-  font-size: 15px;
-  margin-bottom: 0px;
-}
-.stats-container h2 span {
-  font-size: 17px;
 }
 .stats-container .stats, .stats-container #info-box {
   padding: 10px;

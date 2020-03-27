@@ -41,7 +41,6 @@ select:focus {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -93,8 +92,13 @@ select:focus {
   margin: 10px auto;
 }
 
+h2 {
+  font-size: 30px;
+}
+
 input {
   box-sizing: border-box;
+  font-size: 17px;
   border-radius: 5px;
   padding: 7px;
   width: 100%;
@@ -159,7 +163,7 @@ a:hover {
 
 .world-stats {
   font-size: 18px;
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin: 10px 0;
   margin-left: auto;
   margin-right: auto;
@@ -180,4 +184,4 @@ a:hover {
   }
 }
 
-/*# sourceMappingURL=mobile.css.map */
+/*# sourceMappingURL=search.css.map */

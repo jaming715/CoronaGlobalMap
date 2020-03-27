@@ -49,6 +49,16 @@ app.get('/', async (req, res) => {
   });
 });
 
+app.get('/search', async (req, res) => {
+  const world = await Country.findOne({location: 'World'});
+  res.render('search', {
+    title: 'Coronavirus Global Map',
+    totCases: world.totCases,
+    totDeaths: world.totDeaths,
+    totRecovered: world.totRecovered,
+  });
+});
+
 // app.get('/country/:id', async (req, res) => {
 //   const countryCode = req.params.id;
 //   const country = await Country.findOne({code: countryCode});

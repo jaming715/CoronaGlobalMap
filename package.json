@@ -8,7 +8,7 @@
     "start": "nodemon -e js,pug,html server.js",
     "watch-main": "sass --watch ./scss/main.scss ./public/style/main.css",
     "watch-country": "sass --watch ./scss/country.scss ./public/style/country.css",
-    "watch-mobile": "sass --watch ./scss/mobile.scss ./public/style/mobile.css"
+    "watch-search": "sass --watch ./scss/search.scss ./public/style/search.css"
   },
   "repository": {
     "type": "git",

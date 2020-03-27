@@ -7,16 +7,12 @@ svg {
   stroke-width: 2.25px;
 }
 
+h2 {
+  font-size: 28px;
+}
+
 .stats-container {
   padding: 0 10px;
-  h2 {
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 0px;
-    span {
-      font-size: 17px;
-    }
-  }
   .stats {
     padding: 10px;
   }
@@ -31,7 +27,6 @@ svg {
 #info-box {
   @extend .stats;
   @extend %center-block;
-  // font-size: 1.2vw;
 }
 
 .search-link {

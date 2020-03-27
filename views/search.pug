@@ -1,0 +1,26 @@
+extends layout.pug
+block append style
+  link(rel="stylesheet" href="/style/search.css")
+block content
+  div.title
+    img(id="globe-icon" class="icon" src="/svg/icons/globe-icon.svg" alt="globe icon")
+    h2 Covid-19 Status
+  div.visit-map-container
+    a(class="visit-map" href="/") Back to Global Map
+  div.world-stats
+    strong World
+    br
+    Total Confirmed Cases: #{totCases}
+    br
+    Total Deaths: #{totDeaths} 
+    br
+    Total Recovered: #{totRecovered} 
+  form(autocomplete="off")
+    div.autocomplete
+      input(type="text" id="search" name="country-search" placeholder="Search for Country" autocomplete="off")
+      ul(id="search-res")
+  p.ref Data retrieved from John Hopkins CCGIS Data Set: 
+    a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source 
+    br
+block append scripts
+  script(src="/scripts/search.js")

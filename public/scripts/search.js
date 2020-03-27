@@ -33,13 +33,6 @@ function conductSearch(query, data) {
 async function setUpSearch() {
   const data = await getData(endpoint);
   const world = data.find(e => e.location === 'World');
-  const worldHtml = getJohnDataString(
-    world.location,
-    numWithCommas(world.totCases),
-    numWithCommas(world.totDeaths),
-    numWithCommas(world.totRecovered),
-  );
-  $('.world-stats').html(worldHtml);
   if (data) {
     $('.ref').append('Last updated: ' + data[0].date);
     $('#search').on('change paste keyup', e => {

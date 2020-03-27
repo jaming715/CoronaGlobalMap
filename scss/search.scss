@@ -7,9 +7,14 @@
   margin: 10px auto;
 }
 
+h2 {
+  font-size: 30px;
+}
+
 input {
   @extend %button-colors;
   box-sizing: border-box;
+  font-size: 17px;
   border-radius: 5px;
   padding: 7px;
   width: 100%;
@@ -78,7 +83,7 @@ a:hover {
 .world-stats {
   @extend .stats;
   font-size: 18px;
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin: 10px 0;
   margin-left: auto;
   margin-right: auto;
