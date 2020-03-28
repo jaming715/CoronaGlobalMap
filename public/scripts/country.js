@@ -55,7 +55,7 @@ function showSuggestions(query, provinces) {
     list.css('display', 'block');
   }
   suggestions.forEach(suggestion => {
-    list.append(`<li>${suggestion.name}</li>`);
+    list.append(`<li id="suggestion">${suggestion.name}</li>`);
   });
   if (!mobile) {
     $('.auto-suggestions > li').on('mouseenter', function(e) {
@@ -64,11 +64,6 @@ function showSuggestions(query, provinces) {
         .trigger('change');
     });
   }
-  $('.auto-suggestions > li').on('click', function(e) {
-    $('input')
-      .val($(this).html())
-      .trigger('change', true);
-  });
 }
 
 function getProvince(query, provinces) {
@@ -105,15 +100,6 @@ function setUpSearch(svg, country, provinces) {
       showSuggestions(query, provinces);
     }
   });
-  $('#search').on('click', e => {
-    const query = e.target.value.toLowerCase().replace(' ', '');
-    if (!query) showSuggestions('', provinces);
-  });
-  if (!mobile) {
-    $('#search').on('focusout', e => {
-      showSuggestions('none', provinces);
-    });
-  }
 }
 
 function clearProvBack(province) {
@@ -208,6 +194,20 @@ async function setUpData(countryName) {
       setUpSearch(svg, country, provinces);
     } else {
       $('#hover').css('display', 'none');
+    }
+  });
+  $(document).mousedown(function(e) {
+    const target = $(e.target);
+    const id = target.attr('id');
+    if (id !== 'search' && id !== 'suggestion') {
+      $('.auto-suggestions').css('display', 'none');
+    } else if (id === 'suggestion') {
+      $('input')
+        .val(target.html())
+        .trigger('change', true);
+    } else if (id === 'search') {
+      const query = e.target.value.toLowerCase().replace(' ', '');
+      if (!query) showSuggestions('', provinces);
     }
   });
   finishedLoading();
