@@ -59,13 +59,13 @@ function showSuggestions(query, provinces) {
   $('.auto-suggestions > li').on('mouseenter', function(e) {
     $('input')
       .val($(this).html())
-      .trigger('change', true);
+      .trigger('change');
   });
   $('.auto-suggestions > li').on('click, tap', function(e) {
     list.css('display', 'none');
     $('input')
       .val($(this).html())
-      .trigger('change');
+      .trigger('change', true);
   });
 }
 
@@ -78,10 +78,10 @@ function getProvince(query, provinces) {
 }
 
 function setUpSearch(svg, country, provinces) {
-  $('#search').on('change paste keyup', (e, hovered) => {
+  $('#search').on('change paste keyup', (e, notHovered) => {
     const query = e.target.value.toLowerCase().replace(' ', '');
     const province = getProvince(query, provinces);
-    if (!hovered) $('.auto-suggestions').css('display', 'none');
+    if (notHovered) $('.auto-suggestions').css('display', 'none');
     if (activeProvince) {
       clearProvBack(activeProvince);
       activeProvince = null;
@@ -140,7 +140,7 @@ function provinceClickHandler(svg, country, province) {
   } else {
     $('input')
       .val($(province).attr('name'))
-      .trigger('change');
+      .trigger('change', true);
     svg.children('path').each(function() {
       $(this).off('mouseenter mouseout');
     });
