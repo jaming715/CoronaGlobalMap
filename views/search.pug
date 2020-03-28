@@ -10,14 +10,14 @@ block content
   div.world-stats
     strong World
     br
-    Total Confirmed Cases: #{totCases}
+    Total Confirmed Cases: #{numWithCommas(totCases)}
     br
-    Total Deaths: #{totDeaths} 
+    Total Deaths: #{numWithCommas(totDeaths)} 
     br
-    Total Recovered: #{totRecovered} 
+    Total Recovered: #{numWithCommas(totRecovered)} 
   form(autocomplete="off")
     div.autocomplete
-      input(type="text" id="search" name="country-search" placeholder="Search for Country" autocomplete="off")
+      input(type="text" id="search" placeholder="Search for Country" autocomplete="off")
       ul(id="search-res")
   p.ref Data retrieved from John Hopkins CCGIS Data Set: 
     a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source 

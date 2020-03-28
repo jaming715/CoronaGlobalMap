@@ -34,3 +34,7 @@ function updateStats(region, totCases, totDeaths, totRecovered) {
   $('#tot-deaths').html(numWithCommas(totDeaths));
   $('#tot-recovered').html(numWithCommas(totRecovered));
 }
+
+$('form').submit(() => {
+  return false;
+});

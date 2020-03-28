@@ -23,7 +23,6 @@ function showCountryStats(country) {
 }
 
 function showSearchRes(svg, country, province) {
-  const fill = $('.map').css('fill');
   const stroke = $('.map').css('stroke');
   const prov = svg.find(`[name='${province.name}']`);
   activeProvince = prov;
@@ -77,15 +76,16 @@ function getProvince(query, provinces) {
   });
   return province;
 }
-function clearActiveProv() {
-  activeProvince.css('fill', $('.map').css('fill'));
-}
+
 function setUpSearch(svg, country, provinces) {
   $('#search').on('change paste keyup', (e, hovered) => {
     const query = e.target.value.toLowerCase().replace(' ', '');
     const province = getProvince(query, provinces);
     if (!hovered) $('.auto-suggestions').css('display', 'none');
-    if (activeProvince) clearActiveProv();
+    if (activeProvince) {
+      clearProvBack(activeProvince);
+      activeProvince = null;
+    }
     if (province) {
       showSearchRes(svg, country, province);
       if (province.code && province.counties.length > 0) {
@@ -99,7 +99,6 @@ function setUpSearch(svg, country, provinces) {
       }
     } else {
       $('#county-search').css('display', 'none');
-      activeProvince = null;
       showCountryStats(country);
       showSuggestions(query, provinces);
     }
@@ -113,46 +112,47 @@ function setUpSearch(svg, country, provinces) {
   });
 }
 
-function addMapListeners(svg, country) {
-  svg.children('path').each(function() {
-    const totCases = $(this).attr('tot-cases');
-    const totDeaths = $(this).attr('tot-deaths');
-    const totRecovered = $(this).attr('tot-recovered');
-    // if (totCases) $(this).css('fill', red);
-    const fill = $(this).css('fill');
-    const stroke = $(this).css('stroke');
-    const infoBack = $(this).css('background');
-    $(this).on('mouseenter', () => {
-      $(this).css('fill', stroke);
-      if (activeProvince) clearActiveProv();
-      activeProvince = $(this);
-      if (totCases) {
-        $('input')
-          .val($(this).attr('name'))
-          .trigger('change');
-      } else {
-        $('input')
-          .val('No Data')
-          .trigger('change');
-      }
-    });
-    // $(this).on('mouseout', () => {
-    //   $(this).css('fill', fill);
-    //   $(this).css('stroke', stroke);
-    //   $('input')
-    //     .val('')
-    //     .trigger('change');
-    // });
-  });
+function clearProvBack(province) {
+  $(province).css('fill', $('.map').css('fill'));
 }
 
-function setUpShowCountryStats() {
-  $('.show-country').on('click', () => {
-    if (activeProvince) clearActiveProv();
+function clearActiveProv(country) {
+  if (activeProvince) clearProvBack(activeProvince);
+  $('#county-search').css('display', 'none');
+  activeProvince = null;
+  $('input').val('');
+  showCountryStats(country);
+}
+
+function provinceHoverHandler(province, country) {
+  clearActiveProv(country);
+  const stroke = $(province).css('stroke');
+  $(province).css('fill', stroke);
+}
+
+function provinceClickHandler(svg, country, province) {
+  if ($(province).attr('id') === $(activeProvince).attr('id')) {
+    clearActiveProv(country);
+    svg.children('path').each(function() {
+      $(this).on('mouseenter', () => provinceHoverHandler(this, country));
+      $(this).on('mouseout', () => clearProvBack(this));
+    });
+  } else {
     $('input')
-      .val('')
+      .val($(province).attr('name'))
       .trigger('change');
-    $('.auto-suggestions').css('display', 'none');
+    svg.children('path').each(function() {
+      $(this).off('mouseenter mouseout');
+    });
+    activeProvince = province;
+  }
+}
+
+function addMapListeners(svg, country) {
+  svg.children('path').each(function() {
+    $(this).on('mouseenter', () => provinceHoverHandler(this, country));
+    $(this).on('mouseout', () => clearProvBack(this));
+    $(this).on('click', () => provinceClickHandler(svg, country, this));
   });
 }
 
@@ -202,7 +202,6 @@ async function setUpData(countryName) {
     if (addDataToSVG(svg, provinces)) {
       addMapListeners(svg, country);
       setUpSearch(svg, country, provinces);
-      setUpShowCountryStats();
     }
   });
   finishedLoading();

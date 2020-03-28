@@ -13,8 +13,8 @@ block content
           i(class="fas fa-external-link-alt")
       div
         a.btn(href="#" id="county-search") Search Counties 
-      div
-        a.show-country.btn(href="#") Show Country Stats
+      // div
+      //   a.show-country.btn(href="#") Show Country Stats
   h2#stats-head Covid-19 Status: 
     span#region #{name}
   if provinces.length > 0
@@ -23,7 +23,7 @@ block content
       div#search-block
         i(class="fas fa-search-location")
         div.autocomplete
-          input(id="search" list="provinces" name="province-search" placeholder= hint)
+          input(id="search" list="provinces" placeholder= hint)
           ul.auto-suggestions
   div.stats-container
     div.stats
