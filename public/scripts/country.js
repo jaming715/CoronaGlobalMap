@@ -206,6 +206,8 @@ async function setUpData(countryName) {
     if (addDataToSVG(svg, provinces)) {
       addMapListeners(svg, country);
       setUpSearch(svg, country, provinces);
+    } else {
+      $('#hover').css('display', 'none');
     }
   });
   finishedLoading();

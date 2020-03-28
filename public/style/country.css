@@ -106,12 +106,11 @@ select:focus {
 }
 
 .map {
+  width: 35%;
+  margin: 15px auto;
   fill: #1c2833;
   stroke: #82e0aa;
   stroke-width: 3.25px;
-  display: block;
-  width: 35%;
-  margin: 15px auto;
 }
 
 .btn-container {
