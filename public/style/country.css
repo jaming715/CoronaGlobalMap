@@ -161,7 +161,7 @@ select:focus {
 
 input {
   box-sizing: border-box;
-  background-color: #1c2833;
+  background: transparent;
   border: 0px;
   color: #82e0aa;
   font-size: 18px;
