@@ -35,6 +35,12 @@ function getPrevDay(numDays, date) {
   return prevDate;
 }
 
+function getISO(date) {
+  const str = date.toISOString();
+  const lastCharIndex = str.indexOf('T');
+  return str.slice(0, lastCharIndex);
+}
+
 function getDateStr(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
@@ -157,4 +163,5 @@ module.exports = {
   getJohnDataFile,
   getDateStr,
   getPrevDay,
+  getISO,
 };

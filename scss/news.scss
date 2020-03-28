@@ -1,0 +1,134 @@
+@import './_variables.scss';
+@import './_shared.scss';
+
+#news-headlines {
+  margin-top: 20px;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+#page-buttons {
+  display: flex;
+  flex-direction: row;
+  font-size: 25px;
+  justify-content: center;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  #back,
+  #next {
+    @extend %button-colors;
+    @extend %button-hover;
+    background-color: $country-fill;
+    border: 3px solid $country-stroke;
+    padding: 5px 15px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+}
+
+#page-num {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.news-article {
+  @extend %button-colors;
+  border: 3px solid $country-stroke;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  font-size: 17px;
+  .article-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    background-color: $article-title-back;
+    padding: 15px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    .source {
+      font-size: 20px;
+      margin-top: 10px;
+      text-align: left;
+      font-weight: normal;
+    }
+  }
+  .article-body {
+    text-align: left;
+    padding: 0 15px;
+    padding-bottom: 15px;
+  }
+  .authors {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .date {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .published {
+    text-decoration: underline;
+  }
+  .article-img {
+    width: 100%;
+    margin-top: 15px;
+  }
+  .article-description {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}
+
+#back-to-top {
+  @extend %button-colors;
+  @extend %button-hover;
+  padding: 10px;
+  margin: 10px auto;
+  font-size: 20px;
+  width: 40%;
+}
+
+@media only screen and (min-width: 768px) {
+  #news-headlines {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 30px;
+  }
+
+  .news-article {
+    font-size: 23px;
+    width: 50%;
+    .article-title {
+      font-size: 23px;
+      background-color: $article-title-back;
+      padding: 25px;
+      padding-bottom: 10px;
+      .source {
+        font-size: 22px;
+        margin-top: 15px;
+        text-align: left;
+      }
+    }
+    .authors {
+      font-size: 25px;
+    }
+    .date {
+      font-size: 25px;
+    }
+    .article-body {
+      padding: 0 25px;
+      padding-bottom: 25px;
+    }
+    .article-img {
+      width: 100%;
+      margin-top: 15px;
+    }
+    .article-description {
+      text-align: justify;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 15px;
+    }
+  }
+}

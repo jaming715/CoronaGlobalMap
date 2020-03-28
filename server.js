@@ -11,7 +11,9 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const {updateCountries} = require('./db-bots/country-manager.js');
 const countryApiRouter = require('./routes/api/api-country.js');
+const newsApiRouter = require('./routes/api/api-news.js');
 const countryPagesRouter = require('./routes/pages/pages-country.js');
+const newsPagesRouter = require('./routes/pages/pages-news.js');
 const Country = require('./models/country-model.js');
 
 dotenv.config();
@@ -37,7 +39,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/country', countryApiRouter);
+app.use('/api/news', newsApiRouter);
 app.use('/country', countryPagesRouter);
+app.use('/news', newsPagesRouter);
 
 app.get('/', async (req, res) => {
   const world = await Country.findOne({location: 'World'});
