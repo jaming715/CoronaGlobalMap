@@ -7,12 +7,14 @@ block content
   h3#hover Click on #{provTitle} For Status 
   div.map
   div.btn-container
-    if provinces.length > 0
+      if provinces.length > 0
+        div
+          a.btn(href=`/country/${code}/province-table` id="prov-table-link") #{provTitle} Table  
+            i(class="fas fa-external-link-alt")
+        div
+          a.btn(href="#" id="county-search") Search Counties 
       div
-        a.btn(href=`/country/${code}/province-table` id="prov-table-link") #{provTitle} Table  
-          i(class="fas fa-external-link-alt")
-      div
-        a.btn(href="#" id="county-search") Search Counties 
+        a.btn(href=`/news/${code}` id="news-link") News
       // div
       //   a.show-country.btn(href="#") Show Country Stats
   h2#stats-head Covid-19 Status: 

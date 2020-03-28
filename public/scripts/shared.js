@@ -1,5 +1,6 @@
 const root = window.location.origin;
 const endpoint = root + '/api/country';
+const newsEndpoint = root + '/api/news';
 const red = '#F44336';
 
 async function getData(endpoint) {
@@ -9,6 +10,22 @@ async function getData(endpoint) {
     return response.data;
   } catch (err) {
     console.log('Error fetching data.', err);
+  }
+}
+
+async function getCountryNews(countryCode, page) {
+  try {
+    let response = null;
+    if (countryCode === 'World') {
+      response = await axios.get(`${newsEndpoint}/everything/${page}`);
+    } else {
+      response = await axios.get(
+        `${newsEndpoint}/everything/${countryCode}/${page}`,
+      );
+    }
+    return response.data;
+  } catch (err) {
+    console.log('Error retrieving world news.', err);
   }
 }
 

@@ -47,7 +47,7 @@ async function setUpSearch() {
   const data = await getData(endpoint);
   const world = data.find(e => e.location === 'World');
   if (data) {
-    $('.ref').append('Last updated: ' + data[0].date);
+    // $('.ref').append('Last updated: ' + data[0].date);
     $('#search').on('change paste keyup', e => {
       const query = e.target.value.toLowerCase();
       conductSearch(query, data);
@@ -60,3 +60,4 @@ async function setUpSearch() {
 }
 
 setUpSearch();
+setUpNews('World');
