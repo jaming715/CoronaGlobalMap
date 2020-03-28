@@ -60,4 +60,4 @@ async function setUpSearch() {
 }
 
 setUpSearch();
-setUpNews('World');
+setUpNews('US');
