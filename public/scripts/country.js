@@ -1,3 +1,4 @@
+const mobile = screen.width <= 699;
 let activeProvince = null;
 function getMapHtml(country) {
   return (
@@ -56,11 +57,13 @@ function showSuggestions(query, provinces) {
   suggestions.forEach(suggestion => {
     list.append(`<li>${suggestion.name}</li>`);
   });
-  $('.auto-suggestions > li').on('mouseenter', function(e) {
-    $('input')
-      .val($(this).html())
-      .trigger('change');
-  });
+  if (!mobile) {
+    $('.auto-suggestions > li').on('mouseenter', function(e) {
+      $('input')
+        .val($(this).html())
+        .trigger('change');
+    });
+  }
   $('.auto-suggestions > li').on('click tap', function(e) {
     list.css('display', 'none');
     $('input')
