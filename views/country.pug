@@ -4,7 +4,7 @@ block append style
 block content
   h1#country #{name}
   - const provTitle = name === "United States" ? "State" : "Province"
-  h3#hover Hover or Tap On #{provTitle} For Status 
+  h3#hover Click on #{provTitle} For Status 
   div.map
   div.btn-container
     if provinces.length > 0
