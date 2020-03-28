@@ -15,11 +15,8 @@ body {
   visibility: hidden;
 }
 
-#loading-icon {
-  display: block;
-  margin: 0 auto;
-  margin-top: 10%;
-  width: 150px;
+.ref {
+  font-size: 20px;
 }
 
 h2 {
@@ -60,14 +57,21 @@ select:focus {
 }
 
 .icon {
-  width: 40px;
+  width: 45px;
+}
+
+#loading-icon {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 180px;
 }
 
 .stats-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .stats {
@@ -102,7 +106,12 @@ select:focus {
 }
 
 #hover {
+  font-size: 20px;
   display: block;
+}
+
+h3 {
+  font-size: 33px;
 }
 
 .map {
@@ -129,7 +138,7 @@ select:focus {
   display: inline-block;
   margin: 0 5px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 23px;
 }
 .btn i {
   font-size: 14px;
@@ -152,18 +161,23 @@ select:focus {
   border-radius: 5px;
   align-items: center;
   display: flex;
-  font-size: 18px;
+  font-size: 20px;
 }
 #search-block i {
   margin: 0 10px;
 }
 
+.autocomplete {
+  flex-grow: 1;
+}
+
 input {
+  width: 100%;
   box-sizing: border-box;
   background: transparent;
   border: 0px;
   color: #82e0aa;
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px 0;
 }
 
@@ -185,7 +199,7 @@ input::placeholder {
 }
 .auto-suggestions li {
   padding: 10px 0px;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   border: 1px solid #82e0aa;
 }
@@ -227,6 +241,10 @@ table {
 }
 
 @media only screen and (max-width: 650px) {
+  .ref {
+    font-size: 17px;
+  }
+
   .map {
     width: 70%;
   }
@@ -263,15 +281,15 @@ table {
     width: 100%;
     flex-wrap: wrap;
   }
-  .stats-container h2 {
-    font-size: 17px;
-  }
-  .stats-container h2 span {
-    font-size: 16px;
-  }
 
   .stats {
     margin-bottom: 10px;
+  }
+  .stats h2 {
+    font-size: 17px;
+  }
+  .stats h2 span {
+    font-size: 16px;
   }
 
   #stats-head {

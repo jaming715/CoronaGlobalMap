@@ -6,7 +6,12 @@
 }
 
 #hover {
+  font-size: 20px;
   display: block;
+}
+
+h3 {
+  font-size: 33px;
 }
 
 .map {
@@ -36,7 +41,7 @@
   display: inline-block;
   margin: 0 5px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 23px;
   i {
     font-size: 14px;
   }
@@ -60,18 +65,23 @@
   border-radius: 5px;
   align-items: center;
   display: flex;
-  font-size: 18px;
+  font-size: 20px;
   i {
     margin: 0 10px;
   }
 }
 
+.autocomplete {
+  flex-grow: 1;
+}
+
 input {
+  width: 100%;
   box-sizing: border-box;
   background: transparent;
   border: 0px;
   color: $green;
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px 0;
 }
 
@@ -94,7 +104,7 @@ input::placeholder {
   li {
     @extend %button-hover;
     padding: 10px 0px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     border: 1px solid $country-stroke;
   }
@@ -137,6 +147,10 @@ table {
 }
 
 @media only screen and (max-width: 650px) {
+  .ref {
+    font-size: 17px;
+  }
+
   .map {
     width: 70%;
   }
@@ -172,16 +186,16 @@ table {
   .stats-container {
     width: $stats-width-mobile;
     flex-wrap: wrap;
+  }
+
+  .stats {
+    margin-bottom: 10px;
     h2 {
       font-size: 17px;
       span {
         font-size: 16px;
       }
     }
-  }
-
-  .stats {
-    margin-bottom: 10px;
   }
 
   #stats-head {

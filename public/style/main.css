@@ -15,11 +15,8 @@ body {
   visibility: hidden;
 }
 
-#loading-icon {
-  display: block;
-  margin: 0 auto;
-  margin-top: 10%;
-  width: 150px;
+.ref {
+  font-size: 20px;
 }
 
 h2 {
@@ -60,14 +57,21 @@ select:focus {
 }
 
 .icon {
-  width: 40px;
+  width: 45px;
+}
+
+#loading-icon {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 180px;
 }
 
 .stats-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .stats, #info-box {
@@ -109,7 +113,7 @@ svg {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 33px;
 }
 
 .stats-container {
@@ -128,7 +132,7 @@ h2 {
   display: block;
   width: 30%;
   margin: 0 auto;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   text-decoration: none;
   padding: 5px;

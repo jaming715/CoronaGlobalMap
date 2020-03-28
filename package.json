@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon -e js,pug,html server.js",
-    "watch-main": "sass --watch ./scss/main.scss ./public/style/main.css",
-    "watch-country": "sass --watch ./scss/country.scss ./public/style/country.css",
-    "watch-search": "sass --watch ./scss/search.scss ./public/style/search.css"
+    "watch-styles": "sass --watch ./scss:./public/style"
   },
   "repository": {
     "type": "git",

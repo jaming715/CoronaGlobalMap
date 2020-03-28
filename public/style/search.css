@@ -15,11 +15,8 @@ body {
   visibility: hidden;
 }
 
-#loading-icon {
-  display: block;
-  margin: 0 auto;
-  margin-top: 10%;
-  width: 150px;
+.ref {
+  font-size: 20px;
 }
 
 h2 {
@@ -60,14 +57,21 @@ select:focus {
 }
 
 .icon {
-  width: 40px;
+  width: 45px;
+}
+
+#loading-icon {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 180px;
 }
 
 .stats-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .stats, .world-stats {
@@ -103,15 +107,19 @@ select:focus {
   margin: 10px auto;
 }
 
+.ref {
+  font-size: 17px;
+}
+
 h2 {
-  font-size: 30px;
+  font-size: 33px;
 }
 
 input {
   box-sizing: border-box;
-  font-size: 17px;
+  font-size: 20px;
   border-radius: 5px;
-  padding: 7px;
+  padding: 10px;
   width: 100%;
 }
 
@@ -147,8 +155,8 @@ a:hover {
 #search-res a {
   text-decoration: none;
   display: block;
-  font-size: 17px;
-  padding: 7px;
+  font-size: 20px;
+  padding: 10px;
   border: 1px solid #82e0aa;
 }
 #search-res .first {
@@ -166,14 +174,15 @@ a:hover {
 
 .visit-map {
   display: inline-block;
-  padding: 5px;
+  padding: 10px;
   margin: 10px 0;
   font-weight: bold;
+  font-size: 20px;
   text-decoration: none;
 }
 
 .world-stats {
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px 15px;
   margin: 10px 0;
   margin-left: auto;
