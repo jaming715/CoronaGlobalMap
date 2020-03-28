@@ -61,7 +61,7 @@ function showSuggestions(query, provinces) {
       .val($(this).html())
       .trigger('change');
   });
-  $('.auto-suggestions > li').on('click, tap', function(e) {
+  $('.auto-suggestions > li').on('click tap', function(e) {
     list.css('display', 'none');
     $('input')
       .val($(this).html())
