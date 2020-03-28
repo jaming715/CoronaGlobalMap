@@ -30,6 +30,19 @@ function conductSearch(query, data) {
   $('#res-label').css('display', 'block');
 }
 
+function listenForClicks(data) {
+  $(document).mousedown(function(e) {
+    const clicked = $(e.target);
+    if (clicked.prop('tagName') === 'LI') {
+      window.location = clicked.parent().attr('href');
+    } else if (clicked.attr('id') === 'search') {
+      const query = e.target.value.toLowerCase().replace(' ', '');
+      if (!query) conductSearch('all', data);
+    } else {
+      conductSearch('', data);
+    }
+  });
+}
 async function setUpSearch() {
   const data = await getData(endpoint);
   const world = data.find(e => e.location === 'World');
@@ -39,24 +52,11 @@ async function setUpSearch() {
       const query = e.target.value.toLowerCase();
       conductSearch(query, data);
     });
-    $('#search').on('focusout', e => {
-      conductSearch('', data);
-    });
-    $('#search').on('click', e => {
-      const query = e.target.value.toLowerCase().replace(' ', '');
-      if (!query) conductSearch('all', data);
-    });
+    listenForClicks(data);
   } else {
     $('body').html("Sorry, couldn't retrieve data for Covid-19");
   }
   finishedLoading();
 }
-
-$(document).mousedown(function(e) {
-  const clicked = $(e.target);
-  if (clicked.prop('tagName') === 'LI') {
-    window.location = clicked.parent().attr('href');
-  }
-});
 
 setUpSearch();
