@@ -64,8 +64,7 @@ function showSuggestions(query, provinces) {
         .trigger('change');
     });
   }
-  $('.auto-suggestions > li').on('click tap', function(e) {
-    list.css('display', 'none');
+  $('.auto-suggestions > li').on('click', function(e) {
     $('input')
       .val($(this).html())
       .trigger('change', true);
@@ -110,9 +109,11 @@ function setUpSearch(svg, country, provinces) {
     const query = e.target.value.toLowerCase().replace(' ', '');
     if (!query) showSuggestions('', provinces);
   });
-  $('#search').on('focusout', e => {
-    showSuggestions('none', provinces);
-  });
+  if (!mobile) {
+    $('#search').on('focusout', e => {
+      showSuggestions('none', provinces);
+    });
+  }
 }
 
 function clearProvBack(province) {
