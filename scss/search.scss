@@ -13,7 +13,7 @@
 }
 
 h2 {
-  font-size: 33px;
+  font-size: 24px;
 }
 
 input {
@@ -58,8 +58,10 @@ a:hover {
     text-decoration: none;
     display: block;
     font-size: 20px;
-    padding: 10px;
-    border: 1px solid $green;
+    li {
+      border: 1px solid $green;
+      padding: 10px;
+    }
   }
   .first {
     border-top-left-radius: 5px;
@@ -71,16 +73,16 @@ a:hover {
   }
 }
 
-.visit-map-container {
+#visit-map {
   display: none;
 }
 
-.visit-map {
+.btn {
   @extend %button-hover;
   @extend %button-colors;
   display: inline-block;
   padding: 10px;
-  margin: 10px 0;
+  margin-top: 10px;
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
@@ -90,12 +92,14 @@ a:hover {
   @extend .stats;
   font-size: 20px;
   padding: 10px 15px;
-  margin: 10px 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto;
+  margin-bottom: 0px;
 }
 
 @media only screen and (min-width: 768px) {
+  h2 {
+    font-size: 33px;
+  }
   .autocomplete {
     width: 40%;
     margin: 10px auto;
@@ -103,7 +107,10 @@ a:hover {
   #search-res {
     max-height: 350px;
   }
-  .visit-map-container {
+  #visit-map {
     display: block;
+  }
+  .world-stats {
+    margin-bottom: 15px;
   }
 }

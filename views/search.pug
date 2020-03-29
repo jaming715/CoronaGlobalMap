@@ -4,9 +4,11 @@ block append style
 block content
   div.title
     img(id="globe-icon" class="icon" src="/svg/icons/globe-icon.svg" alt="globe icon")
-    h2 Covid-19 Status
-  div.visit-map-container
-    a(class="visit-map" href="/") Back to Global Map
+    h2 #{title}
+  div.button-container#visit-map
+    a(class="btn" href="/") Back to Global Map
+  div.button-container
+    a(class="btn" href="/news") Covid-19 Daily News
   div.world-stats
     strong World
     br
@@ -17,23 +19,11 @@ block content
     Total Recovered: #{numWithCommas(totRecovered)} 
   form(autocomplete="off")
     div.autocomplete
-      input(type="text" id="search" placeholder="Search for Country" autocomplete="off")
+      input(type="text" id="search" placeholder="Search Country Maps" autocomplete="off")
       ul(id="search-res")
-  // h2#news-headlines Latest News
-  // div#page-buttons
-  //   div#back
-  //     i(class="fas fa-angle-left")
-  //   div#next
-  //     i(class="fas fa-angle-right")
-  // div#page-num Page 
-  //   span#p-num 1 
-  //   span of  
-  //   span#p-tot 
-  // div#news 
-  // div#back-to-top Back To Top
-  // p.ref News powered by:  
-  //   a(href="https://newsApi.org" target="_blank") NewsApi.org
-  //   br
+  p.ref Data retrieved from John Hopkins CCEGIS Data Set: 
+    a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source
+    br
 block append scripts
   script(src="/scripts/news.js")
   script(src="/scripts/search.js")

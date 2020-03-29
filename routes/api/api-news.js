@@ -1,106 +1,81 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-const dotenv = require('dotenv');
-dotenv.config();
-const NewsApi = require('newsapi');
-const newsapi = new NewsApi(process.env.NEWS_API_KEY);
-const helper = require('../../data-bots/helper-bot.js');
-const {getCountryNews} = require('../../data-bots/news-bot.js');
+const News = require('../../models/news-model.js');
+const PrNews = require('../../models/pr-news-model.js');
 
-router.get('/top-headlines', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const news = await newsapi.v2.topHeadlines({
-      q: '(coronavirus OR covid-19)',
-    });
-    res.send(news);
+    const docs = await News.find();
+    res.send(docs);
   } catch (err) {
-    console.log('Error retrieving news.', err);
+    console.log('Error retrieving news from DB', err);
   }
 });
 
-router.get('/top-headlines/:countryId', async (req, res) => {
+router.get('/PR', async (req, res) => {
   try {
-    const countryCode = req.params.countryId.toLowerCase();
-    const news = await newsapi.v2.topHeadlines({
-      q: '(coronavirus OR covid-19)',
-      country: countryCode,
-    });
-    res.send(news);
+    const docs = await PrNews.find();
+    res.send(docs);
   } catch (err) {
-    console.log('Error retrieving news.', err);
+    console.log('Error retrieving news from DB', err);
   }
 });
 
-router.get('/sources/:countryId', async (req, res) => {
+router.get('/sources', async (req, res) => {
   try {
-    const countryCode = req.params.countryId.toLowerCase();
-    const sources = await newsapi.v2.sources({
-      country: countryCode,
-    });
+    const sources = await News.distinct('source');
     res.send(sources);
   } catch (err) {
     console.log('', err);
   }
 });
 
-router.get('/sources/', async (req, res) => {
+router.get('/sources/PR', async (req, res) => {
   try {
-    const sources = await newsapi.v2.sources();
+    const sources = await PrNews.distinct('source');
     res.send(sources);
   } catch (err) {
     console.log('', err);
   }
 });
 
-router.get('/everything/:page/', async (req, res) => {
+router.get('/NYT', async (req, res) => {
   try {
-    let sinceDate = helper.getPrevDay(7, new Date());
-    sinceDate = helper.getISO(sinceDate);
-    const page = req.params.page;
-    // const sortBy = req.params.sortBy;
-    const news = await newsapi.v2.everything({
-      q: '(coronavirus OR covid-19)',
-      sortBy: 'publishedAt',
-      from: sinceDate,
-      pageSize: '10',
-      language: 'en',
-      page,
-    });
-    const titles = [];
-    if (news.articles) {
-      news.articles = news.articles.filter(article => {
-        if (!titles.includes(article.title)) {
-          titles.push(article.title);
-          return true;
-        } else {
-          return false;
-        }
-      });
-    }
-    res.send(news);
+    const docs = await News.find({source: 'The New York Times'});
+    res.send(docs);
   } catch (err) {
     console.log('', err);
   }
 });
 
-router.get('/sources/:countryId/', async (req, res) => {
+router.get('/BBC', async (req, res) => {
   try {
-    const countryCode = req.params.countryId.toLowerCase();
-    const response = await newsapi.v2.sources({
-      country: countryCode,
-    });
-    res.send(response);
+    const docs = await News.find({source: 'BBC News'});
+    res.send(docs);
   } catch (err) {
-    console.log('Error retrieving sources', err);
+    console.log('', err);
   }
 });
 
-router.get('/everything/:countryId/:page', async (req, res) => {
-  const countryCode = req.params.countryId;
-  const page = req.params.page;
-  const news = await getCountryNews(countryCode, page);
-  res.send(news);
+router.get('/CNN', async (req, res) => {
+  try {
+    const docs = await News.find({source: 'CNN'});
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
 });
 
+router.get('/FOX', async (req, res) => {
+  try {
+    const docs = await News.find({source: 'Fox News'});
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/ALL', async (req, res) => {
+  res.redirect('./');
+});
 module.exports = router;

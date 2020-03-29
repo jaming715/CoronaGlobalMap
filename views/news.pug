@@ -1,0 +1,22 @@
+extends layout.pug
+block append style
+  link(rel="stylesheet" href="/style/news.css")
+block content
+  div#headlines
+    div#news-headlines 
+      h2 #{title}
+    img.icon(src="/svg/icons/news-icon2.svg" alt="news-icon")
+  div#src-buttons
+  div#news 
+  div#page-buttons
+    div.btn#back Back
+      // i(class="fas fa-angle-left")
+    div.btn#next Next
+      // i(class="fas fa-angle-right")
+  div#page-num Page 
+    span#p-num 1 
+    span of  
+    span#p-tot 
+block append scripts
+  script(src="/scripts/news.js")
+  script(src="/scripts/news-setup.js")

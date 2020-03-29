@@ -1,3 +1,53 @@
+const pageSize = 10;
+let articles = undefined;
+let selected = undefined;
+
+function hideNews() {
+  $('#page-num').hide();
+  $('#news').fadeOut();
+}
+
+function scrollToTop() {
+  $([document.documentElement, document.body]).animate(
+    {
+      scrollTop: $('body').offset().top,
+    },
+    2000,
+  );
+}
+
+let currPage = 0;
+function setUpPageButtons() {
+  const lastPage = Math.ceil(articles.length / pageSize);
+  $('#p-tot').html(numWithCommas(lastPage + 1));
+  $('#back').on('click', async function() {
+    if (currPage === 1) {
+      $('#back').hide();
+    }
+    if (currPage > 0) {
+      $('#next').show();
+      currPage--;
+      hideNews();
+      scrollToTop();
+      $('#p-num').html((currPage + 1).toString() + ' ');
+      showNews(currPage);
+    }
+  });
+  $('#next').on('click', async function() {
+    if (currPage === lastPage - 1) {
+      $('#next').hide();
+    }
+    if (currPage < lastPage) {
+      $('#back').show();
+      currPage++;
+      hideNews();
+      scrollToTop();
+      $('#p-num').html((currPage + 1).toString() + ' ');
+      showNews(currPage);
+    }
+  });
+}
+
 function getReadMoreLink(url) {
   const div = document.createElement('div');
   const link = document.createElement('a');
@@ -8,85 +58,97 @@ function getReadMoreLink(url) {
 }
 
 function getArticleHTML(article) {
-  const author =
-    article.author === '' || !article.author ? 'N/A' : article.author;
-  let date = article.publishedAt;
-  const lastCharIndex = date.indexOf('T');
-  date = date.slice(0, lastCharIndex);
-  description = article.description.length > 5 ? article.description : '';
+  if (!article) return;
+  let author = 'N/A';
+  if (article.author) author = article.author;
+  let date = article.pubDate;
+  if (article.pubDate) {
+    const lastCharIndex = date.indexOf('T');
+    date = date.slice(0, lastCharIndex);
+  }
+  description = article.contentSummary ? article.contentSummary : 'N/A';
   return `<div class="news-article">
         <div class="article-title">
          <div>${article.title}</div>
-          <div class="source"> <strong>Source:</strong> ${
-            article.source.name
-          } </div>
+          <div class="source"> <strong>Source:</strong> ${article.source} </div>
         </div>
         <div class="article-body">
           <div class="authors"> <strong>Author(s):</strong> ${author} </div>
           <div class="date"> <strong>Published: </strong> <span class="published">${date}</span> </div>
           <p class="article-description"><strong> Description: </strong> </br> ${description} </p>
-          ${getReadMoreLink(article.url)}
-          ${
-            article.urlToImage
-              ? `<img class="article-img" src=${article.urlToImage} alt="No Article Image"/>`
-              : ''
-          }
+          ${getReadMoreLink(article.link)}
         </div>
       </div>`;
 }
 
-let currPage = 1;
-function setUpPageButtons(countryCode, numArticles) {
-  const numPerPage = 10;
-  const lastPage = Math.ceil(numArticles / numPerPage);
-  $('#p-tot').html(numWithCommas(lastPage));
-  $('#back').on('click', async function() {
-    if (currPage !== 1) {
-      currPage--;
-      $('#back-to-top').hide();
-      $('#news').fadeOut();
-      $('#p-num').html(currPage.toString() + ' ');
-      const countryNews = await getCountryNews(countryCode, currPage);
-      const articles = countryNews.articles;
-      setUpCountryNews(articles, currPage);
-    }
-  });
-  $('#next').on('click', async function() {
-    if (currPage !== lastPage) {
-      currPage++;
-      $('#p-num').html(currPage.toString() + ' ');
-      $('#back-to-top').hide();
-      $('#news').fadeOut();
-      const countryNews = await getCountryNews(countryCode, currPage);
-      const articles = countryNews.articles;
-      setUpCountryNews(articles, currPage);
-    }
-  });
-}
-
-function setUpCountryNews(articles, page) {
+function showNews(page) {
   $('#news').empty();
-  articles.forEach(article => {
+  for (let i = page; i < pageSize; i++) {
+    const article = articles[i];
     $('#news').append(getArticleHTML(article));
-  });
+  }
   $('#news').fadeIn();
-  $('#back-to-top').show();
+  $('#page-num').show();
 }
 
-async function setUpNews(countryCode) {
-  const countryNews = await getCountryNews(countryCode, 1);
-  if (countryNews.articles.length === 0) {
-    $('#news-headlines').html('News for this country is still not supported');
-    $('#page-buttons').hide();
-    $('#page-num').hide();
-    $('#back-to-top').hide();
-    return;
-  }
-  const articles = countryNews.articles;
-  setUpPageButtons(countryCode, countryNews.totalResults);
-  setUpCountryNews(articles, 1);
-  $('#back-to-top').on('click', function() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+const srcNameToCode = {
+  'The New York Times': 'NYT',
+  'Fox News': 'FOX',
+  CNN: 'CNN',
+  'BBC News': 'BBC',
+};
+
+function setBackNormal(btn, srcBtn) {
+  $(btn).css('background-color', $(srcBtn).css('fill'));
+  $(btn).css('color', $(srcBtn).css('stroke'));
+}
+
+function setBackSelected(btn, srcBtn) {
+  $(btn).css('background-color', $(srcBtn).css('stroke'));
+  $(btn).css('color', $(srcBtn).css('fill'));
+}
+
+async function setUpSourceButtons(page) {
+  const sources = await getSources();
+  if (sources.length === 1) return;
+  sources.forEach(source => {
+    $('#src-buttons').append(`<div class="src-btn btn">${source}</div>`);
   });
+  // $('#src-buttons').append(`<div id="all" class="src-btn btn">All</div>`);
+  $('.src-btn').on('click', async function() {
+    const src = $(this).html();
+    let srcCode = srcNameToCode[src];
+    if (selected) {
+      setBackNormal(selected, this);
+      if ($(selected).html() === $(this).html()) {
+        selected = undefined;
+        srcCode = 'ALL';
+      } else {
+        selected = this;
+        setBackSelected(selected, this);
+      }
+    } else {
+      selected = this;
+      setBackSelected(selected, this);
+    }
+    $('#page-buttons').hide();
+    hideNews();
+    articles = await getNewsFromSource(srcCode);
+    currPage = 0;
+    $('#p-num').html((currPage + 1).toString() + ' ');
+    $('#back').off();
+    $('#next').off();
+    showNews(0);
+    $('#page-buttons').show();
+    setUpPageButtons();
+  });
+}
+
+async function setUpNews() {
+  articles = await getNews();
+  $('#back').hide();
+  setUpSourceButtons();
+  setUpPageButtons();
+  showNews(0);
+  // console.log(newsArticles);
 }

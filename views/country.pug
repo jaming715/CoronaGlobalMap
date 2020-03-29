@@ -13,10 +13,9 @@ block content
             i(class="fas fa-external-link-alt")
         div
           a.btn(href="#" id="county-search") Search Counties 
-      // div
-      //   a.btn(href=`/news/${code}` id="news-link") News
-      // div
-      //   a.show-country.btn(href="#") Show Country Stats
+      if (code === "PR")
+        div
+          a.btn(href="/news/PR" id="pr-news") Noticias Puerto Rico
   h2#stats-head Covid-19 Status: 
     span#region #{name}
   if provinces.length > 0
@@ -40,8 +39,6 @@ block content
       h2 Total Recovered: 
         br
         span#tot-recovered #{numWithCommas(totRecovered)}
-  // h3.percent % of Pop Infected: 
-  //   span= `%${((totCases/population)*100).toFixed(5)}`
   p.ref Data retrieved from John Hopkins CCEGIS Data Set: 
     a(href="https://github.com/CSSEGISandData/COVID-19" target="_blank") Data Source
     br

@@ -13,16 +13,52 @@ async function getData(endpoint) {
   }
 }
 
-async function getCountryNews(countryCode, page) {
+// async function getCountryNews(countryCode, page) {
+//   try {
+//     let response = null;
+//     if (countryCode === 'World') {
+//       response = await axios.get(`${newsEndpoint}/everything/${page}`);
+//     } else {
+//       response = await axios.get(
+//         `${newsEndpoint}/everything/${countryCode}/${page}`,
+//       );
+//     }
+//     return response.data;
+//   } catch (err) {
+//     console.log('Error retrieving world news.', err);
+//   }
+// }
+
+async function getNews() {
   try {
     let response = null;
-    if (countryCode === 'World') {
-      response = await axios.get(`${newsEndpoint}/everything/${page}`);
-    } else {
-      response = await axios.get(
-        `${newsEndpoint}/everything/${countryCode}/${page}`,
-      );
-    }
+    const url = document.location.href;
+    let ending = url.slice(url.lastIndexOf('/'));
+    ending = ending === '/PR' ? 'PR' : '';
+    response = await axios.get(`${newsEndpoint}/${ending}`);
+    return response.data;
+  } catch (err) {
+    console.log('Error retrieving world news.', err);
+  }
+}
+
+async function getNewsFromSource(source) {
+  try {
+    let response = null;
+    response = await axios.get(`${newsEndpoint}/${source}`);
+    return response.data;
+  } catch (err) {
+    console.log('Error retrieving world news.', err);
+  }
+}
+
+async function getSources() {
+  try {
+    let response = null;
+    const url = document.location.href;
+    let ending = url.slice(url.lastIndexOf('/'));
+    ending = ending === '/PR' ? 'PR' : '';
+    response = await axios.get(`${newsEndpoint}/sources/${ending}`);
     return response.data;
   } catch (err) {
     console.log('Error retrieving world news.', err);

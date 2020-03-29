@@ -91,14 +91,14 @@ select:focus {
   margin-right: auto;
 }
 
-.search-link:hover {
+.btn:hover {
   color: #1c2833;
   text-decoration: none;
   background: #82e0aa;
   cursor: pointer;
 }
 
-.search-link {
+.btn {
   background-color: #1c2833;
   color: #82e0aa;
   border: 2px solid #82e0aa;
@@ -128,7 +128,7 @@ h2 {
   width: 85%;
 }
 
-.search-link {
+.btn {
   display: block;
   width: 30%;
   margin: 0 auto;
