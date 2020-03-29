@@ -44,6 +44,63 @@ function fixLocation(loc) {
   return loc;
 }
 
+const countryNews = [
+  'AR',
+  'AU',
+  'BR',
+  'CA',
+  'CO',
+  'CZ',
+  'FR',
+  'GR',
+  'HU',
+  'ID',
+  'IL',
+  'JP',
+  'LT',
+  'MX',
+  'NL',
+  'NG',
+  'PH',
+  'PT',
+  'RU',
+  'RS',
+  'SK',
+  'ZA',
+  'SE',
+  'TW',
+  'TR',
+  'UA',
+  'US',
+  'AU',
+  'BE',
+  'BG',
+  'CN',
+  'CU',
+  'EG',
+  'DE',
+  'HK',
+  'IN',
+  'IE',
+  'IT',
+  'LV',
+  'MY',
+  'MA',
+  'NZ',
+  'NO',
+  'PL',
+  'RO',
+  'SA',
+  'SG',
+  'SI',
+  'KR',
+  'CH',
+  'TH',
+  'AE',
+  'GB',
+  'VE',
+];
+
 function getLocation(data, row) {
   let loc = fixLocation(data[row][locCol]);
   return loc;
@@ -70,8 +127,6 @@ function getData(data, row) {
 }
 
 function addCases(country, data, prevData) {}
-
-function processJohnType1() {}
 
 function getWorld(data) {
   return {

@@ -6,6 +6,7 @@ dotenv.config();
 const NewsApi = require('newsapi');
 const newsapi = new NewsApi(process.env.NEWS_API_KEY);
 const helper = require('../../data-bots/helper-bot.js');
+const {getCountryNews} = require('../../data-bots/news-bot.js');
 
 router.get('/top-headlines', async (req, res) => {
   try {
@@ -96,46 +97,10 @@ router.get('/sources/:countryId/', async (req, res) => {
 });
 
 router.get('/everything/:countryId/:page', async (req, res) => {
-  try {
-    let sinceDate = helper.getPrevDay(7, new Date());
-    sinceDate = helper.getISO(sinceDate);
-    const countryCode = req.params.countryId.toLowerCase();
-    const response = await newsapi.v2.sources({
-      country: countryCode,
-    });
-    const sourceIds = response.sources.map(e => e.id);
-    let sources = '';
-    if (sourceIds.length > 0) {
-      sources = sourceIds.reduce((sources, id) => {
-        return (sources += ',' + id);
-      });
-      const page = req.params.page;
-      const news = await newsapi.v2.everything({
-        q: '(coronavirus OR covid-19)',
-        sources,
-        sortBy: 'publishedAt',
-        from: sinceDate,
-        pageSize: '10',
-        page,
-      });
-      const titles = [];
-      news.articles = news.articles.filter(article => {
-        if (!titles.includes(article.title)) {
-          titles.push(article.title);
-          return true;
-        } else {
-          return false;
-        }
-      });
-      res.send(news);
-    } else {
-      res.send({
-        articles: [],
-      });
-    }
-  } catch (err) {
-    console.log('', err);
-  }
+  const countryCode = req.params.countryId;
+  const page = req.params.page;
+  const news = await getCountryNews(countryCode, page);
+  res.send(news);
 });
 
 module.exports = router;
