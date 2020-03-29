@@ -5,12 +5,12 @@ let selected = undefined;
 function hideNews() {
   $('#page-num').hide();
   $('#news').hide();
-  $('#news-loading-icon').fadeIn();
+  $('#news-loading-icon').show();
 }
 
 function showHiddenNews() {
-  $('#news-loading-icon').fadeOut();
-  $('#news').fadeIn();
+  $('#news-loading-icon').hide();
+  $('#news').show();
 }
 
 function scrollToTop() {

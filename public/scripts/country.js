@@ -210,6 +210,7 @@ async function setUpData(countryName) {
       if (!query) showSuggestions('', provinces);
     }
   });
+  $('.map').css('visibility', 'visible');
   finishedLoading();
 }
 
