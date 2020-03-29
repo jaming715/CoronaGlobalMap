@@ -4,11 +4,11 @@ const Country = require('../models/country-model.js');
 const News = require('../models/news-model.js');
 const rssBot = require('../data-bots/rss/rss-bot.js');
 
-dotenv.config();
-const uri = process.env.MONGO_CONNECT_STR;
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// dotenv.config();
+// const uri = process.env.MONGO_CONNECT_STR;
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 async function addNews() {
   const newsArticles = await rssBot.getTopStoryFeeds();
