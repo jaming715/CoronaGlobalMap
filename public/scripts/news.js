@@ -14,12 +14,14 @@ function showHiddenNews() {
 }
 
 function scrollToTop() {
-  $([document.documentElement, document.body]).animate(
-    {
-      scrollTop: $('body').offset().top,
-    },
-    2000,
-  );
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  // $([document.documentElement, document.body]).animate(
+  //   {
+  //     scrollTop: $('body').offset().top,
+  //   },
+  //   2000,
+  // );
 }
 
 let currPage = 0;
@@ -67,8 +69,9 @@ function getArticleHTML(article) {
   if (!article) return;
   let author = 'N/A';
   if (article.author) author = article.author;
-  let date = article.pubDate;
+  let date = 'N/A';
   if (article.pubDate) {
+    date = article.pubDate;
     const lastCharIndex = date.indexOf('T');
     date = date.slice(0, lastCharIndex);
   }
@@ -107,6 +110,9 @@ const srcNameToCode = {
   Reuters: 'REUTERS',
   'NBC News': 'NBC',
   'The Guardian': 'GUARDIAN',
+  'El Nuevo Dia': 'ENDI',
+  'Metro Puerto Rico': 'METRO',
+  'Primera Hora': 'PRIMERAHORA',
 };
 
 function setBackNormal(btn, srcBtn) {
@@ -126,6 +132,11 @@ async function setUpSourceButtons(page) {
   sources.forEach(source => {
     $('#src-buttons').append(`<div class="src-btn btn">${source}</div>`);
   });
+  const url = document.location.href;
+  let ending = url.slice(url.lastIndexOf('/'));
+  if (ending === '/PR') {
+    $('.src-btn').attr('id', 'pr-btn');
+  }
   // $('#src-buttons').append(`<div id="all" class="src-btn btn">All</div>`);
   $('.src-btn').on('click', async function() {
     const src = $(this).html();
@@ -134,7 +145,11 @@ async function setUpSourceButtons(page) {
       setBackNormal(selected, this);
       if ($(selected).html() === $(this).html()) {
         selected = undefined;
-        srcCode = 'ALL';
+        if ($(this).attr('id') === 'pr-btn') {
+          srcCode = 'PR';
+        } else {
+          srcCode = 'ALL';
+        }
       } else {
         selected = this;
         setBackSelected(selected, this);

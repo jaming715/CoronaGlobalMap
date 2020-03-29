@@ -24,6 +24,36 @@ router.get('/PR', async (req, res) => {
   }
 });
 
+router.get('/ENDI', async (req, res) => {
+  try {
+    let docs = await PrNews.find({source: 'El Nuevo Dia'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('Error retrieving news from DB', err);
+  }
+});
+
+router.get('/METRO', async (req, res) => {
+  try {
+    let docs = await PrNews.find({source: 'Metro Puerto Rico'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('Error retrieving news from DB', err);
+  }
+});
+
+router.get('/PRIMERAHORA', async (req, res) => {
+  try {
+    let docs = await PrNews.find({source: 'Primera Hora'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('Error retrieving news from DB', err);
+  }
+});
+
 router.get('/sources', async (req, res) => {
   try {
     const sources = await News.distinct('source');

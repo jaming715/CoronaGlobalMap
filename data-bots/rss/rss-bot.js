@@ -37,6 +37,16 @@ const newsOutlets = [
 
 const prNewsOutlets = [
   {source: 'El Nuevo Dia', url: 'https://www.elnuevodia.com/rss/loultimo'},
+  {
+    source: 'Metro Puerto Rico',
+    url:
+      'http://www.pressdisplay.com/pressdisplay/services/rss.ashx?cid=9181&type=full',
+  },
+  {
+    source: 'Primera Hora',
+    url:
+      'http://www.pressdisplay.com/pressdisplay/services/rss.ashx?cid=e212&type=full',
+  },
 ];
 
 function containsKeywords(str) {
@@ -73,7 +83,9 @@ function keywordFilterByTitleAndContent(articles) {
 }
 
 async function rssFeedTest() {
-  let feed = await parser.parseURL('https://www.theguardian.com/us-news/rss');
+  let feed = await parser.parseURL(
+    'http://www.pressdisplay.com/pressdisplay/services/rss.ashx?cid=e212&type=full',
+  );
   const filtered = keywordFilterByTitleAndContent(feed.items);
   console.log(filtered);
 }

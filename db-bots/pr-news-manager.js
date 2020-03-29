@@ -3,11 +3,11 @@ const dotenv = require('dotenv');
 const PrNews = require('../models/pr-news-model.js');
 const rssBot = require('../data-bots/rss/rss-bot.js');
 
-dotenv.config();
-const uri = process.env.MONGO_CONNECT_STR;
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// dotenv.config();
+// const uri = process.env.MONGO_CONNECT_STR;
+// mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 async function addPrNews() {
   const newsArticles = await rssBot.getPrStoryFeeds();
@@ -17,6 +17,10 @@ async function addPrNews() {
       if (article.creator) article.author = article.creator;
       article.pubDate = article.isoDate;
       article.version = 'latest';
+      if (article.source === 'Primera Hora')
+        article.link = 'https://www.primerahora.com/';
+      if (article.source === 'Metro Puerto Rico')
+        article.link = 'https://www.metro.pr/pr/';
       const doc = new PrNews(article);
       await doc.save();
     });
@@ -45,7 +49,7 @@ async function deleteAllPrNews() {
 }
 
 // addPrNews();
-// newsRefresh();
+// prNewsRefresh();
 // deleteAllPrNews();
 
 module.exports = {
