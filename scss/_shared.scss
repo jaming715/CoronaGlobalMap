@@ -86,6 +86,17 @@ select:focus {
   margin: 0 10px;
 }
 
+#msg-to-user {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    width: 35px;
+    margin: 0 5px;
+  }
+}
+
 %center-block {
   margin-left: auto;
   margin-right: auto;
@@ -106,4 +117,10 @@ select:focus {
   border: 2px solid $green;
   border-radius: 2px;
   text-decoration: none;
+}
+
+@media only screen and (max-width: 650px) {
+  #msg-to-user {
+    font-size: 18px;
+  }
 }

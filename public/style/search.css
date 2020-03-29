@@ -86,6 +86,17 @@ select:focus {
   margin: 0 10px;
 }
 
+#msg-to-user {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#msg-to-user .icon {
+  width: 35px;
+  margin: 0 5px;
+}
+
 #search-res a:hover, #back-to-top:hover, .btn:hover {
   color: #1c2833;
   text-decoration: none;
@@ -101,6 +112,11 @@ select:focus {
   text-decoration: none;
 }
 
+@media only screen and (max-width: 650px) {
+  #msg-to-user {
+    font-size: 18px;
+  }
+}
 html {
   overflow-y: scroll;
 }
@@ -189,6 +205,17 @@ select:focus {
   margin: 0 10px;
 }
 
+#msg-to-user {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#msg-to-user .icon {
+  width: 35px;
+  margin: 0 5px;
+}
+
 #search-res a:hover, #back-to-top:hover, .btn:hover {
   color: #1c2833;
   text-decoration: none;
@@ -204,6 +231,11 @@ select:focus {
   text-decoration: none;
 }
 
+@media only screen and (max-width: 650px) {
+  #msg-to-user {
+    font-size: 18px;
+  }
+}
 #headlines {
   display: flex;
   flex-direction: row;
