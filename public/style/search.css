@@ -252,6 +252,11 @@ select:focus {
   margin-left: 10px;
 }
 
+#filter {
+  font-size: 25px;
+  display: none;
+}
+
 #src-buttons {
   display: flex;
   flex-direction: row;

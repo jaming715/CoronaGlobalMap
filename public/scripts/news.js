@@ -122,6 +122,7 @@ function setBackSelected(btn, srcBtn) {
 async function setUpSourceButtons(page) {
   const sources = await getSources();
   if (sources.length === 1) return;
+  $('#filter').show();
   sources.forEach(source => {
     $('#src-buttons').append(`<div class="src-btn btn">${source}</div>`);
   });

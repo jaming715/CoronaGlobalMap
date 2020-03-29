@@ -17,6 +17,11 @@
   margin-bottom: 10px;
 }
 
+#filter {
+  font-size: 25px;
+  display: none;
+}
+
 .btn {
   @extend %button-colors;
   @extend %button-hover;
