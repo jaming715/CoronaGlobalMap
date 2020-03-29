@@ -34,6 +34,7 @@ function listenForClicks(data) {
   $(document).mousedown(function(e) {
     const clicked = $(e.target);
     if (clicked.prop('tagName') === 'LI') {
+      $('#search-res').css('display', 'none');
       window.location = clicked.parent().attr('href');
     } else if (clicked.attr('id') === 'search') {
       const query = e.target.value.toLowerCase().replace(' ', '');
