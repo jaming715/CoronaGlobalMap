@@ -25,16 +25,22 @@
 #src-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
   margin-bottom: 17px;
-  font-size: 19px;
+  font-size: 18px;
   .src-btn {
-    margin: 10px 10px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 0 5px;
     margin-bottom: 10px;
-    padding: 5px 7px;
+    width: 27%;
+    height: 80px;
     fill: $country-fill;
     stroke: $country-stroke;
   }

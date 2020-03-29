@@ -98,10 +98,15 @@ function showNews(page) {
 }
 
 const srcNameToCode = {
-  'The New York Times': 'NYT',
+  'New York Times': 'NYT',
   'Fox News': 'FOX',
   CNN: 'CNN',
   'BBC News': 'BBC',
+  'ABC News': 'ABC',
+  'CBS News': 'CBS',
+  Reuters: 'REUTERS',
+  'NBC News': 'NBC',
+  'The Guardian': 'GUARDIAN',
 };
 
 function setBackNormal(btn, srcBtn) {

@@ -9,8 +9,28 @@ const newsOutlets = [
   {source: 'CNN', url: 'http://rss.cnn.com/rss/edition.rss'},
   {source: 'Fox News', url: 'http://feeds.foxnews.com/foxnews/latest'},
   {
-    source: 'The New York Times',
+    source: 'New York Times',
     url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+  },
+  {
+    source: 'ABC News',
+    url: 'https://abcnews.go.com/abcnews/usheadlines',
+  },
+  {
+    source: 'CBS News',
+    url: 'https://www.cbsnews.com/latest/rss/main',
+  },
+  {
+    source: 'Reuters',
+    url: 'http://feeds.reuters.com/Reuters/worldNews',
+  },
+  {
+    source: 'NBC News',
+    url: 'http://feeds.nbcnews.com/nbcnews/public/news',
+  },
+  {
+    source: 'The Guardian',
+    url: 'https://www.theguardian.com/us-news/rss',
   },
   // {source: 'Wired', url: 'https://www.wired.com/feed/rss'},
 ];
@@ -53,7 +73,7 @@ function keywordFilterByTitleAndContent(articles) {
 }
 
 async function rssFeedTest() {
-  let feed = await parser.parseURL('https://www.metro.pr/pr/rss/');
+  let feed = await parser.parseURL('https://www.theguardian.com/us-news/rss');
   const filtered = keywordFilterByTitleAndContent(feed.items);
   console.log(filtered);
 }

@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const News = require('../../models/news-model.js');
 const PrNews = require('../../models/pr-news-model.js');
+const _ = require('lodash');
 
 router.get('/', async (req, res) => {
   try {
-    const docs = await News.find();
+    let docs = await News.find();
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -14,7 +16,8 @@ router.get('/', async (req, res) => {
 
 router.get('/PR', async (req, res) => {
   try {
-    const docs = await PrNews.find();
+    let docs = await PrNews.find();
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -41,7 +44,8 @@ router.get('/sources/PR', async (req, res) => {
 
 router.get('/NYT', async (req, res) => {
   try {
-    const docs = await News.find({source: 'The New York Times'});
+    let docs = await News.find({source: 'New York Times'});
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -50,7 +54,8 @@ router.get('/NYT', async (req, res) => {
 
 router.get('/BBC', async (req, res) => {
   try {
-    const docs = await News.find({source: 'BBC News'});
+    let docs = await News.find({source: 'BBC News'});
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -59,7 +64,8 @@ router.get('/BBC', async (req, res) => {
 
 router.get('/CNN', async (req, res) => {
   try {
-    const docs = await News.find({source: 'CNN'});
+    let docs = await News.find({source: 'CNN'});
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -68,7 +74,58 @@ router.get('/CNN', async (req, res) => {
 
 router.get('/FOX', async (req, res) => {
   try {
-    const docs = await News.find({source: 'Fox News'});
+    let docs = await News.find({source: 'Fox News'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/ABC', async (req, res) => {
+  try {
+    let docs = await News.find({source: 'ABC News'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/CBS', async (req, res) => {
+  try {
+    let docs = await News.find({source: 'CBS News'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/REUTERS', async (req, res) => {
+  try {
+    let docs = await News.find({source: 'Reuters'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/NBC', async (req, res) => {
+  try {
+    let docs = await News.find({source: 'NBC News'});
+    docs = _.shuffle(docs);
+    res.send(docs);
+  } catch (err) {
+    console.log('', err);
+  }
+});
+
+router.get('/GUARDIAN', async (req, res) => {
+  try {
+    let docs = await News.find({source: 'The Guardian'});
+    docs = _.shuffle(docs);
     res.send(docs);
   } catch (err) {
     console.log('', err);
