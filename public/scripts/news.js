@@ -56,11 +56,19 @@ function setUpPageButtons() {
   });
 }
 
-function getReadMoreLink(url) {
+function getReadMoreLink(article) {
+  const url = article.link;
   const div = document.createElement('div');
   const link = document.createElement('a');
+  let linkStr = 'Read More';
+  if (
+    article.source === 'Primera Hora' ||
+    article.source === 'Metro Puerto Rico'
+  ) {
+    linkStr = 'Visit News Site';
+  }
   link.setAttribute('href', url);
-  link.innerHTML = 'Read More';
+  link.innerHTML = linkStr;
   div.appendChild(link);
   return div.innerHTML;
 }
@@ -85,7 +93,7 @@ function getArticleHTML(article) {
           <div class="authors"> <strong>Author(s):</strong> ${author} </div>
           <div class="date"> <strong>Published: </strong> <span class="published">${date}</span> </div>
           <p class="article-description"><strong> Description: </strong> </br> ${description} </p>
-          ${getReadMoreLink(article.link)}
+          ${getReadMoreLink(article)}
         </div>
       </div>`;
 }
