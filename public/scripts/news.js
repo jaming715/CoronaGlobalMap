@@ -4,7 +4,13 @@ let selected = undefined;
 
 function hideNews() {
   $('#page-num').hide();
-  $('#news').fadeOut();
+  $('#news').hide();
+  $('#news-loading-icon').fadeIn();
+}
+
+function showHiddenNews() {
+  $('#news-loading-icon').fadeOut();
+  $('#news').fadeIn();
 }
 
 function scrollToTop() {
@@ -87,7 +93,7 @@ function showNews(page) {
     const article = articles[i];
     $('#news').append(getArticleHTML(article));
   }
-  $('#news').fadeIn();
+  showHiddenNews();
   $('#page-num').show();
 }
 
