@@ -13,13 +13,21 @@ const rssBot = require('../data-bots/rss/rss-bot.js');
 async function addNews() {
   const newsArticles = await rssBot.getTopStoryFeeds();
   try {
+    const titles = [];
     newsArticles.forEach(async article => {
       article.contentSummary = article.contentSnippet;
-      if (article.creator) article.author = article.creator;
-      article.pubDate = article.isoDate;
-      article.version = 'latest';
-      const doc = new News(article);
-      await doc.save();
+      if (!titles.includes(article.title)) {
+        titles.push(article.title);
+        if (article.creator) article.author = article.creator;
+        if (article.isoDate) {
+          article.pubDate = article.isoDate;
+        } else {
+          article.pubDate = '--';
+        }
+        article.version = 'latest';
+        const doc = new News(article);
+        await doc.save();
+      }
     });
   } catch (err) {
     console.log('Error adding news story to DB', err);

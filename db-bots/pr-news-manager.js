@@ -12,17 +12,25 @@ const rssBot = require('../data-bots/rss/rss-bot.js');
 async function addPrNews() {
   const newsArticles = await rssBot.getPrStoryFeeds();
   try {
+    const titles = [];
     newsArticles.forEach(async article => {
       article.contentSummary = article.contentSnippet;
-      if (article.creator) article.author = article.creator;
-      article.pubDate = article.isoDate;
-      article.version = 'latest';
-      if (article.source === 'Primera Hora')
-        article.link = 'https://www.primerahora.com/';
-      if (article.source === 'Metro Puerto Rico')
-        article.link = 'https://www.metro.pr/pr/';
-      const doc = new PrNews(article);
-      await doc.save();
+      if (!titles.includes(article.title)) {
+        titles.push(article.title);
+        if (article.creator) article.author = article.creator;
+        if (article.isoDate) {
+          article.pubDate = article.isoDate;
+        } else {
+          article.pubDate = '--';
+        }
+        article.version = 'latest';
+        if (article.source === 'Primera Hora')
+          article.link = 'https://www.primerahora.com/';
+        if (article.source === 'Metro Puerto Rico')
+          article.link = 'https://www.metro.pr/pr/';
+        const doc = new PrNews(article);
+        await doc.save();
+      }
     });
   } catch (err) {
     console.log('Error adding news story to DB', err);
@@ -49,7 +57,7 @@ async function deleteAllPrNews() {
 }
 
 // addPrNews();
-prNewsRefresh();
+// prNewsRefresh();
 // deleteAllPrNews();
 
 module.exports = {

@@ -77,8 +77,8 @@ function getArticleHTML(article) {
   if (!article) return;
   let author = 'N/A';
   if (article.author) author = article.author;
-  let date = 'N/A';
-  if (article.pubDate) {
+  let date = article.pubDate;
+  if (article.pubDate !== '--') {
     date = article.pubDate;
     const lastCharIndex = date.indexOf('T');
     date = date.slice(0, lastCharIndex);

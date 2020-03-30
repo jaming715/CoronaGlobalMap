@@ -6,8 +6,8 @@ const _ = require('lodash');
 
 router.get('/', async (req, res) => {
   try {
-    let docs = await News.find();
-    // docs = _.shuffle(docs);
+    let docs = await News.find().sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 
 router.get('/PR', async (req, res) => {
   try {
-    let docs = await PrNews.find();
-    // docs = _.shuffle(docs);
+    let docs = await PrNews.find().sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -26,8 +26,8 @@ router.get('/PR', async (req, res) => {
 
 router.get('/ENDI', async (req, res) => {
   try {
-    let docs = await PrNews.find({source: 'El Nuevo Dia'});
-    // docs = _.shuffle(docs);
+    let docs = await PrNews.find({source: 'El Nuevo Dia'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -36,8 +36,10 @@ router.get('/ENDI', async (req, res) => {
 
 router.get('/METRO', async (req, res) => {
   try {
-    let docs = await PrNews.find({source: 'Metro Puerto Rico'});
-    // docs = _.shuffle(docs);
+    let docs = await PrNews.find({source: 'Metro Puerto Rico'}).sort({
+      pubDate: -1,
+    });
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -46,8 +48,8 @@ router.get('/METRO', async (req, res) => {
 
 router.get('/PRIMERAHORA', async (req, res) => {
   try {
-    let docs = await PrNews.find({source: 'Primera Hora'});
-    // docs = _.shuffle(docs);
+    let docs = await PrNews.find({source: 'Primera Hora'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('Error retrieving news from DB', err);
@@ -74,8 +76,8 @@ router.get('/sources/PR', async (req, res) => {
 
 router.get('/NYT', async (req, res) => {
   try {
-    let docs = await News.find({source: 'New York Times'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'New York Times'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -84,8 +86,8 @@ router.get('/NYT', async (req, res) => {
 
 router.get('/BBC', async (req, res) => {
   try {
-    let docs = await News.find({source: 'BBC News'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'BBC News'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -94,8 +96,8 @@ router.get('/BBC', async (req, res) => {
 
 router.get('/CNN', async (req, res) => {
   try {
-    let docs = await News.find({source: 'CNN'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'CNN'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -104,8 +106,8 @@ router.get('/CNN', async (req, res) => {
 
 router.get('/FOX', async (req, res) => {
   try {
-    let docs = await News.find({source: 'Fox News'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'Fox News'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -114,8 +116,8 @@ router.get('/FOX', async (req, res) => {
 
 router.get('/ABC', async (req, res) => {
   try {
-    let docs = await News.find({source: 'ABC News'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'ABC News'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -124,8 +126,8 @@ router.get('/ABC', async (req, res) => {
 
 router.get('/CBS', async (req, res) => {
   try {
-    let docs = await News.find({source: 'CBS News'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'CBS News'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -134,8 +136,8 @@ router.get('/CBS', async (req, res) => {
 
 router.get('/REUTERS', async (req, res) => {
   try {
-    let docs = await News.find({source: 'Reuters'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'Reuters'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -144,8 +146,8 @@ router.get('/REUTERS', async (req, res) => {
 
 router.get('/NBC', async (req, res) => {
   try {
-    let docs = await News.find({source: 'NBC News'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'NBC News'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);
@@ -154,8 +156,8 @@ router.get('/NBC', async (req, res) => {
 
 router.get('/GUARDIAN', async (req, res) => {
   try {
-    let docs = await News.find({source: 'The Guardian'});
-    // docs = _.shuffle(docs);
+    let docs = await News.find({source: 'The Guardian'}).sort({pubDate: -1});
+    docs.filter(doc => doc.version === 'latest');
     res.send(docs);
   } catch (err) {
     console.log('', err);

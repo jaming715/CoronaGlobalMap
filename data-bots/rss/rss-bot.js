@@ -5,8 +5,9 @@ let parser = new Parser();
 const keywords = ['coronavirus', 'covid-19'];
 
 const newsOutlets = [
-  {source: 'BBC News', url: 'http://feeds.bbci.co.uk/news/rss.xml'},
-  {source: 'CNN', url: 'http://rss.cnn.com/rss/edition.rss'},
+  {source: 'BBC News', url: 'http://feeds.bbci.co.uk/news/world/rss.xml'},
+
+  {source: 'CNN', url: 'http://rss.cnn.com/rss/edition_world.rss'},
   {source: 'Fox News', url: 'http://feeds.foxnews.com/foxnews/latest'},
   {
     source: 'New York Times',
