@@ -196,6 +196,7 @@ async function setUpData(countryName) {
       $('#hover').css('display', 'none');
     }
     $('.map').css('visibility', 'visible');
+    finishedLoading();
   });
   $(document).mousedown(function(e) {
     const target = $(e.target);
@@ -211,7 +212,6 @@ async function setUpData(countryName) {
       if (!query) showSuggestions('', provinces);
     }
   });
-  finishedLoading();
 }
 
 setUpData($('#country').html());
