@@ -49,7 +49,7 @@ async function deleteAllPrNews() {
 }
 
 // addPrNews();
-// prNewsRefresh();
+prNewsRefresh();
 // deleteAllPrNews();
 
 module.exports = {

@@ -142,9 +142,9 @@ async function setUpSourceButtons(page) {
   });
   const url = document.location.href;
   let ending = url.slice(url.lastIndexOf('/'));
-  if (ending === '/PR') {
-    $('.src-btn').attr('id', 'pr-btn');
-  }
+  // if (ending === '/PR') {
+  //   $('.src-btn').attr('id', 'pr-btn');
+  // }
   // $('#src-buttons').append(`<div id="all" class="src-btn btn">All</div>`);
   $('.src-btn').on('click', async function() {
     const src = $(this).html();
